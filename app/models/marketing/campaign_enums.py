@@ -1,10 +1,12 @@
-﻿from enum import Enum
+from enum import Enum
 
 
 class CampaignStatus(str, Enum):
+
     DRAFT = "draft"
-    SCHEDULED = "scheduled"
-    SENDING = "sending"
+
+    RUNNING = "running"
+
     COMPLETED = "completed"
+
     FAILED = "failed"
-    CANCELLED = "cancelled"

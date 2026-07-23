@@ -10,6 +10,11 @@ from app.models.marketing.sender_account import (
     SenderAccount,
 )
 
+from app.models.marketing.campaign import (
+    Campaign,
+    CampaignStatus,
+)
+
 from app.repositories.marketing.email_delivery_repository import (
     EmailDeliveryRepository,
 )
@@ -40,6 +45,32 @@ class CampaignSenderService:
         self,
         campaign_id: int,
     ):
+
+
+        campaign = (
+            self.db.query(Campaign)
+            .filter(
+                Campaign.id == campaign_id
+            )
+            .first()
+        )
+
+
+        if not campaign:
+            return {
+                "sent": 0,
+                "failed": 0,
+                "message": "Campaign not found"
+            }
+
+
+        if campaign.status == CampaignStatus.COMPLETED:
+            return {
+                "sent": 0,
+                "failed": 0,
+                "message": "Campaign already completed"
+            }
+
 
         deliveries = (
             self.delivery_repository.get_by_campaign(
@@ -86,11 +117,14 @@ class CampaignSenderService:
 
 
 
-            success, message = send_test_email(
+            result = send_test_email(
                 sender_email=sender_account.email,
                 encrypted_password=sender_account.encrypted_password,
                 recipient_email=delivery.recipient_email,
             )
+
+            success = result["success"]
+            message = result["message"]
 
 
 
@@ -114,5 +148,24 @@ class CampaignSenderService:
             self.db.commit()
 
 
+
+        campaign = (
+            self.db.query(Campaign)
+            .filter(
+                Campaign.id == campaign_id
+            )
+            .first()
+        )
+
+        if campaign:
+            campaign.sent_count = results["sent"]
+            campaign.failed_count = results["failed"]
+
+            if results["failed"] == 0:
+                campaign.status = CampaignStatus.COMPLETED
+            else:
+                campaign.status = CampaignStatus.FAILED
+
+            self.db.commit()
 
         return results

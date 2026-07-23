@@ -1,14 +1,11 @@
-﻿from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session
 
 from app.models.marketing.campaign import Campaign
 
 
 class CampaignRepository:
 
-    def __init__(
-        self,
-        db: Session,
-    ):
+    def __init__(self, db: Session):
         self.db = db
 
 
@@ -21,19 +18,6 @@ class CampaignRepository:
         self.db.refresh(campaign)
 
         return campaign
-
-
-    def get_all(
-        self,
-        user_id: int,
-    ):
-        return (
-            self.db.query(Campaign)
-            .filter(
-                Campaign.user_id == user_id
-            )
-            .all()
-        )
 
 
     def get_by_id(
@@ -51,30 +35,26 @@ class CampaignRepository:
         )
 
 
-    def update(
+    def get_all(
         self,
-        campaign_id: int,
         user_id: int,
-        data: dict,
     ):
-
-        campaign = self.get_by_id(
-            campaign_id,
-            user_id,
+        return (
+            self.db.query(Campaign)
+            .filter(
+                Campaign.user_id == user_id,
+            )
+            .order_by(
+                Campaign.id.desc()
+            )
+            .all()
         )
 
-        if not campaign:
-            return None
 
-
-        for key, value in data.items():
-            setattr(
-                campaign,
-                key,
-                value,
-            )
-
-
+    def update(
+        self,
+        campaign: Campaign,
+    ):
         self.db.commit()
         self.db.refresh(campaign)
 
@@ -83,37 +63,9 @@ class CampaignRepository:
 
     def delete(
         self,
-        campaign_id: int,
-        user_id: int,
+        campaign: Campaign,
     ):
-
-        campaign = self.get_by_id(
-            campaign_id,
-            user_id,
-        )
-
-        if not campaign:
-            return False
-
-
         self.db.delete(campaign)
         self.db.commit()
 
         return True
-
-
-
-def get_campaign_by_id(
-    db: Session,
-    campaign_id: int,
-    user_id: int,
-):
-
-    return (
-        db.query(Campaign)
-        .filter(
-            Campaign.id == campaign_id,
-            Campaign.user_id == user_id,
-        )
-        .first()
-    )

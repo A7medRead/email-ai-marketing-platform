@@ -1,4 +1,4 @@
-﻿from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session
 
 from app.models.marketing.campaign import Campaign
 from app.models.marketing.campaign_enums import CampaignStatus
@@ -16,16 +16,6 @@ from app.schemas.marketing.campaign import (
     CampaignUpdate,
 )
 
-from app.core.exceptions.campaign import (
-    ContactListNotFound,
-    ContactListEmpty,
-)
-
-from app.core.exceptions.sender_account import (
-    SenderAccountNotFound,
-    SenderAccountNotVerified,
-)
-
 
 class CampaignService:
 
@@ -37,72 +27,77 @@ class CampaignService:
     def create_campaign(
         self,
         user_id: int,
-        campaign: CampaignCreate,
-    ) -> Campaign:
+        data: CampaignCreate,
+    ):
 
-        if campaign.sender_account_id:
-
-            sender_account = (
-                self.db.query(SenderAccount)
-                .filter(
-                    SenderAccount.id == campaign.sender_account_id,
-                    SenderAccount.user_id == user_id,
-                )
-                .first()
+        sender_account = (
+            self.db.query(SenderAccount)
+            .filter(
+                SenderAccount.id == data.sender_account_id,
+                SenderAccount.user_id == user_id,
             )
+            .first()
+        )
 
-            if not sender_account:
-                raise SenderAccountNotFound()
-
-
-            if sender_account.status != SenderAccountStatus.VERIFIED:
-                raise SenderAccountNotVerified()
-
-
-        if campaign.contact_list_id:
-
-            contact_list = (
-                self.db.query(ContactList)
-                .filter(
-                    ContactList.id == campaign.contact_list_id,
-                    ContactList.user_id == user_id,
-                )
-                .first()
-            )
-
-            if not contact_list:
-                raise ContactListNotFound()
-
-
-            contacts_count = (
-                self.db.query(ContactListContact)
-                .filter(
-                    ContactListContact.contact_list_id
-                    == campaign.contact_list_id
-                )
-                .count()
+        if not sender_account:
+            raise ValueError(
+                "Sender account not found."
             )
 
 
-            if contacts_count == 0:
-                raise ContactListEmpty()
+        if sender_account.status != SenderAccountStatus.VERIFIED:
+            raise ValueError(
+                "Sender account is not verified."
+            )
 
 
-        new_campaign = Campaign(
+        contact_list = (
+            self.db.query(ContactList)
+            .filter(
+                ContactList.id == data.contact_list_id,
+                ContactList.user_id == user_id,
+            )
+            .first()
+        )
+
+
+        if not contact_list:
+            raise ValueError(
+                "Contact list not found."
+            )
+
+
+        contacts_count = (
+            self.db.query(ContactListContact)
+            .filter(
+                ContactListContact.contact_list_id
+                == data.contact_list_id
+            )
+            .count()
+        )
+
+
+        if contacts_count == 0:
+            raise ValueError(
+                "Contact list is empty."
+            )
+
+
+        campaign = Campaign(
             user_id=user_id,
-            name=campaign.name,
-            subject=campaign.subject,
-            description=campaign.description,
-            sender_account_id=campaign.sender_account_id,
-            template_id=campaign.template_id,
-            contact_list_id=campaign.contact_list_id,
-            scheduled_at=campaign.scheduled_at,
+            sender_account_id=data.sender_account_id,
+            contact_list_id=data.contact_list_id,
+            name=data.name,
+            subject=data.subject,
+            body=data.body,
             status=CampaignStatus.DRAFT,
+            scheduled_at=data.scheduled_at,
+            total_recipients=len(contact_list.contacts),
         )
 
 
         return self.repository.create(
-            new_campaign
+            campaign
         )
 
 
@@ -110,7 +105,9 @@ class CampaignService:
         self,
         user_id: int,
     ):
-        return self.repository.get_all(user_id)
+        return self.repository.get_all(
+            user_id
+        )
 
 
     def get_campaign(
@@ -128,14 +125,33 @@ class CampaignService:
         self,
         campaign_id: int,
         user_id: int,
-        campaign: CampaignUpdate,
+        data: CampaignUpdate,
     ):
-        return self.repository.update(
+
+        campaign = self.repository.get_by_id(
             campaign_id,
             user_id,
-            campaign.model_dump(
-                exclude_unset=True
-            ),
+        )
+
+        if not campaign:
+            return None
+
+
+        update_data = data.model_dump(
+            exclude_unset=True
+        )
+
+
+        for key, value in update_data.items():
+            setattr(
+                campaign,
+                key,
+                value,
+            )
+
+
+        return self.repository.update(
+            campaign
         )
 
 
@@ -144,7 +160,16 @@ class CampaignService:
         campaign_id: int,
         user_id: int,
     ):
-        return self.repository.delete(
+
+        campaign = self.repository.get_by_id(
             campaign_id,
             user_id,
+        )
+
+        if not campaign:
+            return False
+
+
+        return self.repository.delete(
+            campaign
         )

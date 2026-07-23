@@ -13,6 +13,7 @@ from app.api.marketing.sender_account import router as sender_account_router
 from app.api.marketing.contact import router as contact_router
 from app.api.marketing.contact_list import router as contact_list_router
 from app.api.marketing.campaign import router as campaign_router
+from app.api.marketing.tracking import router as tracking_router
 
 from app.models.email import Email
 from app.models.template import Template
@@ -24,6 +25,8 @@ from app.models.marketing.contact_list import ContactList
 from app.models.marketing.contact_list_contact import ContactListContact
 from app.models.marketing.campaign import Campaign
 from app.models.marketing.email_delivery import EmailDelivery
+
+from app.services.marketing.scheduler import start_scheduler
 
 
 app = FastAPI(
@@ -66,6 +69,12 @@ app.include_router(sender_account_router)
 app.include_router(contact_router)
 app.include_router(contact_list_router)
 app.include_router(campaign_router)
+app.include_router(tracking_router)
+
+
+@app.on_event("startup")
+def startup_event():
+    start_scheduler()
 
 
 @app.get("/")

@@ -96,6 +96,18 @@ class EmailDelivery(Base):
     )
 
 
+    opened_at = Column(
+        DateTime,
+        nullable=True,
+    )
+
+
+    clicked_at = Column(
+        DateTime,
+        nullable=True,
+    )
+
+
     created_at = Column(
         DateTime,
         default=datetime.utcnow,

@@ -124,3 +124,9 @@ class User(Base):
         back_populates="user",
         cascade="all, delete-orphan",
     )
+
+    campaigns = relationship(
+        "Campaign",
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )

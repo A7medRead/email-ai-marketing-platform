@@ -1,23 +1,28 @@
-﻿from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 
 from app.core.dependencies import get_current_user
 from app.database.database import get_db
 from app.models.user import User
-from app.repositories.marketing import campaign_repository
+
 from app.schemas.marketing.campaign import (
     CampaignCreate,
     CampaignResponse,
     CampaignUpdate,
 )
-from app.services.marketing import campaign_service
+
+from app.services.marketing.campaign_service import CampaignService
+
 from app.services.marketing.email_delivery_service import EmailDeliveryService
 from app.services.marketing.campaign_sender_service import CampaignSenderService
+from app.services.marketing.campaign_analytics_service import CampaignAnalyticsService
+
 
 router = APIRouter(
     prefix="/campaigns",
     tags=["Campaigns"],
 )
+
 
 
 @router.post(
@@ -29,17 +34,21 @@ def create_campaign(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+
+    service = CampaignService(db)
+
     try:
-        return campaign_service.create_campaign(
-            db=db,
+        return service.create_campaign(
             user_id=current_user.id,
             data=data,
         )
+
     except ValueError as e:
         raise HTTPException(
             status_code=400,
             detail=str(e),
         )
+
 
 
 @router.get(
@@ -50,10 +59,40 @@ def get_campaigns(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    return campaign_service.get_campaigns(
-        db=db,
-        user_id=current_user.id,
+
+    service = CampaignService(db)
+
+    return service.get_campaigns(
+        user_id=current_user.id
     )
+
+
+
+@router.get(
+    "/{campaign_id}",
+    response_model=CampaignResponse,
+)
+def get_campaign(
+    campaign_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+
+    service = CampaignService(db)
+
+    campaign = service.get_campaign(
+        campaign_id,
+        current_user.id,
+    )
+
+    if not campaign:
+        raise HTTPException(
+            status_code=404,
+            detail="Campaign not found",
+        )
+
+    return campaign
+
 
 
 @router.put(
@@ -66,29 +105,23 @@ def update_campaign(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    campaign = campaign_repository.get_campaign_by_id(
-        db=db,
-        campaign_id=campaign_id,
-        user_id=current_user.id,
+
+    service = CampaignService(db)
+
+    campaign = service.update_campaign(
+        campaign_id,
+        current_user.id,
+        data,
     )
 
     if not campaign:
         raise HTTPException(
             status_code=404,
-            detail="Campaign not found.",
+            detail="Campaign not found",
         )
 
-    try:
-        return campaign_service.update_campaign(
-            db=db,
-            campaign=campaign,
-            data=data,
-        )
-    except ValueError as e:
-        raise HTTPException(
-            status_code=400,
-            detail=str(e),
-        )
+    return campaign
+
 
 
 @router.delete(
@@ -99,26 +132,25 @@ def delete_campaign(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    campaign = campaign_repository.get_campaign_by_id(
-        db=db,
-        campaign_id=campaign_id,
-        user_id=current_user.id,
+
+    service = CampaignService(db)
+
+    result = service.delete_campaign(
+        campaign_id,
+        current_user.id,
     )
 
-    if not campaign:
+    if not result:
         raise HTTPException(
             status_code=404,
-            detail="Campaign not found.",
+            detail="Campaign not found",
         )
 
-    campaign_service.delete_campaign(
-        db=db,
-        campaign=campaign,
-    )
-
     return {
-        "message": "Campaign deleted successfully."
+        "message": "Campaign deleted successfully"
     }
+
+
 
 @router.post(
     "/{campaign_id}/prepare",
@@ -129,72 +161,47 @@ def prepare_campaign(
     current_user: User = Depends(get_current_user),
 ):
 
-    campaign = campaign_repository.get_campaign_by_id(
-        db=db,
-        campaign_id=campaign_id,
-        user_id=current_user.id,
-    )
+    service = CampaignService(db)
 
+    campaign = service.get_campaign(
+        campaign_id,
+        current_user.id,
+    )
 
     if not campaign:
         raise HTTPException(
             status_code=404,
-            detail="Campaign not found.",
+            detail="Campaign not found",
         )
 
 
-    service = EmailDeliveryService(
-        db=db
+    delivery_service = EmailDeliveryService(db)
+
+
+    existing = delivery_service.get_campaign_deliveries(
+        campaign_id
     )
 
 
-    deliveries = service.create_campaign_deliveries(
-        campaign=campaign,
+    if existing:
+        return {
+            "message": "Campaign already prepared",
+            "deliveries_created": len(existing),
+        }
+
+
+    deliveries = delivery_service.create_campaign_deliveries(
+        campaign
     )
 
 
     return {
-        "message": "Campaign prepared successfully.",
+        "message": "Campaign prepared",
         "deliveries_created": len(deliveries),
     }
 
-@router.post(
-    "/{campaign_id}/send",
-)
-def send_campaign(
-    campaign_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-
-    campaign = campaign_repository.get_campaign_by_id(
-        db=db,
-        campaign_id=campaign_id,
-        user_id=current_user.id,
-    )
 
 
-    if not campaign:
-        raise HTTPException(
-            status_code=404,
-            detail="Campaign not found.",
-        )
-
-
-    sender = CampaignSenderService(
-        db=db
-    )
-
-
-    result = sender.send_campaign(
-        campaign_id=campaign_id,
-    )
-
-
-    return {
-        "message": "Campaign sending completed.",
-        "result": result,
-    }
 @router.post(
     "/{campaign_id}/send",
 )
@@ -205,28 +212,26 @@ def send_campaign(
     current_user: User = Depends(get_current_user),
 ):
 
-    campaign = campaign_repository.get_campaign_by_id(
-        db=db,
-        campaign_id=campaign_id,
-        user_id=current_user.id,
-    )
+    service = CampaignService(db)
 
+    campaign = service.get_campaign(
+        campaign_id,
+        current_user.id,
+    )
 
     if not campaign:
         raise HTTPException(
             status_code=404,
-            detail="Campaign not found.",
+            detail="Campaign not found",
         )
 
 
     def run_sender():
 
-        sender = CampaignSenderService(
-            db=db
-        )
+        sender = CampaignSenderService(db)
 
         sender.send_campaign(
-            campaign_id=campaign_id,
+            campaign_id
         )
 
 
@@ -236,6 +241,96 @@ def send_campaign(
 
 
     return {
-        "message": "Campaign sending started.",
+        "message": "Campaign sending started",
         "campaign_id": campaign_id,
     }
+
+
+@router.get(
+    "/{campaign_id}/analytics",
+)
+def campaign_analytics(
+    campaign_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+
+    service = CampaignService(db)
+
+    campaign = service.get_campaign(
+        campaign_id,
+        current_user.id,
+    )
+
+    if not campaign:
+        raise HTTPException(
+            status_code=404,
+            detail="Campaign not found",
+        )
+
+
+    analytics = CampaignAnalyticsService(db)
+
+    return analytics.get_campaign_analytics(
+        campaign_id
+    )
+
+
+@router.post(
+    "/scheduler/run",
+)
+def run_scheduler(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+
+    from app.services.marketing.campaign_scheduler_service import CampaignSchedulerService
+
+    scheduler = CampaignSchedulerService(db)
+
+    return scheduler.run_scheduled_campaigns()
+
+
+@router.get(
+    "/{campaign_id}/deliveries",
+)
+def get_deliveries(
+    campaign_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+
+    service = CampaignService(db)
+
+    campaign = service.get_campaign(
+        campaign_id,
+        current_user.id,
+    )
+
+
+    if not campaign:
+        raise HTTPException(
+            status_code=404,
+            detail="Campaign not found",
+        )
+
+
+    delivery_service = EmailDeliveryService(db)
+
+    deliveries = delivery_service.get_campaign_deliveries(
+        campaign_id
+    )
+
+
+    return [
+        {
+            "id": d.id,
+            "recipient_email": d.recipient_email,
+            "status": d.status,
+            "sent_at": d.sent_at,
+            "opened_at": d.opened_at,
+            "clicked_at": d.clicked_at,
+            "error_message": d.error_message,
+        }
+        for d in deliveries
+    ]

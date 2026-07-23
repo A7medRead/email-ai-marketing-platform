@@ -110,6 +110,6 @@ def upgrade() -> None:
 
 def downgrade() -> None:
 
-    op.drop_table(
-        "email_deliveries"
+    op.execute(
+        "DROP TABLE IF EXISTS email_deliveries"
     )

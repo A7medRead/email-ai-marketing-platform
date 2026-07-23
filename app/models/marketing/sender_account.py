@@ -147,3 +147,8 @@ class SenderAccount(Base):
         "User",
         back_populates="sender_accounts",
     )
+
+campaigns = relationship(
+    "Campaign",
+    back_populates="sender_account",
+)

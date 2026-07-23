@@ -10,6 +10,7 @@ GMAIL_SMTP_SERVER = "smtp.gmail.com"
 GMAIL_SMTP_PORT = 587
 
 
+
 def _connect_to_gmail(
     email: str,
     encrypted_password: str,
@@ -19,7 +20,11 @@ def _connect_to_gmail(
     """
 
     try:
-        password = decrypt(encrypted_password).replace(" ", "")
+
+        password = decrypt(
+            encrypted_password
+        ).replace(" ", "")
+
 
         server = smtplib.SMTP(
             GMAIL_SMTP_SERVER,
@@ -27,26 +32,30 @@ def _connect_to_gmail(
             timeout=20,
         )
 
-        server.set_debuglevel(0)
 
         server.ehlo()
+
 
         server.starttls()
 
+
         server.ehlo()
+
 
         server.login(
             email,
             password,
         )
 
+
         return server
+
 
 
     except Exception as e:
 
         raise Exception(
-            f"Gmail SMTP connection failed: {repr(e)}"
+            f"Gmail SMTP connection failed: {str(e)}"
         )
 
 
@@ -57,10 +66,9 @@ def verify_gmail_account(
 ):
     """
     Verify Gmail SMTP credentials.
-
-    Returns:
-        tuple(bool, str)
     """
+
+    server = None
 
     try:
 
@@ -69,29 +77,42 @@ def verify_gmail_account(
             encrypted_password=encrypted_password,
         )
 
-        server.quit()
-
 
         return (
             True,
-            "Account verified successfully.",
+            "Account verified successfully."
         )
+
 
 
     except Exception as e:
 
         error = str(e)
 
+
         print(
             "SMTP VERIFY ERROR:",
-            error,
+            error
         )
 
 
         return (
             False,
-            error,
+            error
         )
+
+
+
+    finally:
+
+        if server:
+
+            try:
+                server.quit()
+
+            except Exception:
+                pass
+
 
 
 
@@ -102,9 +123,6 @@ def send_test_email(
 ):
     """
     Send test email.
-
-    Returns:
-        tuple(bool, str)
     """
 
     server = None
@@ -129,15 +147,17 @@ def send_test_email(
         )
 
 
+
         body = """
 Hello!
 
-This is a test email sent from
+This is a test email from
 AI Email Marketing Platform.
 
-Your sender account is configured correctly.
+Your sender account is working correctly.
 
-Have a great day!
+Regards,
+AI Email Marketing Platform
 """
 
 
@@ -149,6 +169,7 @@ Have a great day!
         )
 
 
+
         server.sendmail(
             sender_email,
             recipient_email,
@@ -156,29 +177,30 @@ Have a great day!
         )
 
 
-        server.quit()
 
+        return {
+            "success": True,
+            "message": "Test email sent successfully."
+        }
 
-        return (
-            True,
-            "Test email sent successfully.",
-        )
 
 
     except Exception as e:
 
         error = str(e)
 
+
         print(
             "SMTP SEND ERROR:",
-            error,
+            error
         )
 
 
-        return (
-            False,
-            error,
-        )
+        return {
+            "success": False,
+            "message": error
+        }
+
 
 
     finally:

@@ -33,6 +33,15 @@ class EmailDeliveryService:
         deliveries = []
 
 
+        existing = self.repository.get_by_campaign(
+            campaign.id
+        )
+
+
+        if existing:
+            return existing
+
+
         if not campaign.contact_list:
             return deliveries
 

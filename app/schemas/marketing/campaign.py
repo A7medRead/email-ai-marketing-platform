@@ -1,4 +1,4 @@
-﻿from datetime import datetime
+from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel
@@ -7,12 +7,13 @@ from app.models.marketing.campaign_enums import CampaignStatus
 
 
 class CampaignBase(BaseModel):
+
+    sender_account_id: int
+    contact_list_id: int
+
     name: str
     subject: str
-    description: Optional[str] = None
-    sender_account_id: Optional[int] = None
-    template_id: Optional[int] = None
-    contact_list_id: Optional[int] = None
+    body: str
     scheduled_at: Optional[datetime] = None
 
 
@@ -20,23 +21,31 @@ class CampaignCreate(CampaignBase):
     pass
 
 
+
 class CampaignUpdate(BaseModel):
+
     name: Optional[str] = None
     subject: Optional[str] = None
-    description: Optional[str] = None
-    sender_account_id: Optional[int] = None
-    template_id: Optional[int] = None
-    contact_list_id: Optional[int] = None
-    scheduled_at: Optional[datetime] = None
+    body: Optional[str] = None
     status: Optional[CampaignStatus] = None
 
 
+
 class CampaignResponse(CampaignBase):
+
     id: int
-    user_id: int
+
     status: CampaignStatus
+
+    total_recipients: int
+    sent_count: int
+    failed_count: int
+
+    scheduled_at: Optional[datetime] = None
+
     created_at: datetime
-    updated_at: datetime
+    updated_at: Optional[datetime] = None
+
 
     class Config:
         from_attributes = True

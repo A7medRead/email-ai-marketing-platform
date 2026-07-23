@@ -14,7 +14,7 @@ from app.schemas.marketing.sender_account import (
 
 from app.services.marketing.smtp_service import (
     verify_gmail_account,
-    send_test_email,
+    send_test_email as smtp_send_test_email,
 )
 
 from app.core.encryption import encrypt
@@ -179,11 +179,11 @@ class SenderAccountService:
 
 
 
-        return send_test_email(
+        return smtp_send_test_email(
             sender_email=account.email,
-            encrypted_password=account.encrypted_password,
-            recipient_email=recipient_email,
-        )
+        encrypted_password=account.encrypted_password,
+        recipient_email=recipient_email,
+)
 
 
 
