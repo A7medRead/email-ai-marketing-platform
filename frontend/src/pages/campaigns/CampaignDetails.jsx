@@ -5,46 +5,106 @@ import api from "../../api/client";
 
 export default function CampaignDetails(){
 
-const {id} = useParams();
+const {id}=useParams();
 
-const [campaign,setCampaign] = useState(null);
-const [deliveries,setDeliveries] = useState([]);
-
-
-useEffect(()=>{
-
-api.get(`/campaigns/${id}`)
-.then(res=>{
-setCampaign(res.data);
-});
-
-
-api.get(`/campaigns/${id}/deliveries`)
-.then(res=>{
-setDeliveries(res.data);
-});
-
-
-},[id]);
+const [campaign,setCampaign]=useState(null);
+const [deliveries,setDeliveries]=useState([]);
+const [message,setMessage]=useState("");
 
 
 
-if(!campaign){
+async function load(){
 
-return <h2>Loading...</h2>
+const c = await api.get(`/campaigns/${id}`);
+setCampaign(c.data);
+
+
+const d = await api.get(`/campaigns/${id}/deliveries`);
+setDeliveries(d.data);
 
 }
 
 
 
+useEffect(()=>{
+
+load();
+
+},[id]);
+
+
+
+async function prepare(){
+
+try{
+
+const res = await api.post(
+`/campaigns/${id}/prepare`
+);
+
+setMessage(res.data.message);
+
+load();
+
+}
+catch(err){
+
+console.log(err);
+setMessage("Prepare failed");
+
+}
+
+}
+
+
+
+async function send(){
+
+try{
+
+const res = await api.post(
+`/campaigns/${id}/send`
+);
+
+setMessage(res.data.message);
+
+load();
+
+}
+catch(err){
+
+console.log(err);
+setMessage("Send failed");
+
+}
+
+}
+
+
+
+if(!campaign)
+return <h2>Loading...</h2>;
+
+
+
 return (
 
-<div>
+<div className="page">
 
 
 <Link to="/campaigns">
-Back
+<button>
+← Back
+</button>
 </Link>
+
+
+
+<div className="contact-card"
+style={{
+marginTop:"30px"
+}}
+>
 
 
 <h1>
@@ -52,11 +112,10 @@ Back
 </h1>
 
 
-<div>
-
 <p>
 Status: {campaign.status}
 </p>
+
 
 <p>
 Subject: {campaign.subject}
@@ -78,54 +137,83 @@ Failed: {campaign.failed_count}
 </p>
 
 
+
+<div className="contact-actions">
+
+
+<button onClick={prepare}>
+Prepare
+</button>
+
+
+<button onClick={send}>
+Send Campaign
+</button>
+
+
 </div>
 
 
-<h2>
+{
+message &&
+<p>
+{message}
+</p>
+}
+
+
+</div>
+
+
+
+<h2 style={{marginTop:"40px"}}>
 Email Deliveries
 </h2>
 
 
-<table border="1" cellPadding="10">
 
-<thead>
+<div className="contact-cards">
 
-<tr>
-<th>Email</th>
-<th>Status</th>
-<th>Sent</th>
-<th>Opened</th>
-<th>Clicked</th>
-</tr>
-
-</thead>
-
-
-<tbody>
 
 {
 deliveries.map(d=>(
 
-<tr key={d.id}>
+<div className="contact-card" key={d.id}>
 
-<td>{d.recipient_email}</td>
 
-<td>{d.status}</td>
+<h2>
+{d.recipient_email}
+</h2>
 
-<td>{d.sent_at || "-"}</td>
 
-<td>{d.opened_at || "-"}</td>
+<p>
+Status: {d.status}
+</p>
 
-<td>{d.clicked_at || "-"}</td>
 
-</tr>
+<p>
+Sent: {d.sent_at || "-"}
+</p>
+
+
+<p>
+Opened: {d.opened_at || "-"}
+</p>
+
+
+<p>
+Clicked: {d.clicked_at || "-"}
+</p>
+
+
+</div>
 
 ))
 }
 
-</tbody>
 
-</table>
+</div>
+
 
 
 </div>

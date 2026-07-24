@@ -18,6 +18,8 @@ import CreateContact from "./pages/contacts/CreateContact";
 import ContactDetails from "./pages/contacts/ContactDetails";
 import EditContact from "./pages/contacts/EditContact";
 import ContactLists from "./pages/contactlists/ContactLists";
+import ManageContactList from "./pages/contactlists/ManageContactList";
+
 
 
 function App(){
@@ -81,6 +83,8 @@ element={<CampaignDetails />}
 <Route path="/contacts/create" element={<CreateContact />} />
 <Route path="/contacts/:id/edit" element={<EditContact />} />
 <Route path="/contacts/:id" element={<ContactDetails />} />
+<Route path="/contact-lists/:id/manage" element={<ManageContactList />} />
+
 
 <Route path="/contact-lists" element={<ContactLists />} />
 

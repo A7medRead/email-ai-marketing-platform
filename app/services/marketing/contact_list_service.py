@@ -35,10 +35,22 @@ def get_contact_lists(
     db: Session,
     user_id: int,
 ):
-    return contact_list_repository.get_all_contact_lists(
+
+    lists = contact_list_repository.get_all_contact_lists(
         db=db,
         user_id=user_id,
     )
+
+    return [
+        {
+            "id": item.id,
+            "name": item.name,
+            "description": item.description,
+            "created_at": item.created_at,
+            "contacts_count": len(item.contacts),
+        }
+        for item in lists
+    ]
 
 
 def update_contact_list(

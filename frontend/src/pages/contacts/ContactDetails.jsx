@@ -1,14 +1,14 @@
-import { useEffect,useState } from "react";
-import { useParams,useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../../api/client";
 
 
 export default function ContactDetails(){
 
-const {id}=useParams();
-const navigate=useNavigate();
+const { id } = useParams();
+const navigate = useNavigate();
 
-const [contact,setContact]=useState(null);
+const [contact,setContact] = useState(null);
 
 
 useEffect(()=>{
@@ -21,13 +21,21 @@ setContact(res.data);
 },[id]);
 
 
+if(!contact){
 
-if(!contact)
-return <h2>Loading...</h2>;
+return (
+<div className="page">
+<h2>Loading...</h2>
+</div>
+);
+
+}
 
 
 
 async function remove(){
+
+if(!window.confirm("Delete this contact?")) return;
 
 await api.delete(`/contacts/${id}`);
 
@@ -39,59 +47,115 @@ navigate("/contacts");
 
 return (
 
+<div className="page">
+
+
+<div style={{
+display:"flex",
+justifyContent:"space-between",
+alignItems:"center",
+marginBottom:"30px"
+}}>
+
 <div>
-
-<button onClick={()=>navigate("/contacts")}>
-← Back
-</button>
-
 
 <h1>
 {contact.first_name} {contact.last_name}
 </h1>
 
+<p className="subtitle">
+Contact details
+</p>
 
-<div className="card"
+</div>
+
+
+<button
+className="contact-back-btn"
+onClick={()=>navigate("/contacts")}
+>
+← Back
+</button>
+
+
+</div>
+
+
+
+<div 
+className="contact-card details-card"
 style={{
-maxWidth:"500px",
-marginTop:"30px"
-}}>
+maxWidth:"600px",
+margin:"40px auto"
+}}
+>
+
+
+<div className="contact-avatar">
+
+{contact.first_name?.[0]}
+{contact.last_name?.[0]}
+
+</div>
+
+
+
+<h2 className="contact-name">
+
+{contact.first_name} {contact.last_name}
+
+</h2>
+
 
 
 <p>
 📧 {contact.email}
 </p>
 
-<p>
-🏢 {contact.company}
-</p>
 
 <p>
-📞 {contact.phone}
-</p>
-
-<p>
-💼 {contact.position}
-</p>
-
-<p>
-Status: {contact.status}
+🏢 {contact.company || "No Company"}
 </p>
 
 
-<button onClick={()=>{console.log("EDIT CLICK", id); navigate(`/contacts/${id}/edit`)}}>
-Edit
-</button>
+<p>
+📞 {contact.phone || "No Phone"}
+</p>
+
+
+<p>
+💼 {contact.position || "No Position"}
+</p>
+
+
+
+<span>
+
+{contact.status}
+
+</span>
+
+
+
+<div className="contact-actions">
 
 
 <button
-style={{
-marginLeft:"10px"
-}}
+onClick={()=>navigate(`/contacts/${id}/edit`)}
+>
+✎ Edit
+</button>
+
+
+
+<button
 onClick={remove}
 >
-Delete
+🗑 Delete
 </button>
+
+
+</div>
 
 
 </div>

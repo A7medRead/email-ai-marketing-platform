@@ -36,6 +36,7 @@ class ContactListResponse(BaseModel):
     name: str
     description: str | None
     created_at: datetime
+    contacts_count: int = 0
 
     model_config = ConfigDict(
         from_attributes=True,
