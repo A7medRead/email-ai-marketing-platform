@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+import {useEffect,useState} from "react";
+import {useNavigate} from "react-router-dom";
 import api from "../../api/client";
 
 
@@ -7,19 +8,37 @@ export default function CreateCampaign(){
 
 const navigate = useNavigate();
 
+const [senders,setSenders]=useState([]);
+const [lists,setLists]=useState([]);
+const [templates,setTemplates]=useState([]);
 
-const [form,setForm] = useState({
 
-sender_account_id:4,
-contact_list_id:1,
+const [form,setForm]=useState({
+sender_account_id:"",
+contact_list_id:"",
 name:"",
 subject:"",
-body:""
-
+body:"",
+scheduled_at:null
 });
 
 
-function update(e){
+useEffect(()=>{
+
+api.get("/sender-accounts/")
+.then(res=>setSenders(res.data));
+
+api.get("/contact-lists/")
+.then(res=>setLists(res.data));
+
+api.get("/templates/")
+.then(res=>setTemplates(res.data.items || res.data));
+
+},[]);
+
+
+
+function change(e){
 
 setForm({
 ...form,
@@ -30,22 +49,15 @@ setForm({
 
 
 
-async function submit(e){
+function submit(){
 
-e.preventDefault();
-
-
-await api.post(
-"/campaigns/",
-{
-...form,
-sender_account_id:Number(form.sender_account_id),
-contact_list_id:Number(form.contact_list_id)
-}
-);
-
-
+api.post("/campaigns/",form)
+.then(()=>{
 navigate("/campaigns");
+})
+.catch(err=>{
+console.log(err);
+});
 
 }
 
@@ -55,19 +67,43 @@ return (
 
 <div>
 
-<h1>
-Create Campaign
-</h1>
+<h1>Create Campaign</h1>
 
 
-<form onSubmit={submit}>
+<select name="sender_account_id" onChange={change}>
+<option>Select Sender</option>
+
+{senders.map(s=>
+<option key={s.id} value={s.id}>
+{s.name}
+</option>
+)}
+
+</select>
+
+
+<br/>
+
+
+<select name="contact_list_id" onChange={change}>
+<option>Select List</option>
+
+{lists.map(l=>
+<option key={l.id} value={l.id}>
+{l.name}
+</option>
+)}
+
+</select>
+
+
+<br/>
 
 
 <input
 name="name"
-placeholder="Campaign name"
-value={form.name}
-onChange={update}
+placeholder="Campaign Name"
+onChange={change}
 />
 
 
@@ -77,8 +113,7 @@ onChange={update}
 <input
 name="subject"
 placeholder="Subject"
-value={form.subject}
-onChange={update}
+onChange={change}
 />
 
 
@@ -87,21 +122,27 @@ onChange={update}
 
 <textarea
 name="body"
-placeholder="Email body"
-value={form.body}
-onChange={update}
+placeholder="Email Body"
+onChange={change}
 />
 
 
 <br/>
 
 
-<button>
-Create
+<input
+type="datetime-local"
+name="scheduled_at"
+onChange={change}
+/>
+
+
+<br/>
+
+
+<button onClick={submit}>
+Create Campaign
 </button>
-
-
-</form>
 
 
 </div>

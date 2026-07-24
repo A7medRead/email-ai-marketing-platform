@@ -47,6 +47,10 @@ class CampaignSchedulerService:
             )
 
 
+            campaign.status = CampaignStatus.RUNNING
+            self.db.commit()
+
+
             sender = CampaignSenderService(
                 self.db
             )

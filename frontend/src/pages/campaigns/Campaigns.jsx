@@ -20,9 +20,7 @@ setCampaigns(res.data);
 
 
 useEffect(()=>{
-
 load();
-
 },[]);
 
 
@@ -31,13 +29,13 @@ async function prepare(id){
 
 setLoading(id);
 
-await api.post(
-`/campaigns/${id}/prepare`
-);
-
+try{
+await api.post(`/campaigns/${id}/prepare`);
 load();
-
+}
+finally{
 setLoading(null);
+}
 
 }
 
@@ -47,18 +45,36 @@ async function send(id){
 
 setLoading(id);
 
-await api.post(
-`/campaigns/${id}/send`
-);
-
+await api.post(`/campaigns/${id}/send`);
 
 setTimeout(()=>{
-
 load();
-
 setLoading(null);
-
 },3000);
+
+}
+
+
+
+async function retry(id){
+
+setLoading(id);
+
+try{
+await api.post(`/campaigns/${id}/retry`);
+load();
+}
+finally{
+setLoading(null);
+}
+
+}
+
+
+
+function statusClass(status){
+
+return status.toLowerCase();
 
 }
 
@@ -66,118 +82,128 @@ setLoading(null);
 
 return (
 
+<div className="campaign-page">
+
+
+<div className="page-header">
+
 <div>
 
 <h1>
 Campaigns
 </h1>
 
+<p>
+Manage and track your email campaigns
+</p>
+
+</div>
+
 
 <Link to="/campaigns/create">
 
-<button>
+<button className="create-btn">
 + Create Campaign
 </button>
 
 </Link>
 
 
+</div>
 
-<div style={{
-display:"grid",
-gridTemplateColumns:"repeat(3,1fr)",
-gap:"20px",
-marginTop:"30px"
-}}>
+
+
+
+<div className="campaign-grid">
 
 
 {
 campaigns.map(c=>(
 
-<div
-key={c.id}
-style={{
-border:"1px solid #444",
-padding:"20px",
-borderRadius:"12px"
-}}
->
+
+<div className="campaign-card" key={c.id}>
 
 
-<h3>
+<h2>
 {c.name}
-</h3>
+</h2>
 
+
+
+<span className={`status ${statusClass(c.status)}`}>
+{c.status}
+</span>
+
+
+
+<div className="campaign-stats">
 
 <p>
-Status: {c.status}
+👥 Recipients
+<strong>{c.total_recipients}</strong>
 </p>
 
 
 <p>
-Recipients: {c.total_recipients}
+✉ Sent
+<strong>{c.sent_count}</strong>
 </p>
 
 
 <p>
-Sent: {c.sent_count}
+⚠ Failed
+<strong>{c.failed_count}</strong>
 </p>
 
 
-<p>
-Failed: {c.failed_count}
-</p>
+</div>
 
 
+
+
+<div className="action-buttons">
+
+
+{
+(c.status==="DRAFT" || c.status==="draft") &&
 
 <button
-disabled={
-c.status === "COMPLETED" ||
-c.status === "completed" ||
-loading === c.id
-}
+disabled={loading===c.id}
 onClick={()=>prepare(c.id)}
 >
-
-{
-loading === c.id
-?
-"Working..."
-:
-"Prepare"
-}
-
+{loading===c.id ? "Preparing..." : "Prepare"}
 </button>
 
+}
 
+
+
+{
+(c.status==="PREPARED" || c.status==="prepared") &&
 
 <button
-disabled={
-c.status === "COMPLETED" ||
-c.status === "completed" ||
-c.status === "FAILED" ||
-c.status === "failed" ||
-loading === c.id
-}
+disabled={loading===c.id}
 onClick={()=>send(c.id)}
-style={{
-marginLeft:"10px"
-}}
 >
-
-{
-loading === c.id
-?
-"Sending..."
-:
-"Send"
-}
-
+{loading===c.id ? "Sending..." : "Send"}
 </button>
 
+}
 
 
-<br/><br/>
+
+{
+(c.status==="FAILED" || c.status==="failed") &&
+
+<button
+disabled={loading===c.id}
+onClick={()=>retry(c.id)}
+>
+{loading===c.id ? "Retrying..." : "Retry"}
+</button>
+
+}
+
 
 
 <Link to={`/campaigns/${c.id}/analytics`}>
@@ -188,24 +214,25 @@ Analytics
 
 
 <Link to={`/campaigns/${c.id}/details`}>
-<button style={{
-marginLeft:"10px"
-}}>
+<button>
 Details
 </button>
 </Link>
 
 
 <Link to={`/campaigns/${c.id}/performance`}>
-<button style={{
-marginLeft:"10px"
-}}>
+<button>
 Performance
 </button>
 </Link>
 
 
+
 </div>
+
+
+</div>
+
 
 ))
 }

@@ -20,3 +20,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(
 
 # Encryption
 ENCRYPTION_KEY = os.getenv("ENCRYPTION_KEY")
+
+# Tracking
+TRACKING_URL = os.getenv("TRACKING_URL", "http://127.0.0.1:8000")

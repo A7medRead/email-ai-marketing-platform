@@ -9,6 +9,10 @@ from app.repositories.email_repository import (
     get_dashboard_stats,
 )
 
+from app.services.marketing.dashboard_analytics_service import (
+    DashboardAnalyticsService,
+)
+
 router = APIRouter(
     prefix="/dashboard",
     tags=["Dashboard"],
@@ -80,3 +84,33 @@ def marketing_dashboard(
             if d.clicked_at
         ]),
     }
+
+
+
+
+@router.get("/analytics")
+def dashboard_analytics(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+
+    service = DashboardAnalyticsService(db)
+
+    return service.get_dashboard_analytics(
+        user_id=current_user.id
+    )
+
+
+
+
+@router.get("/top-campaigns")
+def top_campaigns(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+
+    service = DashboardAnalyticsService(db)
+
+    return service.get_top_campaigns(
+        user_id=current_user.id
+    )

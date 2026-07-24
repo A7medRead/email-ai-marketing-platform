@@ -14,6 +14,7 @@ from app.api.marketing.contact import router as contact_router
 from app.api.marketing.contact_list import router as contact_list_router
 from app.api.marketing.campaign import router as campaign_router
 from app.api.marketing.tracking import router as tracking_router
+from app.api.marketing.unsubscribe import router as unsubscribe_router
 
 from app.models.email import Email
 from app.models.template import Template
@@ -70,6 +71,7 @@ app.include_router(contact_router)
 app.include_router(contact_list_router)
 app.include_router(campaign_router)
 app.include_router(tracking_router)
+app.include_router(unsubscribe_router)
 
 
 @app.on_event("startup")

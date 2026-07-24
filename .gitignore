@@ -5,3 +5,4 @@ __pycache__/
 *.db
 emails.db.DS_Store
 *.bak
+.DS_Store

@@ -1,31 +1,18 @@
+from fastapi import APIRouter, Depends
+from fastapi.responses import Response, RedirectResponse
+from sqlalchemy.orm import Session
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, Response
-from sqlalchemy.orm import Session
-
 from app.database.database import get_db
+
 from app.models.marketing.email_delivery import (
     EmailDelivery,
-    EmailDeliveryStatus,
 )
 
 
 router = APIRouter(
-    prefix="/tracking",
+    prefix="/track",
     tags=["Tracking"],
-)
-
-
-PIXEL = (
-    b"\x89PNG\r\n\x1a\n"
-    b"\x00\x00\x00\rIHDR"
-    b"\x00\x00\x00\x01\x00\x00\x00\x01"
-    b"\x08\x06\x00\x00\x00"
-    b"\x1f\x15\xc4\x89"
-    b"\x00\x00\x00\nIDAT"
-    b"x\x9cc\x00\x01\x00\x00\x05\x00\x01"
-    b"\r\n-\xb4"
-    b"\x00\x00\x00\x00IEND\xaeB`\x82"
 )
 
 
@@ -44,15 +31,30 @@ def track_open(
     )
 
     if delivery:
+        if not delivery.opened_at:
+            delivery.opened_at = datetime.utcnow()
 
-        delivery.status = EmailDeliveryStatus.OPENED
-        delivery.opened_at = datetime.utcnow()
+            db.commit()
 
-        db.commit()
 
+    # 1x1 transparent pixel
+    pixel = (
+        b"\x89PNG\r\n\x1a\n"
+        b"\x00\x00\x00\rIHDR"
+        b"\x00\x00\x00\x01"
+        b"\x00\x00\x00\x01"
+        b"\x08\x06\x00\x00\x00"
+        b"\x1f\x15\xc4\x89"
+        b"\x00\x00\x00\nIDAT"
+        b"\x08\xd7c\xf8\xff\xff?"
+        b"\x00\x05\xfe\x02\xfe"
+        b"\xdc\xccY\xe7"
+        b"\x00\x00\x00\x00IEND"
+        b"\xaeB`\x82"
+    )
 
     return Response(
-        content=PIXEL,
+        content=pixel,
         media_type="image/png",
     )
 
@@ -60,6 +62,7 @@ def track_open(
 @router.get("/click/{delivery_id}")
 def track_click(
     delivery_id: int,
+    url: str,
     db: Session = Depends(get_db),
 ):
 
@@ -72,13 +75,12 @@ def track_click(
     )
 
     if delivery:
+        if not delivery.clicked_at:
+            delivery.clicked_at = datetime.utcnow()
 
-        delivery.status = EmailDeliveryStatus.CLICKED
-        delivery.clicked_at = datetime.utcnow()
-
-        db.commit()
+            db.commit()
 
 
-    return {
-        "message": "Click tracked"
-    }
+    return RedirectResponse(
+        url=url
+    )

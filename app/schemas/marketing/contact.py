@@ -40,7 +40,7 @@ class ContactResponse(ContactBase):
     user_id: int
     status: ContactStatus
     created_at: datetime
-    updated_at: datetime
+    updated_at: Optional[datetime] = None
 
 
     class Config:

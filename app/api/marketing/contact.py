@@ -55,6 +55,30 @@ def get_contacts(
     )
 
 
+
+@router.get(
+    "/{contact_id}",
+    response_model=ContactResponse,
+)
+def get_contact(
+    contact_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    contact = contact_repository.get_contact_by_id(
+        db=db,
+        contact_id=contact_id,
+        user_id=current_user.id,
+    )
+
+    if not contact:
+        raise HTTPException(
+            status_code=404,
+            detail="Contact not found.",
+        )
+
+    return contact
+
 @router.put(
     "/{contact_id}",
     response_model=ContactResponse,

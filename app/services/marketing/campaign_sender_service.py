@@ -20,7 +20,7 @@ from app.repositories.marketing.email_delivery_repository import (
 )
 
 from app.services.marketing.smtp_service import (
-    send_test_email,
+    send_campaign_email,
 )
 
 
@@ -117,10 +117,13 @@ class CampaignSenderService:
 
 
 
-            result = send_test_email(
+            result = send_campaign_email(
                 sender_email=sender_account.email,
                 encrypted_password=sender_account.encrypted_password,
                 recipient_email=delivery.recipient_email,
+                subject=campaign.subject,
+                body=campaign.body,
+                delivery_id=delivery.id,
             )
 
             success = result["success"]

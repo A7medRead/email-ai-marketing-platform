@@ -4,6 +4,9 @@ from sqlalchemy.orm import Session
 from app.core.dependencies import get_current_user
 from app.database.database import get_db
 from app.models.user import User
+from app.models.marketing.campaign_enums import CampaignStatus
+from app.models.marketing.email_delivery import EmailDeliveryStatus
+from app.models.marketing.email_delivery import EmailDelivery
 
 from app.schemas.marketing.campaign import (
     CampaignCreate,
@@ -184,6 +187,10 @@ def prepare_campaign(
 
 
     if existing:
+
+        campaign.status = CampaignStatus.PREPARED
+        db.commit()
+
         return {
             "message": "Campaign already prepared",
             "deliveries_created": len(existing),
@@ -193,6 +200,10 @@ def prepare_campaign(
     deliveries = delivery_service.create_campaign_deliveries(
         campaign
     )
+
+
+    campaign.status = CampaignStatus.PREPARED
+    db.commit()
 
 
     return {
@@ -226,6 +237,10 @@ def send_campaign(
         )
 
 
+    campaign.status = CampaignStatus.RUNNING
+    db.commit()
+
+
     def run_sender():
 
         sender = CampaignSenderService(db)
@@ -244,6 +259,75 @@ def send_campaign(
         "message": "Campaign sending started",
         "campaign_id": campaign_id,
     }
+
+
+
+@router.post(
+    "/{campaign_id}/retry",
+)
+def retry_campaign(
+    campaign_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+
+    service = CampaignService(db)
+
+    campaign = service.get_campaign(
+        campaign_id,
+        current_user.id,
+    )
+
+    if not campaign:
+        raise HTTPException(
+            status_code=404,
+            detail="Campaign not found",
+        )
+
+
+    deliveries = (
+        db.query(EmailDelivery)
+        .filter(
+            EmailDelivery.campaign_id == campaign_id,
+            EmailDelivery.status == EmailDeliveryStatus.FAILED,
+        )
+        .all()
+    )
+
+
+    if not deliveries:
+
+        campaign.status = CampaignStatus.PREPARED
+        campaign.failed_count = 0
+        campaign.sent_count = 0
+
+        db.commit()
+
+        return {
+            "message": "Campaign reset for retry",
+            "retry_count": 0,
+        }
+
+
+    for delivery in deliveries:
+        delivery.status = EmailDeliveryStatus.PENDING
+        delivery.error_message = None
+        delivery.sent_at = None
+
+
+    campaign.status = CampaignStatus.PREPARED
+    campaign.failed_count = 0
+    campaign.sent_count = 0
+
+
+    db.commit()
+
+
+    return {
+        "message": "Campaign ready for retry",
+        "retry_count": len(deliveries),
+    }
+
 
 
 @router.get(

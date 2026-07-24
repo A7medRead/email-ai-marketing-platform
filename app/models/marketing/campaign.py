@@ -80,7 +80,7 @@ class Campaign(Base):
 
 
     status = Column(
-        Enum(CampaignStatus),
+        Enum(CampaignStatus, values_callable=lambda x: [e.value for e in x]),
         nullable=False,
         default=CampaignStatus.DRAFT,
     )

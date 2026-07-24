@@ -7,7 +7,17 @@ import CreateCampaign from "./pages/campaigns/CreateCampaign";
 import Analytics from "./pages/analytics/Analytics";
 import CampaignPerformance from "./pages/campaigns/CampaignPerformance";
 import CampaignDetails from "./pages/campaigns/CampaignDetails";
+import Templates from "./pages/templates/Templates";
+import Emails from "./pages/emails/Emails";
+import CreateEmail from "./pages/emails/CreateEmail";
+import EmailDetails from "./pages/emails/EmailDetails";
 import Layout from "./components/Layout";
+import SenderAccounts from "./pages/senders/SenderAccounts";
+import Contacts from "./pages/contacts/Contacts";
+import CreateContact from "./pages/contacts/CreateContact";
+import ContactDetails from "./pages/contacts/ContactDetails";
+import EditContact from "./pages/contacts/EditContact";
+import ContactLists from "./pages/contactlists/ContactLists";
 
 
 function App(){
@@ -58,6 +68,21 @@ path="/campaigns/:id/details"
 element={<CampaignDetails />}
 />
 
+<Route path="/templates" element={<Templates />} />
+
+<Route path="/emails" element={<Emails />} />
+<Route path="/emails/create" element={<CreateEmail />} />
+<Route path="/emails/:id" element={<EmailDetails />} />
+
+
+<Route path="/senders" element={<SenderAccounts />} />
+
+<Route path="/contacts" element={<Contacts />} />
+<Route path="/contacts/create" element={<CreateContact />} />
+<Route path="/contacts/:id/edit" element={<EditContact />} />
+<Route path="/contacts/:id" element={<ContactDetails />} />
+
+<Route path="/contact-lists" element={<ContactLists />} />
 
 </Route>
 
