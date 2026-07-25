@@ -8,6 +8,8 @@ import Analytics from "./pages/analytics/Analytics";
 import CampaignPerformance from "./pages/campaigns/CampaignPerformance";
 import CampaignDetails from "./pages/campaigns/CampaignDetails";
 import Templates from "./pages/templates/Templates";
+import CreateTemplate from "./pages/templates/CreateTemplate";
+import EditTemplate from "./pages/templates/EditTemplate";
 import Emails from "./pages/emails/Emails";
 import CreateEmail from "./pages/emails/CreateEmail";
 import EmailDetails from "./pages/emails/EmailDetails";
@@ -71,6 +73,8 @@ element={<CampaignDetails />}
 />
 
 <Route path="/templates" element={<Templates />} />
+<Route path="/templates/create" element={<CreateTemplate />} />
+<Route path="/templates/:id/edit" element={<EditTemplate />} />
 
 <Route path="/emails" element={<Emails />} />
 <Route path="/emails/create" element={<CreateEmail />} />
