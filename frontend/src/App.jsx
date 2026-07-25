@@ -15,6 +15,8 @@ import CreateEmail from "./pages/emails/CreateEmail";
 import EmailDetails from "./pages/emails/EmailDetails";
 import Layout from "./components/Layout";
 import SenderAccounts from "./pages/senders/SenderAccounts";
+import CreateSenderAccount from "./pages/senders/CreateSenderAccount";
+import EditSenderAccount from "./pages/senders/EditSenderAccount";
 import Contacts from "./pages/contacts/Contacts";
 import CreateContact from "./pages/contacts/CreateContact";
 import ContactDetails from "./pages/contacts/ContactDetails";
@@ -82,6 +84,8 @@ element={<CampaignDetails />}
 
 
 <Route path="/senders" element={<SenderAccounts />} />
+<Route path="/senders/create" element={<CreateSenderAccount />} />
+<Route path="/senders/:id/edit" element={<EditSenderAccount />} />
 
 <Route path="/contacts" element={<Contacts />} />
 <Route path="/contacts/create" element={<CreateContact />} />

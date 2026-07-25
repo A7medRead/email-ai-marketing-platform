@@ -1,32 +1,84 @@
-import { useEffect, useState } from "react";
+import { useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../api/client";
 
 
 export default function SenderAccounts(){
 
-const [senders,setSenders] = useState([]);
+const [senders,setSenders]=useState([]);
+const navigate=useNavigate();
+
+
+async function load(){
+
+const res = await api.get("/sender-accounts/");
+setSenders(res.data);
+
+}
 
 
 useEffect(()=>{
 
-api.get("/sender-accounts/")
-.then(res=>{
-setSenders(res.data);
-})
-.catch(err=>{
-console.log(err);
-});
+load();
 
 },[]);
 
 
 
+async function remove(id){
+
+const ok = window.confirm(
+"Are you sure you want to delete this sender account?"
+);
+
+if(!ok) return;
+
+await api.delete(`/sender-accounts/${id}`);
+
+load();
+
+}
+
+
+
+async function verify(id){
+
+await api.post(`/sender-accounts/${id}/verify`);
+
+load();
+
+}
+
+
+
+async function sendTest(id){
+
+const email = window.prompt(
+"Enter test email address"
+);
+
+if(!email) return;
+
+
+await api.post(
+`/sender-accounts/${id}/send-test`,
+{
+recipient_email:email
+}
+);
+
+alert("Test email sent");
+
+}
+
+
+
 return (
 
-<div className="sender-page">
+<div className="page">
 
 
-<div className="page-header">
+<div className="contacts-header">
 
 <div>
 
@@ -34,28 +86,35 @@ return (
 Sender Accounts
 </h1>
 
-<p>
+<p className="subtitle">
 Manage your email sending accounts
 </p>
 
 </div>
 
 
+<button
+className="add-contact-btn"
+onClick={()=>navigate("/senders/create")}
+>
++ Add Sender
+</button>
+
+
 </div>
 
 
 
-<div className="sender-grid">
+<div className="contact-cards">
 
 
 {
 senders.map(sender=>(
 
+<div className="contact-card" key={sender.id}>
 
-<div className="sender-card" key={sender.id}>
 
-
-<div className="sender-icon">
+<div className="contact-avatar">
 ✉️
 </div>
 
@@ -65,40 +124,57 @@ senders.map(sender=>(
 </h2>
 
 
-<div className="sender-email">
-{sender.email}
-</div>
-
-
-
-<div className="sender-info">
-
-
 <p>
-Provider
-<strong>
-{sender.provider}
-</strong>
+{sender.email}
 </p>
 
 
-
 <p>
-Status
+Provider: {sender.provider}
+</p>
 
-<span className={`status ${sender.status.toLowerCase()}`}>
-{sender.status}
+
+<span>
+Status: {sender.status}
 </span>
 
-</p>
+
+
+<div className="contact-actions">
+
+
+<button
+onClick={()=>navigate(`/senders/${sender.id}/edit`)}
+>
+✎ Edit
+</button>
+
+
+<button
+onClick={()=>verify(sender.id)}
+>
+✓ Verify
+</button>
+
+
+<button
+onClick={()=>sendTest(sender.id)}
+>
+📨 Test
+</button>
+
+
+<button
+onClick={()=>remove(sender.id)}
+>
+🗑 Delete
+</button>
 
 
 </div>
 
 
-
 </div>
-
 
 ))
 }
