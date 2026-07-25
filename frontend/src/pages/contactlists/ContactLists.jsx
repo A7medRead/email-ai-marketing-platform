@@ -60,7 +60,9 @@ lists.map(list=>(
 
 <div className="contact-actions">
 
-<button>
+<button
+onClick={()=>navigate(`/contact-lists/${list.id}/manage`)}
+>
 👁 View
 </button>
 
