@@ -45,12 +45,32 @@ LanguageField = Annotated[
 ]
 
 
+SubjectField = Annotated[
+    str,
+    Field(
+        min_length=3,
+        max_length=255,
+    ),
+]
+
+
+BodyField = Annotated[
+    str,
+    Field(
+        min_length=5,
+        max_length=5000,
+    ),
+]
+
+
 class TemplateCreate(BaseModel):
     name: NameField
     purpose: PurposeField
     description: DescriptionField
     tone: ToneField
     language: LanguageField
+    subject: SubjectField
+    body: BodyField
 
 
 class TemplateUpdate(BaseModel):
@@ -59,6 +79,8 @@ class TemplateUpdate(BaseModel):
     description: DescriptionField
     tone: ToneField
     language: LanguageField
+    subject: SubjectField
+    body: BodyField
 
 
 class TemplateResponse(BaseModel):
@@ -68,6 +90,8 @@ class TemplateResponse(BaseModel):
     description: str
     tone: str
     language: str
+    subject: str
+    body: str
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)

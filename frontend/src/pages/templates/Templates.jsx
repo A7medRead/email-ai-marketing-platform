@@ -104,6 +104,17 @@ Tone: {t.tone} | Language: {t.language}
 </p>
 
 
+<p>
+Subject: {t.subject}
+</p>
+
+
+<p>
+{t.body?.slice(0,120)}
+{t.body?.length > 120 ? "..." : ""}
+</p>
+
+
 
 <div className="contact-actions">
 

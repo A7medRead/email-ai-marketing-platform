@@ -14,7 +14,9 @@ name:"",
 purpose:"",
 description:"",
 tone:"",
-language:""
+language:"",
+subject:"",
+body:""
 });
 
 
@@ -33,7 +35,9 @@ name:template.name,
 purpose:template.purpose,
 description:template.description,
 tone:template.tone,
-language:template.language
+language:template.language,
+subject:template.subject || "",
+body:template.body || ""
 });
 }
 
@@ -142,6 +146,23 @@ onChange={change}
 name="language"
 value={form.language}
 placeholder="Language"
+onChange={change}
+/>
+
+
+<input
+name="subject"
+value={form.subject}
+placeholder="Email Subject"
+onChange={change}
+/>
+
+
+<textarea
+name="body"
+value={form.body}
+placeholder="Email Body"
+rows="8"
 onChange={change}
 />
 

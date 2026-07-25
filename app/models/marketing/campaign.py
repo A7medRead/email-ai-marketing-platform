@@ -60,6 +60,16 @@ class Campaign(Base):
     )
 
 
+    template_id = Column(
+        Integer,
+        ForeignKey(
+            "templates.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+    )
+
+
     name = Column(
         String(255),
         nullable=False,
@@ -140,4 +150,9 @@ class Campaign(Base):
 
     contact_list = relationship(
         "ContactList",
+    )
+
+
+    template = relationship(
+        "Template",
     )

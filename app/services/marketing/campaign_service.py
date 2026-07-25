@@ -8,6 +8,7 @@ from app.models.marketing.sender_account_enums import SenderAccountStatus
 
 from app.models.marketing.contact_list import ContactList
 from app.models.marketing.contact_list_contact import ContactListContact
+from app.models.template import Template
 
 from app.repositories.marketing.campaign_repository import CampaignRepository
 
@@ -83,13 +84,33 @@ class CampaignService:
             )
 
 
+        template = None
+
+        if data.template_id:
+
+            template = (
+                self.db.query(Template)
+                .filter(
+                    Template.id == data.template_id,
+                    Template.user_id == user_id,
+                )
+                .first()
+            )
+
+            if not template:
+                raise ValueError(
+                    "Template not found."
+                )
+
+
         campaign = Campaign(
             user_id=user_id,
             sender_account_id=data.sender_account_id,
             contact_list_id=data.contact_list_id,
+            template_id=data.template_id,
             name=data.name,
-            subject=data.subject,
-            body=data.body,
+            subject=template.subject if template else data.subject,
+            body=template.body if template else data.body,
             status=CampaignStatus.DRAFT,
             scheduled_at=data.scheduled_at,
             total_recipients=len(contact_list.contacts),

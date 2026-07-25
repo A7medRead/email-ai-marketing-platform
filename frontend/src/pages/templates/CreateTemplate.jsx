@@ -13,7 +13,9 @@ name:"",
 purpose:"",
 description:"",
 tone:"",
-language:""
+language:"",
+subject:"",
+body:""
 });
 
 
@@ -123,6 +125,21 @@ onChange={change}
 <input
 name="language"
 placeholder="Language"
+onChange={change}
+/>
+
+
+<input
+name="subject"
+placeholder="Email Subject"
+onChange={change}
+/>
+
+
+<textarea
+name="body"
+placeholder="Email Body"
+rows="8"
 onChange={change}
 />
 

@@ -50,6 +50,19 @@ class Template(Base):
         nullable=False,
     )
 
+
+    subject = Column(
+        String,
+        nullable=False,
+    )
+
+
+    body = Column(
+        String,
+        nullable=False,
+    )
+
+
     created_at = Column(
         DateTime,
         default=datetime.utcnow,

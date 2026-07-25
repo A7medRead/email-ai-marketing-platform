@@ -11,6 +11,8 @@ def create_template(
     description: str,
     tone: str,
     language: str,
+    subject: str,
+    body: str,
 ):
     template = Template(
         user_id=user_id,
@@ -19,6 +21,8 @@ def create_template(
         description=description,
         tone=tone,
         language=language,
+        subject=subject,
+        body=body,
     )
 
     db.add(template)
@@ -76,12 +80,16 @@ def update_template(
     description: str,
     tone: str,
     language: str,
+    subject: str,
+    body: str,
 ):
     template.name = name
     template.purpose = purpose
     template.description = description
     template.tone = tone
     template.language = language
+    template.subject = subject
+    template.body = body
 
     db.commit()
     db.refresh(template)

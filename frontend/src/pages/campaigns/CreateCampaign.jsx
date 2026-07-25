@@ -16,6 +16,7 @@ const [templates,setTemplates]=useState([]);
 const [form,setForm]=useState({
 sender_account_id:"",
 contact_list_id:"",
+template_id:"",
 name:"",
 subject:"",
 body:"",
@@ -40,10 +41,10 @@ api.get("/templates/")
 
 function change(e){
 
-setForm({
-...form,
-[e.target.name]:e.target.value
-});
+setForm(prev=>({
+    ...prev,
+    [e.target.name]:e.target.value
+}));
 
 }
 
@@ -100,6 +101,37 @@ return (
 <br/>
 
 
+<select
+name="template_id"
+onChange={(e)=>{
+
+const template = templates.find(
+t=>String(t.id)===String(e.target.value)
+);
+
+setForm(prev=>({
+    ...prev,
+    template_id:e.target.value,
+    subject:template?.subject || "",
+    body:template?.body || ""
+}));
+
+}}
+>
+<option>Select Template</option>
+
+{templates.map(t=>
+<option key={t.id} value={t.id}>
+{t.name}
+</option>
+)}
+
+</select>
+
+
+<br/>
+
+
 <input
 name="name"
 placeholder="Campaign Name"
@@ -113,6 +145,7 @@ onChange={change}
 <input
 name="subject"
 placeholder="Subject"
+value={form.subject}
 onChange={change}
 />
 
@@ -123,6 +156,7 @@ onChange={change}
 <textarea
 name="body"
 placeholder="Email Body"
+value={form.body}
 onChange={change}
 />
 

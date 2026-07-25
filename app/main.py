@@ -28,6 +28,7 @@ from app.models.marketing.campaign import Campaign
 from app.models.marketing.email_delivery import EmailDelivery
 
 from app.services.marketing.scheduler import start_scheduler
+from app.database.database import Base, engine
 
 
 app = FastAPI(
@@ -76,6 +77,11 @@ app.include_router(unsubscribe_router)
 
 @app.on_event("startup")
 def startup_event():
+
+    Base.metadata.create_all(
+        bind=engine
+    )
+
     start_scheduler()
 
 

@@ -20,6 +20,8 @@ def create_template(
         description=data.description,
         tone=data.tone,
         language=data.language,
+        subject=data.subject,
+        body=data.body,
     )
 
 
@@ -52,6 +54,8 @@ def update_template(
         description=data.description,
         tone=data.tone,
         language=data.language,
+        subject=data.subject,
+        body=data.body,
     )
 
 
