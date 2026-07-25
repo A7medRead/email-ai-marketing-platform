@@ -1,6 +1,8 @@
+import "./Emails.css";
 
 import {useState} from "react";
 import api from "../../api/client";
+import Button from "../../components/Button";
 
 export default function CreateEmail(){
 
@@ -62,9 +64,11 @@ onChange={change}
 <br/>
 
 
-<button onClick={submit}>
+<Button
+onClick={submit}
+>
 Generate
-</button>
+</Button>
 
 
 {

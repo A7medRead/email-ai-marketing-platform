@@ -1,6 +1,8 @@
+import "./Templates.css";
 import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/client";
+import Button from "../../components/Button";
 
 
 export default function Templates(){
@@ -63,28 +65,27 @@ Manage your email templates
 </div>
 
 
-<button
-className="add-contact-btn"
+<Button
 onClick={()=>navigate("/templates/create")}
 >
 + Create Template
-</button>
+</Button>
 
 
 </div>
 
 
 
-<div className="contact-cards">
+<div className="templates-cards">
 
 
 {
 templates.map(t=>(
 
-<div className="contact-card" key={t.id}>
+<div className="templates-card" key={t.id}>
 
 
-<div className="contact-avatar">
+<div className="templates-avatar">
 {t.name?.[0]}
 </div>
 
@@ -116,21 +117,23 @@ Subject: {t.subject}
 
 
 
-<div className="contact-actions">
+<div className="templates-actions">
 
 
-<button
+<Button
+variant="secondary"
 onClick={()=>navigate(`/templates/${t.id}/edit`)}
 >
 ✎ Edit
-</button>
+</Button>
 
 
-<button
+<Button
+variant="danger"
 onClick={()=>remove(t.id)}
 >
 🗑 Delete
-</button>
+</Button>
 
 
 </div>

@@ -1,3 +1,5 @@
+import Button from "../../components/Button";
+import "./ContactLists.css";
 import {useEffect,useState} from "react";
 import {useParams,useNavigate} from "react-router-dom";
 import api from "../../api/client";
@@ -85,9 +87,12 @@ return (
 <div className="page">
 
 
-<button onClick={()=>navigate("/contact-lists")}>
+<Button
+variant="secondary"
+onClick={()=>navigate("/contact-lists")}
+>
 ← Back
-</button>
+</Button>
 
 
 <h1>{list.name}</h1>
@@ -104,14 +109,14 @@ Manage contacts
 <h2>Members ({members.length})</h2>
 
 
-<div className="contact-cards">
+<div className="contactlists-cards">
 
 {
 members.map(contact=>(
 
-<div className="contact-card" key={contact.id}>
+<div className="contactlists-card" key={contact.id}>
 
-<div className="contact-avatar">
+<div className="contactlists-avatar">
 {contact.first_name?.[0]}
 </div>
 
@@ -123,11 +128,12 @@ members.map(contact=>(
 📧 {contact.email}
 </p>
 
-<button
+<Button
+variant="danger"
 onClick={()=>removeContact(contact.id)}
 >
 Remove
-</button>
+</Button>
 
 </div>
 
@@ -143,17 +149,17 @@ Available Contacts
 </h2>
 
 
-<div className="contact-cards">
+<div className="contactlists-cards">
 
 {
 allContacts
 .filter(c=>!memberIds.includes(c.id))
 .map(contact=>(
 
-<div className="contact-card" key={contact.id}>
+<div className="contactlists-card" key={contact.id}>
 
 
-<div className="contact-avatar">
+<div className="contactlists-avatar">
 {contact.first_name?.[0]}
 </div>
 
@@ -168,11 +174,11 @@ allContacts
 </p>
 
 
-<button
+<Button
 onClick={()=>addContact(contact.id)}
 >
 Add to List
-</button>
+</Button>
 
 
 </div>

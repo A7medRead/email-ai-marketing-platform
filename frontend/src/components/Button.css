@@ -1,0 +1,88 @@
+
+.ui-button{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.2s;
+
+    font-size:14px;
+
+}
+
+
+.ui-button.primary{
+
+    background:#9333ea;
+
+    color:white;
+
+}
+
+
+.ui-button.secondary{
+
+    background:#272938;
+
+    color:white;
+
+}
+
+
+.ui-button.danger{
+
+    background:#dc2626;
+
+    color:white;
+
+}
+
+
+.ui-button.outline{
+
+    background:transparent;
+
+    color:white;
+
+    border:1px solid #444;
+
+}
+
+
+.ui-button.small{
+
+    padding:8px 14px;
+
+    border-radius:10px;
+
+    font-size:13px;
+
+}
+
+
+.ui-button:hover:not(:disabled){
+
+    transform:translateY(-2px);
+
+    opacity:.9;
+
+}
+
+
+.ui-button:disabled{
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+

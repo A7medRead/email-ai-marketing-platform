@@ -1,6 +1,8 @@
+import "./ContactLists.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/client";
+import Button from "../../components/Button";
 
 export default function ContactLists(){
 
@@ -30,15 +32,21 @@ return (
 Manage your customer groups
 </p>
 
+<Button
+onClick={()=>navigate("/contact-lists/create")}
+>
++ Create Contact List
+</Button>
 
-<div className="contact-cards">
+
+<div className="contactlists-cards">
 
 {
 lists.map(list=>(
 
-<div className="contact-card" key={list.id}>
+<div className="contactlists-card" key={list.id}>
 
-<div className="contact-avatar">
+<div className="contactlists-avatar">
 {list.name?.[0]}
 </div>
 
@@ -58,20 +66,22 @@ lists.map(list=>(
 </span>
 
 
-<div className="contact-actions">
+<div className="contactlists-actions">
 
-<button
+<Button
+variant="secondary"
 onClick={()=>navigate(`/contact-lists/${list.id}/manage`)}
 >
 👁 View
-</button>
+</Button>
 
 
-<button
+<Button
+variant="secondary"
 onClick={()=>navigate(`/contact-lists/${list.id}/manage`)}
 >
 ⚙ Manage
-</button>
+</Button>
 
 
 </div>

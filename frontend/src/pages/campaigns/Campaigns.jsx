@@ -1,6 +1,8 @@
+import "./Campaigns.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api/client";
+import Button from "../../components/Button";
 
 
 export default function Campaigns(){
@@ -82,10 +84,10 @@ return status.toLowerCase();
 
 return (
 
-<div className="campaign-page">
+<div className="campaigns-page">
 
 
-<div className="page-header">
+<div className="campaigns-header">
 
 <div>
 
@@ -102,9 +104,9 @@ Manage and track your email campaigns
 
 <Link to="/campaigns/create">
 
-<button className="create-btn">
+<Button>
 + Create Campaign
-</button>
+</Button>
 
 </Link>
 
@@ -114,14 +116,14 @@ Manage and track your email campaigns
 
 
 
-<div className="campaign-grid">
+<div className="campaigns-grid">
 
 
 {
 campaigns.map(c=>(
 
 
-<div className="campaign-card" key={c.id}>
+<div className="campaigns-card" key={c.id}>
 
 
 <h2>
@@ -167,12 +169,12 @@ campaigns.map(c=>(
 {
 (c.status==="DRAFT" || c.status==="draft") &&
 
-<button
+<Button
 disabled={loading===c.id}
 onClick={()=>prepare(c.id)}
 >
 {loading===c.id ? "Preparing..." : "Prepare"}
-</button>
+</Button>
 
 }
 
@@ -181,12 +183,12 @@ onClick={()=>prepare(c.id)}
 {
 (c.status==="PREPARED" || c.status==="prepared") &&
 
-<button
+<Button
 disabled={loading===c.id}
 onClick={()=>send(c.id)}
 >
 {loading===c.id ? "Sending..." : "Send"}
-</button>
+</Button>
 
 }
 
@@ -195,35 +197,36 @@ onClick={()=>send(c.id)}
 {
 (c.status==="FAILED" || c.status==="failed") &&
 
-<button
+<Button
+variant="secondary"
 disabled={loading===c.id}
 onClick={()=>retry(c.id)}
 >
 {loading===c.id ? "Retrying..." : "Retry"}
-</button>
+</Button>
 
 }
 
 
 
 <Link to={`/campaigns/${c.id}/analytics`}>
-<button>
+<Button variant="secondary">
 Analytics
-</button>
+</Button>
 </Link>
 
 
 <Link to={`/campaigns/${c.id}/details`}>
-<button>
+<Button variant="secondary">
 Details
-</button>
+</Button>
 </Link>
 
 
 <Link to={`/campaigns/${c.id}/performance`}>
-<button>
+<Button variant="secondary">
 Performance
-</button>
+</Button>
 </Link>
 
 

@@ -1,3 +1,4 @@
+import Button from "../../components/Button";
 import {useEffect,useState} from "react";
 import {useParams,useNavigate} from "react-router-dom";
 import api from "../../api/client";
@@ -73,9 +74,12 @@ return (
 <div className="page">
 
 
-<button onClick={()=>navigate("/senders")}>
+<Button
+variant="secondary"
+onClick={()=>navigate("/senders")}
+>
 ← Back
-</button>
+</Button>
 
 
 <h1>
@@ -118,9 +122,9 @@ onChange={change}
 />
 
 
-<button>
+<Button>
 Save Changes
-</button>
+</Button>
 
 
 </form>

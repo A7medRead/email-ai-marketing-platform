@@ -1,0 +1,133 @@
+
+.create-campaign-page{
+
+    width:100%;
+    display:flex;
+    justify-content:center;
+    padding:40px 20px;
+
+}
+
+
+.create-campaign-card{
+
+    width:650px;
+    background:#171821;
+    border:1px solid #272938;
+    border-radius:20px;
+    padding:35px;
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.25);
+
+    text-align:left;
+
+}
+
+
+.create-campaign-card h1,
+.create-campaign-card h2,
+.create-campaign-card h3{
+
+    text-align:center;
+
+}
+
+
+.subtitle{
+
+    color:#a1a1aa;
+    margin-bottom:35px;
+
+}
+
+
+.form-section{
+
+    margin-bottom:30px;
+    text-align:left;
+
+}
+
+
+.form-section h3{
+
+    color:#f4f4f5;
+    font-size:18px;
+    margin-bottom:15px;
+
+}
+
+
+.form-label{
+
+    display:block;
+    width:100%;
+    text-align:left;
+    color:#a1a1aa;
+    font-size:14px;
+    margin:10px 0 6px;
+    font-weight:500;
+
+}
+
+
+.create-campaign-card select,
+.create-campaign-card input,
+.create-campaign-card textarea{
+
+    width:100%;
+    box-sizing:border-box;
+
+    background:#111118;
+
+    border:1px solid #333;
+
+    color:white;
+
+    padding:14px 16px;
+
+    border-radius:12px;
+
+    margin-bottom:18px;
+
+    font-size:15px;
+
+}
+
+
+.create-campaign-card textarea{
+
+    min-height:150px;
+    resize:vertical;
+
+}
+
+
+.create-campaign-card select:focus,
+.create-campaign-card input:focus,
+.create-campaign-card textarea:focus{
+
+    outline:none;
+    border-color:#8b5cf6;
+
+}
+
+
+
+.template-preview{
+
+    background:#111118;
+
+    border:1px solid #333;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    margin-top:10px;
+
+    color:#d4d4d8;
+
+}
+

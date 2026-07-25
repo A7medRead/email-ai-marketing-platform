@@ -1,6 +1,8 @@
+import "./SenderAccounts.css";
 import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/client";
+import Button from "../../components/Button";
 
 
 export default function SenderAccounts(){
@@ -93,28 +95,27 @@ Manage your email sending accounts
 </div>
 
 
-<button
-className="add-contact-btn"
+<Button
 onClick={()=>navigate("/senders/create")}
 >
 + Add Sender
-</button>
+</Button>
 
 
 </div>
 
 
 
-<div className="contact-cards">
+<div className="senders-cards">
 
 
 {
 senders.map(sender=>(
 
-<div className="contact-card" key={sender.id}>
+<div className="senders-card" key={sender.id}>
 
 
-<div className="contact-avatar">
+<div className="senders-avatar">
 ✉️
 </div>
 
@@ -140,35 +141,38 @@ Status: {sender.status}
 
 
 
-<div className="contact-actions">
+<div className="senders-actions">
 
 
-<button
+<Button
+variant="secondary"
 onClick={()=>navigate(`/senders/${sender.id}/edit`)}
 >
 ✎ Edit
-</button>
+</Button>
 
 
-<button
+<Button
 onClick={()=>verify(sender.id)}
 >
 ✓ Verify
-</button>
+</Button>
 
 
-<button
+<Button
+variant="secondary"
 onClick={()=>sendTest(sender.id)}
 >
 📨 Test
-</button>
+</Button>
 
 
-<button
+<Button
+variant="danger"
 onClick={()=>remove(sender.id)}
 >
 🗑 Delete
-</button>
+</Button>
 
 
 </div>

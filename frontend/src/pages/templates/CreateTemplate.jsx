@@ -1,3 +1,4 @@
+import Button from "../../components/Button";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import api from "../../api/client";
@@ -57,9 +58,12 @@ return (
 <div className="page">
 
 
-<button onClick={()=>navigate("/templates")}>
+<Button
+variant="secondary"
+onClick={()=>navigate("/templates")}
+>
 ← Back
-</button>
+</Button>
 
 
 <h1>
@@ -144,9 +148,9 @@ onChange={change}
 />
 
 
-<button>
+<Button>
 Create Template
-</button>
+</Button>
 
 
 </form>

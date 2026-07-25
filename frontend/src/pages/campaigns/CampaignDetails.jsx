@@ -1,3 +1,5 @@
+import Button from "../../components/Button";
+import "./CampaignDetails.css";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import api from "../../api/client";
@@ -93,14 +95,14 @@ return (
 
 
 <Link to="/campaigns">
-<button>
+<Button variant="secondary">
 ← Back
-</button>
+</Button>
 </Link>
 
 
 
-<div className="contact-card"
+<div className="campaigndetails-card"
 style={{
 marginTop:"30px"
 }}
@@ -138,17 +140,21 @@ Failed: {campaign.failed_count}
 
 
 
-<div className="contact-actions">
+<div className="campaigndetails-actions">
 
 
-<button onClick={prepare}>
+<Button
+onClick={prepare}
+>
 Prepare
-</button>
+</Button>
 
 
-<button onClick={send}>
+<Button
+onClick={send}
+>
 Send Campaign
-</button>
+</Button>
 
 
 </div>
@@ -172,13 +178,13 @@ Email Deliveries
 
 
 
-<div className="contact-cards">
+<div className="campaigndetails-cards">
 
 
 {
 deliveries.map(d=>(
 
-<div className="contact-card" key={d.id}>
+<div className="campaigndetails-card" key={d.id}>
 
 
 <h2>

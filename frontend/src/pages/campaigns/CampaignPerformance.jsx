@@ -1,3 +1,4 @@
+import Button from "../../components/Button";
 import {useEffect,useState} from "react";
 import {useParams} from "react-router-dom";
 import api from "../../api/client";
@@ -44,9 +45,12 @@ width:"100%",
 boxSizing:"border-box"
 }}>
 
-<button onClick={()=>window.history.back()}>
+<Button
+variant="secondary"
+onClick={()=>window.history.back()}
+>
 Back
-</button>
+</Button>
 
 
 <h1>

@@ -1,0 +1,246 @@
+
+.dashboard{
+    width:100%;
+}
+
+
+.dashboard-header{
+
+    text-align:center;
+    margin-bottom:30px;
+
+}
+
+
+.dashboard-header p{
+
+    color:#888;
+
+}
+
+
+
+.dashboard-card{
+
+    position:relative;
+    transition:.2s;
+
+    background:
+    linear-gradient(
+    145deg,
+    rgba(255,255,255,0.03),
+    rgba(255,255,255,0.01)
+    );
+
+    border:1px solid #2e303a;
+
+    min-height:130px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+}
+
+
+
+.dashboard-card:hover{
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.25);
+
+    border-color:#c084fc;
+
+}
+
+
+
+.dashboard-card h2{
+
+    font-size:36px;
+    margin:8px 0;
+    color:#f3f4f6;
+
+}
+
+
+
+.dashboard-card p{
+
+    font-size:14px;
+    color:#9ca3af;
+
+}
+
+
+
+.card-icon{
+
+    font-size:24px;
+    margin-bottom:10px;
+
+}
+
+
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-top:40px;
+}
+
+
+
+.charts{
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+    margin-top:40px;
+
+}
+
+
+
+.chart-box{
+
+    border:1px solid #2e303a;
+    border-radius:14px;
+    padding:20px;
+    background:
+    rgba(255,255,255,0.02);
+
+}
+
+
+
+.chart-box h3{
+
+    font-size:18px;
+    color:#f3f4f6;
+    text-align:center;
+    margin-bottom:20px;
+
+}
+
+
+
+.recent-section{
+
+    margin-top:50px;
+
+}
+
+
+
+.status{
+
+    padding:5px 12px;
+    border-radius:20px;
+    background:#20212b;
+
+}
+
+
+
+.dashboard-title-row{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+
+}
+
+
+
+
+
+@media(max-width:900px){
+
+    .cards{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+    .charts{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+
+@media(max-width:600px){
+
+    .cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+
+@media(max-width:700px){
+
+    .dashboard-title-row{
+
+        flex-direction:column;
+
+    }
+
+}
+
+
+
+
+/* Recent Campaigns */
+
+.recent-section{
+
+    margin-top:50px;
+
+}
+
+
+.recent-section table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+}
+
+
+.recent-section th,
+.recent-section td{
+
+    padding:12px;
+
+    border-bottom:1px solid #333;
+
+    text-align:center;
+
+}
+
+
+.status{
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    background:#20212b;
+
+}
+

@@ -1,3 +1,5 @@
+import Button from "../../components/Button";
+import "./ContactDetails.css";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../api/client";
@@ -70,12 +72,12 @@ Contact details
 </div>
 
 
-<button
-className="contact-back-btn"
+<Button
+variant="secondary"
 onClick={()=>navigate("/contacts")}
 >
 ← Back
-</button>
+</Button>
 
 
 </div>
@@ -83,7 +85,7 @@ onClick={()=>navigate("/contacts")}
 
 
 <div 
-className="contact-card details-card"
+className="contactcontactdetails-details-card contactdetails-details-card"
 style={{
 maxWidth:"600px",
 margin:"40px auto"
@@ -91,7 +93,7 @@ margin:"40px auto"
 >
 
 
-<div className="contact-avatar">
+<div className="contactdetails-avatar">
 
 {contact.first_name?.[0]}
 {contact.last_name?.[0]}
@@ -100,7 +102,7 @@ margin:"40px auto"
 
 
 
-<h2 className="contact-name">
+<h2 className="contactdetails-name">
 
 {contact.first_name} {contact.last_name}
 
@@ -137,22 +139,24 @@ margin:"40px auto"
 
 
 
-<div className="contact-actions">
+<div className="contactdetails-actions">
 
 
-<button
+<Button
+variant="secondary"
 onClick={()=>navigate(`/contacts/${id}/edit`)}
 >
 ✎ Edit
-</button>
+</Button>
 
 
 
-<button
+<Button
+variant="danger"
 onClick={remove}
 >
 🗑 Delete
-</button>
+</Button>
 
 
 </div>

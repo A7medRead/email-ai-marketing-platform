@@ -1,7 +1,9 @@
+import "./Emails.css";
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api/client";
+import Button from "../../components/Button";
 
 export default function Emails(){
 
@@ -43,7 +45,7 @@ console.log(err);
 
 return (
 
-<div>
+<div className="emails-page">
 
 <h1>Emails</h1>
 
@@ -92,9 +94,12 @@ return (
 </td>
 
 <td>
-<button onClick={()=>deleteEmail(email.id)}>
+<Button
+variant="danger"
+onClick={()=>deleteEmail(email.id)}
+>
 Delete
-</button>
+</Button>
 </td>
 
 </tr>

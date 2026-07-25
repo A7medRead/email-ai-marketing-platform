@@ -22,6 +22,7 @@ import CreateContact from "./pages/contacts/CreateContact";
 import ContactDetails from "./pages/contacts/ContactDetails";
 import EditContact from "./pages/contacts/EditContact";
 import ContactLists from "./pages/contactlists/ContactLists";
+import CreateContactList from "./pages/contactlists/CreateContactList";
 import ManageContactList from "./pages/contactlists/ManageContactList";
 
 
@@ -95,6 +96,7 @@ element={<CampaignDetails />}
 
 
 <Route path="/contact-lists" element={<ContactLists />} />
+<Route path="/contact-lists/create" element={<CreateContactList />} />
 
 </Route>
 

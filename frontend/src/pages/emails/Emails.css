@@ -1,0 +1,119 @@
+
+/* Emails List */
+
+.emails-page{
+
+    width:100%;
+
+}
+
+
+.emails-page h1{
+
+    margin-bottom:20px;
+
+}
+
+
+.emails-page table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:25px;
+
+    background:#171821;
+
+    border:1px solid #272938;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+
+.emails-page th,
+.emails-page td{
+
+    padding:14px;
+
+    text-align:center;
+
+    border-bottom:1px solid #2e303a;
+
+}
+
+
+.emails-page th{
+
+    color:#f3f4f6;
+
+}
+
+
+.emails-page td{
+
+    color:#a1a1aa;
+
+}
+
+
+.emails-page button{
+
+    background:#9333ea;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 16px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}
+
+
+.emails-page a{
+
+    color:#c084fc;
+
+    text-decoration:none;
+
+}
+
+
+.email-details-page{
+
+    width:100%;
+
+}
+
+
+.email-details-page pre{
+
+    background:#171821;
+
+    border:1px solid #2e303a;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    color:#e4e4e7;
+
+}
+
+
+
+.email-create-page{
+
+    width:100%;
+
+}
+
+
+

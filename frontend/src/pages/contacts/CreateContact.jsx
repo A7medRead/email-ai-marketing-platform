@@ -1,3 +1,4 @@
+import Button from "../../components/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/client";
@@ -53,7 +54,12 @@ return (
 <div className="page">
 
 
-<button onClick={()=>navigate("/contacts")}>← Back</button>
+<Button
+variant="secondary"
+onClick={()=>navigate("/contacts")}
+>
+← Back
+</Button>
 
 <h1>
 Add Contact
@@ -128,13 +134,13 @@ onChange={handle}
 
 
 
-<button
+<Button
 style={{
 marginTop:"10px"
 }}
 >
 Create Contact
-</button>
+</Button>
 
 
 </form>

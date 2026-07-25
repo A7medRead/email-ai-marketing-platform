@@ -1,3 +1,4 @@
+import Button from "../components/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/client";
@@ -80,9 +81,9 @@ export default function Login(){
                 />
 
 
-                <button>
+                <Button>
                     Login
-                </button>
+                </Button>
 
 
             </form>

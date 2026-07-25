@@ -1,0 +1,88 @@
+
+.senders-add-btn{
+
+    background:#9333ea;
+    color:white;
+
+    border:none;
+    padding:12px 22px;
+    border-radius:12px;
+
+    cursor:pointer;
+
+}
+
+
+.senders-cards{
+
+    display:grid;
+    grid-template-columns:repeat(2,minmax(320px,1fr));
+    gap:25px;
+
+}
+
+
+.senders-card{
+
+    background:#171821;
+
+    border:1px solid #272938;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    min-height:260px;
+
+}
+
+
+.senders-avatar{
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:#5b21b6;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:26px;
+
+}
+
+
+.senders-actions{
+
+    margin-top:25px;
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+
+.senders-actions button{
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+}
+
+
+@media(max-width:900px){
+
+    .senders-cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+

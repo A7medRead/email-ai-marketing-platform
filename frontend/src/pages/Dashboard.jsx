@@ -1,3 +1,5 @@
+import Button from "../components/Button";
+import "./dashboard/Dashboard.css";
 import {useEffect,useState} from "react";
 import { Link } from "react-router-dom";
 import api from "../api/client";
@@ -124,9 +126,9 @@ Monitor your email marketing performance
 
 <Link to="/campaigns/create">
 
-<button className="create-btn">
+<Button>
 + Create Campaign
-</button>
+</Button>
 
 </Link>
 
@@ -309,9 +311,9 @@ Recent Campaigns
 
 <Link to={`/campaigns/${c.id}/details`}>
 
-<button>
+<Button variant="secondary">
 View
-</button>
+</Button>
 
 </Link>
 

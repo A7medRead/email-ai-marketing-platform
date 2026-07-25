@@ -1,3 +1,4 @@
+import "./Emails.css";
 
 import {useEffect,useState} from "react";
 import {useParams,Link} from "react-router-dom";
@@ -28,7 +29,7 @@ return <h1>Loading...</h1>;
 
 return (
 
-<div>
+<div className="email-details-page">
 
 <Link to="/emails">
 ← Back to Emails

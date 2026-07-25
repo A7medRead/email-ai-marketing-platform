@@ -1,3 +1,4 @@
+import Button from "../../components/Button";
 import {useEffect,useState} from "react";
 import {useParams,useNavigate} from "react-router-dom";
 import api from "../../api/client";
@@ -50,9 +51,12 @@ return (
 
 <div>
 
-<button onClick={()=>navigate(`/contacts/${id}`)}>
+<Button
+variant="secondary"
+onClick={()=>navigate(`/contacts/${id}`)}
+>
 ← Back
-</button>
+</Button>
 
 <h1>Edit Contact</h1>
 
@@ -85,9 +89,11 @@ margin:"10px 0"
 ))}
 
 
-<button onClick={save}>
+<Button
+onClick={save}
+>
 Save Changes
-</button>
+</Button>
 
 
 </div>

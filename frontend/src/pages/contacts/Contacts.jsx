@@ -1,6 +1,8 @@
+import "./Contacts.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api/client";
+import Button from "../../components/Button";
 
 export default function Contacts(){
 
@@ -60,9 +62,9 @@ Manage your customer contacts
 
 
 <Link to="/contacts/create">
-<button className="add-contact-btn">
+<Button>
 + Add Contact
-</button>
+</Button>
 </Link>
 
 </div>
@@ -114,16 +116,16 @@ filtered.map(contact=>(
 
 
 <Link to={`/contacts/${contact.id}`}>
-<button>
+<Button variant="secondary">
 👁 View
-</button>
+</Button>
 </Link>
 
 
 <Link to={`/contacts/${contact.id}/edit`}>
-<button className="edit">
+<Button variant="secondary">
 ✎ Edit
-</button>
+</Button>
 </Link>
 
 

@@ -1,30 +1,27 @@
 import Button from "../../components/Button";
+import "./ContactLists.css";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import api from "../../api/client";
 
-
-export default function CreateSenderAccount(){
+export default function CreateContactList(){
 
 const navigate = useNavigate();
 
-
-const [form,setForm]=useState({
-email:"",
-display_name:"",
-smtp_password:""
+const [form,setForm] = useState({
+    name:"",
+    description:""
 });
 
 
 function change(e){
 
-setForm({
-...form,
-[e.target.name]:e.target.value
-});
+setForm(prev=>({
+    ...prev,
+    [e.target.name]:e.target.value
+}));
 
 }
-
 
 
 async function submit(e){
@@ -33,9 +30,9 @@ e.preventDefault();
 
 try{
 
-await api.post("/sender-accounts/",form);
+await api.post("/contact-lists/",form);
 
-navigate("/senders");
+navigate("/contact-lists");
 
 }
 catch(err){
@@ -47,29 +44,24 @@ console.log(err.response?.data || err);
 }
 
 
-
 return (
 
 <div className="page">
 
-
 <Button
 variant="secondary"
-onClick={()=>navigate("/senders")}
+onClick={()=>navigate("/contact-lists")}
 >
 ← Back
 </Button>
 
-
 <h1>
-Add Sender Account
+Create Contact List
 </h1>
 
-
 <p className="subtitle">
-Configure email sending account
+Create customer group
 </p>
-
 
 
 <form
@@ -77,37 +69,27 @@ onSubmit={submit}
 style={{
 display:"grid",
 gap:"18px",
-maxWidth:"600px",
-marginTop:"30px"
+maxWidth:"600px"
 }}
 >
 
-
 <input
-name="display_name"
-placeholder="Display Name"
+name="name"
+placeholder="List Name"
 onChange={change}
 />
 
 
-<input
-name="email"
-placeholder="Email Address"
-type="email"
-onChange={change}
-/>
-
-
-<input
-name="smtp_password"
-placeholder="SMTP Password"
-type="password"
+<textarea
+name="description"
+placeholder="Description"
+rows="5"
 onChange={change}
 />
 
 
 <Button>
-Create Sender
+Create List
 </Button>
 
 
