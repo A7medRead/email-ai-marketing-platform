@@ -58,7 +58,7 @@ BodyField = Annotated[
     str,
     Field(
         min_length=5,
-        max_length=5000,
+        max_length=50000,
     ),
 ]
 

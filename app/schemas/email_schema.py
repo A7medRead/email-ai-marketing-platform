@@ -8,6 +8,13 @@ class EmailRequest(BaseModel):
     description: str
     tone: str
     language: str
+    action: str = "generate"
+
+
+class EditEmailRequest(BaseModel):
+    subject: str
+    body: str
+    action: str
 
 
 class EmailResponse(BaseModel):

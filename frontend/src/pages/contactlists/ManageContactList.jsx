@@ -1,4 +1,5 @@
 import Button from "../../components/Button";
+import Card from "../../components/Card";
 import "./ContactLists.css";
 import {useEffect,useState} from "react";
 import {useParams,useNavigate} from "react-router-dom";
@@ -14,6 +15,7 @@ const [list,setList]=useState(null);
 const [allContacts,setAllContacts]=useState([]);
 const [members,setMembers]=useState([]);
 const [message,setMessage]=useState("");
+const [loading,setLoading]=useState(false);
 
 
 async function load(){
@@ -47,13 +49,24 @@ load();
 
 async function addContact(contactId){
 
+try{
+
+setLoading(true);
+
 await api.post(
 `/contact-lists/${id}/contacts/${contactId}`
 );
 
 setMessage("Contact added");
 
-load();
+await load();
+
+}
+finally{
+
+setLoading(false);
+
+}
 
 }
 
@@ -61,13 +74,24 @@ load();
 
 async function removeContact(contactId){
 
+try{
+
+setLoading(true);
+
 await api.delete(
 `/contact-lists/${id}/contacts/${contactId}`
 );
 
 setMessage("Contact removed");
 
-load();
+await load();
+
+}
+finally{
+
+setLoading(false);
+
+}
 
 }
 
@@ -114,7 +138,7 @@ Manage contacts
 {
 members.map(contact=>(
 
-<div className="contactlists-card" key={contact.id}>
+<Card className="contactlists-card" key={contact.id}>
 
 <div className="contactlists-avatar">
 {contact.first_name?.[0]}
@@ -130,12 +154,13 @@ members.map(contact=>(
 
 <Button
 variant="danger"
+disabled={loading}
 onClick={()=>removeContact(contact.id)}
 >
-Remove
+{loading ? "Removing..." : "Remove"}
 </Button>
 
-</div>
+</Card>
 
 ))
 }
@@ -156,7 +181,7 @@ allContacts
 .filter(c=>!memberIds.includes(c.id))
 .map(contact=>(
 
-<div className="contactlists-card" key={contact.id}>
+<Card className="contactlists-card" key={contact.id}>
 
 
 <div className="contactlists-avatar">
@@ -175,13 +200,14 @@ allContacts
 
 
 <Button
+disabled={loading}
 onClick={()=>addContact(contact.id)}
 >
-Add to List
+{loading ? "Adding..." : "Add to List"}
 </Button>
 
 
-</div>
+</Card>
 
 ))
 }

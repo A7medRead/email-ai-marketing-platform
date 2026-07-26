@@ -13,6 +13,7 @@ class CampaignBase(BaseModel):
     template_id: Optional[int] = None
 
     name: str
+    from_name: Optional[str] = None
     subject: str
     body: str
     scheduled_at: Optional[datetime] = None
@@ -26,6 +27,7 @@ class CampaignCreate(CampaignBase):
 class CampaignUpdate(BaseModel):
 
     name: Optional[str] = None
+    from_name: Optional[str] = None
     subject: Optional[str] = None
     body: Optional[str] = None
     status: Optional[CampaignStatus] = None

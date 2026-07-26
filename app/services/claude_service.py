@@ -8,12 +8,34 @@ from app.prompts.email_prompt import SYSTEM_PROMPT
 from app.repositories.email_repository import save_email
 
 
+
 client = Anthropic(api_key=ANTHROPIC_API_KEY)
 
+AI_ACTIONS = {
+    "generate": "Generate a brand-new marketing email.",
+    "improve": "Improve the email while keeping the same intent.",
+    "rewrite": "Rewrite the email in a different way while preserving the meaning.",
+    "shorten": "Rewrite the email to be shorter and more concise.",
+    "lengthen": "Expand the email with more useful details.",
+    "professional": "Rewrite the email using a professional business tone.",
+    "friendly": "Rewrite the email using a warm and friendly tone.",
+}
 
-def create_email_content(data):
+
+def create_email_content(
+    data,
+    action: str = "generate",
+):
+
+    instruction = AI_ACTIONS.get(
+        action,
+        AI_ACTIONS["generate"],
+    )
 
     user_prompt = f"""
+Instruction:
+{instruction}
+
 Purpose:
 {data.purpose}
 
@@ -25,6 +47,8 @@ Tone:
 
 Language:
 {data.language}
+
+Return ONLY valid JSON.
 """
 
     response = client.messages.create(
@@ -40,7 +64,14 @@ Language:
         ],
     )
 
-    text = response.content[0].text
+    text = ""
+
+    for block in response.content:
+        if hasattr(block, "text"):
+            text += block.text
+
+    if not text:
+        raise Exception("Claude returned no text content")
 
     return json.loads(text)
 
@@ -64,3 +95,52 @@ def generate_email(
     )
 
     return result
+
+def edit_email_content(data):
+    instruction = AI_ACTIONS.get(
+        data.action,
+        AI_ACTIONS["improve"],
+    )
+
+    user_prompt = f"""
+Instruction:
+{instruction}
+
+Subject:
+{data.subject}
+
+Body:
+{data.body}
+
+Return ONLY valid JSON in this format:
+
+{{
+    "subject": "...",
+    "body": "..."
+}}
+"""
+
+    response = client.messages.create(
+        model=MODEL,
+        max_tokens=1000,
+        temperature=1,
+        system=SYSTEM_PROMPT,
+        messages=[
+            {
+                "role": "user",
+                "content": user_prompt,
+            }
+        ],
+    )
+
+    text = ""
+
+    for block in response.content:
+        if hasattr(block, "text"):
+            text += block.text
+
+    if not text:
+        raise Exception("Claude returned no text content")
+
+    return json.loads(text)
+

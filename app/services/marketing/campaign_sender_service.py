@@ -119,6 +119,7 @@ class CampaignSenderService:
 
             result = send_campaign_email(
                 sender_email=sender_account.email,
+                sender_name=campaign.from_name or sender_account.name,
                 encrypted_password=sender_account.encrypted_password,
                 recipient_email=delivery.recipient_email,
                 subject=campaign.subject,

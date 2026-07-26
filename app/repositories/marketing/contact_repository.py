@@ -53,6 +53,8 @@ def get_all_contacts(
     page: int = 1,
     limit: int = 10,
     search: str | None = None,
+    status: str | None = None,
+    company: str | None = None,
 ):
 
     query = (
@@ -70,6 +72,18 @@ def get_all_contacts(
             Contact.last_name.ilike(f"%{search}%")
             |
             Contact.email.ilike(f"%{search}%")
+        )
+
+
+    if status:
+        query = query.filter(
+            Contact.status == status
+        )
+
+
+    if company:
+        query = query.filter(
+            Contact.company.ilike(f"%{company}%")
         )
 
 
@@ -104,3 +118,19 @@ def delete_contact(
     db.commit()
 
     return True
+
+def get_contacts_by_ids(
+    db: Session,
+    user_id: int,
+    ids: list[int],
+):
+
+    return (
+        db.query(Contact)
+        .filter(
+            Contact.user_id == user_id,
+            Contact.id.in_(ids),
+        )
+        .all()
+    )
+

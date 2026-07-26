@@ -33,10 +33,6 @@
 
 .contact-card{
 
-    border:1px solid #272938;
-    border-radius:18px;
-    padding:25px;
-    background:#171821;
     min-height:260px;
     text-align:left;
 
@@ -118,6 +114,35 @@
         grid-template-columns:1fr;
 
     }
+
+}
+
+
+
+.contacts-pagination{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:16px;
+
+    margin:25px 0;
+
+}
+
+
+.contacts-pagination span{
+
+    padding:8px 18px;
+
+    border-radius:12px;
+
+    background:#20212b;
+
+    color:white;
+
+    font-weight:600;
 
 }
 

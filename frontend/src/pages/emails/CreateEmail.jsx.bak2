@@ -1,0 +1,135 @@
+import "./Emails.css";
+
+import {useState} from "react";
+import api from "../../api/client";
+import Button from "../../components/Button";
+
+export default function CreateEmail(){
+
+const [form,setForm]=useState({
+purpose:"",
+description:"",
+tone:"Professional",
+language:"English",
+action:"generate"
+});
+
+const [result,setResult]=useState(null);
+
+
+function change(e){
+setForm({
+...form,
+[e.target.name]:e.target.value
+});
+}
+
+
+function submit(){
+
+api.post("/email/generate",form)
+.then(res=>{
+setResult(res.data);
+})
+.catch(err=>{
+console.log(err);
+});
+
+}
+
+
+return (
+
+<div>
+
+<h1>Create Email</h1>
+
+
+<input
+name="purpose"
+placeholder="Purpose"
+onChange={change}
+/>
+
+
+<br/>
+
+
+<textarea
+name="description"
+placeholder="Description"
+onChange={change}
+/>
+
+
+<br/>
+
+
+<br/>
+
+<select
+name="tone"
+value={form.tone}
+onChange={change}
+>
+<option>Professional</option>
+<option>Friendly</option>
+<option>Casual</option>
+<option>Persuasive</option>
+</select>
+
+<br/>
+
+<select
+name="language"
+value={form.language}
+onChange={change}
+>
+<option>English</option>
+<option>Arabic</option>
+<option>French</option>
+<option>Spanish</option>
+</select>
+
+<br/>
+
+<select
+name="action"
+value={form.action}
+onChange={change}
+>
+<option value="generate">Generate</option>
+<option value="improve">Improve</option>
+<option value="rewrite">Rewrite</option>
+<option value="shorten">Shorten</option>
+<option value="lengthen">Lengthen</option>
+<option value="professional">Professional</option>
+<option value="friendly">Friendly</option>
+</select>
+
+<br/>
+
+<Button
+onClick={submit}
+>
+Run AI
+</Button>
+
+
+{
+result &&
+<div>
+
+<h3>{result.subject}</h3>
+
+<p>{result.body}</p>
+
+</div>
+}
+
+
+</div>
+
+)
+
+}

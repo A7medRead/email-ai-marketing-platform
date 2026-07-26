@@ -3,11 +3,15 @@ import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/client";
 import Button from "../../components/Button";
+import Card from "../../components/Card";
+import Loading from "../../components/Loading";
+import EmptyState from "../../components/EmptyState";
 
 
 export default function Templates(){
 
 const [templates,setTemplates]=useState([]);
+const [pageLoading,setPageLoading]=useState(true);
 const navigate=useNavigate();
 
 
@@ -15,6 +19,7 @@ async function load(){
 
 const res = await api.get("/templates/");
 setTemplates(res.data);
+setPageLoading(false);
 
 }
 
@@ -46,6 +51,10 @@ load();
 
 
 
+if(pageLoading)
+return <Loading />;
+
+
 return (
 
 <div className="page">
@@ -66,7 +75,7 @@ Manage your email templates
 
 
 <Button
-onClick={()=>navigate("/templates/create")}
+onClick={()=>{console.log("CREATE TEMPLATE CLICKED"); navigate("/templates/create")}}
 >
 + Create Template
 </Button>
@@ -80,9 +89,16 @@ onClick={()=>navigate("/templates/create")}
 
 
 {
+templates.length === 0
+?
+<EmptyState
+title="No templates found"
+message="Create your first email template"
+/>
+:
 templates.map(t=>(
 
-<div className="templates-card" key={t.id}>
+<Card className="templates-card" key={t.id}>
 
 
 <div className="templates-avatar">
@@ -139,7 +155,7 @@ onClick={()=>remove(t.id)}
 </div>
 
 
-</div>
+</Card>
 
 ))
 }

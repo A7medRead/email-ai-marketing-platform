@@ -109,6 +109,7 @@ class CampaignService:
             contact_list_id=data.contact_list_id,
             template_id=data.template_id,
             name=data.name,
+            from_name=data.from_name,
             subject=template.subject if template else data.subject,
             body=template.body if template else data.body,
             status=CampaignStatus.DRAFT,

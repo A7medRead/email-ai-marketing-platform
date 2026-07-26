@@ -45,7 +45,12 @@ navigate("/templates");
 }
 catch(err){
 
+console.log("CREATE TEMPLATE ERROR:");
 console.log(err.response?.data || err);
+
+alert(
+JSON.stringify(err.response?.data || err)
+);
 
 }
 
@@ -148,7 +153,7 @@ onChange={change}
 />
 
 
-<Button>
+<Button type="submit">
 Create Template
 </Button>
 

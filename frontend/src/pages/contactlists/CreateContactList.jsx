@@ -88,7 +88,7 @@ onChange={change}
 />
 
 
-<Button>
+<Button type="submit">
 Create List
 </Button>
 

@@ -24,14 +24,6 @@
 
 .senders-card{
 
-    background:#171821;
-
-    border:1px solid #272938;
-
-    border-radius:18px;
-
-    padding:25px;
-
     min-height:260px;
 
 }
@@ -69,9 +61,15 @@
 
 .senders-actions button{
 
-    padding:10px 16px;
+    padding:8px 14px;
 
     border-radius:10px;
+
+    font-size:13px;
+
+    line-height:1;
+
+    height:36px;
 
 }
 

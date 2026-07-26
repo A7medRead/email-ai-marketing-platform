@@ -3,6 +3,7 @@ import re
 from urllib.parse import quote
 
 from email.mime.text import MIMEText
+from email.utils import formataddr
 from email.mime.multipart import MIMEMultipart
 
 from app.core.encryption import decrypt
@@ -218,6 +219,7 @@ AI Email Marketing Platform
 
 def send_campaign_email(
     sender_email: str,
+    sender_name: str,
     encrypted_password: str,
     recipient_email: str,
     subject: str,
@@ -237,7 +239,9 @@ def send_campaign_email(
 
         message = MIMEMultipart()
 
-        message["From"] = sender_email
+        message["From"] = formataddr(
+            (sender_name, sender_email)
+        )
         message["To"] = recipient_email
         message["Subject"] = subject
 
@@ -252,10 +256,17 @@ def send_campaign_email(
         """
 
 
-        html_body = body.replace(
-            "\n",
-            "<br>"
-        )
+        html_body = body
+
+        if not (
+            "<html" in body.lower()
+            or "<body" in body.lower()
+            or "<table" in body.lower()
+        ):
+            html_body = body.replace(
+                "\n",
+                "<br>"
+            )
 
 
         def replace_link(match):

@@ -43,10 +43,20 @@ def create_contact(
 def get_contacts(
     db: Session,
     user_id: int,
+    page: int = 1,
+    limit: int = 10,
+    search: str | None = None,
+    status: str | None = None,
+    company: str | None = None,
 ):
     return contact_repository.get_all_contacts(
         db=db,
         user_id=user_id,
+        page=page,
+        limit=limit,
+        search=search,
+        status=status,
+        company=company,
     )
 
 
@@ -80,3 +90,19 @@ def delete_contact(
         db=db,
         contact=contact,
     )
+
+
+def bulk_delete_contacts(
+    db: Session,
+    contacts: list[Contact],
+):
+
+    for contact in contacts:
+        db.delete(contact)
+
+    db.commit()
+
+    return {
+        "deleted": len(contacts)
+    }
+

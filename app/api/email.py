@@ -7,6 +7,7 @@ from app.models.user import User
 
 from app.schemas.email_schema import (
     EmailRequest,
+    EditEmailRequest,
     EmailResponse,
     EmailHistoryResponse,
     EmailHistoryListResponse,
@@ -16,6 +17,7 @@ from app.schemas.email_schema import (
 from app.services.claude_service import (
     generate_email,
     create_email_content,
+    edit_email_content,
 )
 
 from app.services.email_sender import send_email
@@ -48,6 +50,19 @@ def create_email(
         user_id=current_user.id,
         data=request,
     )
+
+
+@router.post(
+    "/edit",
+    response_model=EmailResponse,
+)
+def edit_email_endpoint(
+    request: EditEmailRequest,
+    current_user: User = Depends(get_current_user),
+):
+    return edit_email_content(request)
+
+
 
 
 @router.get(
@@ -123,7 +138,7 @@ def update_email_endpoint(
             detail="Email not found",
         )
 
-    result = create_email_content(request)
+    result = create_email_content(request, action=request.action)
 
     updated_email = update_email(
         db=db,

@@ -1,0 +1,20 @@
+.ui-card{
+
+    background:#16171d;
+
+    border:1px solid #2e303a;
+
+    border-radius:16px;
+
+    padding:24px;
+
+    transition:.2s;
+
+}
+
+
+.ui-card:hover{
+
+    transform:translateY(-2px);
+
+}

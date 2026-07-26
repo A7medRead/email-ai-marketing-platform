@@ -75,7 +75,7 @@ navigate("/templates");
 }
 catch(err){
 
-console.log(err.response?.data || err);
+console.log(JSON.stringify(err.response?.data || err, null, 2));
 
 }
 
@@ -171,7 +171,7 @@ onChange={change}
 />
 
 
-<Button>
+<Button type="submit">
 Save Changes
 </Button>
 

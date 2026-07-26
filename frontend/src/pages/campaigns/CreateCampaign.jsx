@@ -24,6 +24,7 @@ sender_account_id:"",
 contact_list_id:"",
 template_id:"",
 name:"",
+from_name:"",
 subject:"",
 body:"",
 scheduled_at:""
@@ -207,11 +208,13 @@ Select Sender
 
 
 {
-senders.map(s=>(
+senders
+.filter(s=>s.status==="VERIFIED" || s.status==="verified")
+.map(s=>(
 
 <option key={s.id} value={s.id}>
 
-{s.name} - {s.status}
+{s.name} - {s.email}
 
 </option>
 
@@ -300,6 +303,17 @@ style={{width:"100%",marginBottom:"15px"}}
 />
 
 
+<label className="form-label">From Name</label>
+
+<input
+name="from_name"
+placeholder="Sender Display Name"
+value={form.from_name}
+onChange={change}
+style={{width:"100%",marginBottom:"15px"}}
+/>
+
+
 
 
 
@@ -328,6 +342,50 @@ style={{width:"100%",marginBottom:"15px"}}
 
 
 
+
+
+<div
+style={{
+marginTop:"20px",
+marginBottom:"25px",
+background:"#101116",
+padding:"20px",
+borderRadius:"12px"
+}}
+>
+
+<h3>
+Email Preview
+</h3>
+
+
+<p>
+<strong>Subject:</strong>
+</p>
+
+<p>
+{form.subject || "No subject"}
+</p>
+
+
+<p>
+<strong>Body:</strong>
+</p>
+
+<div
+style={{
+background:"#16171d",
+padding:"15px",
+borderRadius:"8px",
+color:"#fff"
+}}
+dangerouslySetInnerHTML={{
+__html: form.body || "No content"
+}}
+/>
+
+
+</div>
 
 
 <h3>

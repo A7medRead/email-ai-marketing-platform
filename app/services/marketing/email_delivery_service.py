@@ -77,8 +77,16 @@ class EmailDeliveryService:
     def get_campaign_deliveries(
         self,
         campaign_id: int,
+        search: str | None = None,
+        status: str | None = None,
+        page: int = 1,
+        limit: int = 25,
     ):
 
-        return self.repository.get_by_campaign(
-            campaign_id
+        return self.repository.search_by_campaign(
+            campaign_id,
+            search=search,
+            status=status,
+            page=page,
+            limit=limit,
         )

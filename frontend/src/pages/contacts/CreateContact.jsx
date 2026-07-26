@@ -135,9 +135,7 @@ onChange={handle}
 
 
 <Button
-style={{
-marginTop:"10px"
-}}
+type="submit"
 >
 Create Contact
 </Button>

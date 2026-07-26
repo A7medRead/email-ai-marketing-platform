@@ -76,6 +76,12 @@ class Campaign(Base):
     )
 
 
+    from_name = Column(
+        String(255),
+        nullable=True,
+    )
+
+
     subject = Column(
         String(255),
         nullable=False,

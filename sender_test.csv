@@ -1,0 +1,3 @@
+email,name,provider,password
+sender.one.demo@gmail.com,Demo Sender One,gmail,testpass123
+sender.two.demo@gmail.com,Demo Sender Two,gmail,testpass456

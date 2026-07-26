@@ -1,0 +1,132 @@
+﻿import json
+
+from anthropic import Anthropic
+from sqlalchemy.orm import Session
+
+from app.core.config import ANTHROPIC_API_KEY, MODEL
+from app.prompts.email_prompt import SYSTEM_PROMPT
+from app.repositories.email_repository import save_email
+
+
+
+client = Anthropic(api_key=ANTHROPIC_API_KEY)
+
+AI_ACTIONS = {
+    "generate": "Generate a brand-new marketing email.",
+    "improve": "Improve the email while keeping the same intent.",
+    "rewrite": "Rewrite the email in a different way while preserving the meaning.",
+    "shorten": "Rewrite the email to be shorter and more concise.",
+    "lengthen": "Expand the email with more useful details.",
+    "professional": "Rewrite the email using a professional business tone.",
+    "friendly": "Rewrite the email using a warm and friendly tone.",
+}
+
+
+def create_email_content(
+    data,
+    action: str = "generate",
+):
+
+    instruction = AI_ACTIONS.get(
+        action,
+        AI_ACTIONS["generate"],
+    )
+
+    user_prompt = f"""
+Instruction:
+{instruction}
+
+Purpose:
+{data.purpose}
+
+Description:
+{data.description}
+
+Tone:
+{data.tone}
+
+Language:
+{data.language}
+
+Return ONLY valid JSON.
+"""
+
+    response = client.messages.create(
+        model=MODEL,
+        max_tokens=1000,
+        temperature=1,
+        system=SYSTEM_PROMPT,
+        messages=[
+            {
+                "role": "user",
+                "content": user_prompt,
+            }
+        ],
+    )
+
+    text = response.content[0].text
+
+    return json.loads(text)
+
+
+def generate_email(
+    db: Session,
+    user_id: int,
+    data,
+):
+    result = create_email_content(data)
+
+    save_email(
+        db=db,
+        user_id=user_id,
+        purpose=data.purpose,
+        description=data.description,
+        tone=data.tone,
+        language=data.language,
+        subject=result["subject"],
+        body=result["body"],
+    )
+
+    return result
+
+def edit_email_content(data):
+    instruction = AI_ACTIONS.get(
+        data.action,
+        AI_ACTIONS["improve"],
+    )
+
+    user_prompt = f"""
+Instruction:
+{instruction}
+
+Subject:
+{data.subject}
+
+Body:
+{data.body}
+
+Return ONLY valid JSON in this format:
+
+{{
+    "subject": "...",
+    "body": "..."
+}}
+"""
+
+    response = client.messages.create(
+        model=MODEL,
+        max_tokens=1000,
+        temperature=1,
+        system=SYSTEM_PROMPT,
+        messages=[
+            {
+                "role": "user",
+                "content": user_prompt,
+            }
+        ],
+    )
+
+    text = response.content[0].text
+
+    return json.loads(text)
+

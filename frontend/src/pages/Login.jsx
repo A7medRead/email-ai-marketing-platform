@@ -81,7 +81,7 @@ export default function Login(){
                 />
 
 
-                <Button>
+                <Button type="submit">
                     Login
                 </Button>
 

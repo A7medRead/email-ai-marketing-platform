@@ -3,19 +3,38 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api/client";
 import Button from "../../components/Button";
+import Card from "../../components/Card";
+import Loading from "../../components/Loading";
+import EmptyState from "../../components/EmptyState";
 
 
 export default function Campaigns(){
 
 const [campaigns,setCampaigns] = useState([]);
+const [search,setSearch] = useState("");
+const [status,setStatus] = useState("");
+const [page,setPage] = useState(1);
+const [hasMore,setHasMore] = useState(true);
 const [loading,setLoading] = useState(null);
+const [pageLoading,setPageLoading] = useState(true);
 
 
 function load(){
 
-api.get("/campaigns/")
+api.get("/campaigns/",{
+params:{
+page,
+limit:10,
+search,
+status
+}
+})
 .then(res=>{
 setCampaigns(res.data);
+setHasMore(res.data.length === 10);
+})
+.finally(()=>{
+setPageLoading(false);
 });
 
 }
@@ -23,7 +42,7 @@ setCampaigns(res.data);
 
 useEffect(()=>{
 load();
-},[]);
+},[page,search,status]);
 
 
 
@@ -82,6 +101,10 @@ return status.toLowerCase();
 
 
 
+if(pageLoading)
+return <Loading />;
+
+
 return (
 
 <div className="campaigns-page">
@@ -116,14 +139,67 @@ Manage and track your email campaigns
 
 
 
+<input
+placeholder="Search campaigns..."
+value={search}
+onChange={(e)=>{
+setPage(1);
+setSearch(e.target.value);
+}}
+className="contact-search"
+/>
+
+
+<select
+value={status}
+onChange={(e)=>{
+setPage(1);
+setStatus(e.target.value);
+}}
+>
+
+<option value="">
+All Status
+</option>
+
+<option value="DRAFT">
+Draft
+</option>
+
+<option value="PREPARED">
+Prepared
+</option>
+
+<option value="RUNNING">
+Running
+</option>
+
+<option value="COMPLETED">
+Completed
+</option>
+
+<option value="FAILED">
+Failed
+</option>
+
+</select>
+
+
 <div className="campaigns-grid">
 
 
 {
-campaigns.map(c=>(
+campaigns.length === 0
+?
+<EmptyState
+title="No campaigns yet"
+message="Create your first email campaign"
+/>
+:
+campaigns.map(c=>( 
 
 
-<div className="campaigns-card" key={c.id}>
+<Card className="campaigns-card" key={c.id}>
 
 
 <h2>
@@ -234,7 +310,7 @@ Performance
 </div>
 
 
-</div>
+</Card>
 
 
 ))
@@ -242,6 +318,36 @@ Performance
 
 
 </div>
+
+
+
+<div className="contacts-pagination">
+
+<Button
+variant="secondary"
+disabled={page===1}
+onClick={()=>setPage(page-1)}
+>
+← Previous
+</Button>
+
+
+<span>
+Page {page}
+</span>
+
+
+<Button
+variant="secondary"
+disabled={!hasMore}
+onClick={()=>setPage(page+1)}
+>
+Next →
+</Button>
+
+
+</div>
+
 
 
 </div>

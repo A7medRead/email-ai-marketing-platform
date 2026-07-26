@@ -1,4 +1,6 @@
 import Button from "../components/Button";
+import Loading from "../components/Loading";
+import Card from "../components/Card";
 import "./dashboard/Dashboard.css";
 import {useEffect,useState} from "react";
 import { Link } from "react-router-dom";
@@ -43,7 +45,7 @@ api.get("/dashboard/top-campaigns")
 
 
 if(!stats || !marketing)
-return <h2>Loading...</h2>;
+return <Loading />;
 
 
 
@@ -143,7 +145,7 @@ Monitor your email marketing performance
 
 {cards.map(card=>(
 
-<div className="card dashboard-card" key={card[1]}>
+<Card className="dashboard-card" key={card[1]}>
 
 <div className="card-icon">
 {card[0]}
@@ -157,7 +159,7 @@ Monitor your email marketing performance
 {card[1]}
 </p>
 
-</div>
+</Card>
 
 ))}
 

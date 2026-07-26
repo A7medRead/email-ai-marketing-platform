@@ -122,7 +122,7 @@ onChange={change}
 />
 
 
-<Button>
+<Button type="submit">
 Save Changes
 </Button>
 

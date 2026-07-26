@@ -29,7 +29,7 @@ async def send_email(
     msg["From"] = EMAIL_ADDRESS
     msg["To"] = to_email
 
-    msg.set_content(body)
+    msg.add_alternative(body, subtype="html")
 
     # إضافة المرفق إذا وجد
     if attachment is not None:

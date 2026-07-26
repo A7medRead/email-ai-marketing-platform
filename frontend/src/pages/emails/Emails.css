@@ -116,4 +116,334 @@
 }
 
 
+/* =======================================================
+   AI EMAIL STUDIO
+   ======================================================= */
+
+.ai-studio{
+    max-width:1200px;
+    margin:0 auto;
+    padding:24px;
+}
+
+.ai-title{
+    font-size:42px;
+    font-weight:700;
+    margin-bottom:28px;
+    color:#fff;
+}
+
+.ai-grid{
+    display:grid;
+    grid-template-columns:420px 1fr;
+    gap:24px;
+    align-items:start;
+}
+
+.ai-card{
+    background:#171821;
+    border:1px solid #2e303a;
+    border-radius:18px;
+    padding:24px;
+}
+
+.ai-card h2{
+    margin-top:0;
+    margin-bottom:20px;
+}
+
+.ai-input,
+.ai-textarea,
+.ai-select{
+    width:100%;
+    background:#111218;
+    color:white;
+    border:1px solid #343746;
+    border-radius:12px;
+    padding:12px 14px;
+    outline:none;
+    margin-bottom:16px;
+    transition:.2s;
+}
+
+.ai-input:focus,
+.ai-textarea:focus,
+.ai-select:focus{
+    border-color:#9333ea;
+    box-shadow:0 0 0 3px rgba(147,51,234,.15);
+}
+
+.ai-textarea{
+    resize:vertical;
+    min-height:140px;
+}
+
+.ai-toolbar{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+    margin-top:18px;
+}
+
+.ai-toolbar button{
+    width:100%;
+    min-width:0;
+    padding:10px 12px;
+    font-size:13px;
+}
+
+@media(max-width:1000px){
+    .ai-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+
+.ai-editor{
+    min-height:550px;
+    resize:vertical;
+}
+
+.ai-generate button{
+    width:100%;
+}
+
+/* ===== Final AI Studio Polish ===== */
+
+.ai-grid{
+    align-items:stretch;
+}
+
+.ai-card{
+    display:flex;
+    flex-direction:column;
+}
+
+
+.ai-generate{
+    margin-top:auto;
+    padding-top:24px;
+}
+
+.ai-generate button{
+    width:100%;
+}
+
+
+.ai-editor{
+    min-height:600px;
+    resize:vertical;
+}
+
+
+.ai-toolbar button{
+    height:42px;
+    font-size:13px;
+    font-weight:600;
+}
+
+
+.ai-actions{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.ai-actions button{
+    flex:1;
+}
+
+
+.ai-card{
+    background:#171722;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:18px;
+    padding:22px;
+}
+
+.ai-card h2{
+    margin-bottom:18px;
+}
+
+
+/* ===== TipTap ===== */
+
+.rich-editor{
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+    overflow:hidden;
+    background:#101018;
+}
+
+.rich-toolbar{
+    display:flex;
+    gap:8px;
+    padding:10px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background:#181824;
+}
+
+.rich-toolbar button{
+    padding:6px 12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.rich-editor .ProseMirror{
+    min-height:600px;
+    padding:18px;
+    outline:none;
+    color:#fff;
+}
+
+.rich-editor .ProseMirror p{
+    margin:0 0 12px;
+}
+
+
+/* ===== Rich Text Editor Upgrade ===== */
+
+.rich-editor{
+    border:1px solid #2e303a;
+    border-radius:16px;
+    overflow:hidden;
+    background:#101018;
+}
+
+.rich-toolbar{
+    display:flex;
+    gap:8px;
+    padding:12px;
+    background:#171821;
+    border-bottom:1px solid #2e303a;
+}
+
+.rich-toolbar button{
+    background:#9333ea;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:13px;
+    transition:.2s;
+}
+
+.rich-toolbar button:hover{
+    opacity:.85;
+}
+
+.rich-toolbar button.is-active{
+    background:#c084fc;
+}
+
+.rich-editor .ProseMirror{
+    min-height:600px;
+    padding:22px;
+    color:#e4e4e7;
+    outline:none;
+    font-size:15px;
+    line-height:1.7;
+}
+
+.rich-editor .ProseMirror p{
+    margin-bottom:14px;
+}
+
+.rich-editor .ProseMirror ul{
+    padding-left:25px;
+}
+
+
+.rich-editor .ProseMirror:focus{
+    outline:none;
+}
+
+.rich-editor .ProseMirror h2{
+    color:#fff;
+    margin:20px 0;
+}
+
+.rich-editor .ProseMirror strong{
+    color:#fff;
+}
+
+
+.rich-editor .ProseMirror{
+    min-height:600px;
+    padding:24px;
+    color:#e4e4e7;
+    outline:none !important;
+    caret-color:#9333ea;
+}
+
+.rich-editor .ProseMirror:focus{
+    outline:none !important;
+}
+
+.rich-editor .ProseMirror p{
+    margin-bottom:14px;
+}
+
+.rich-editor .ProseMirror h2{
+    font-size:24px;
+    margin:20px 0;
+}
+
+.rich-toolbar button{
+    transition:.2s;
+}
+
+.rich-toolbar button:hover{
+    transform:translateY(-1px);
+}
+
+
+.rich-toolbar{
+    position:sticky;
+    top:0;
+    z-index:5;
+}
+
+
+.ai-preview{
+    margin-top:25px;
+}
+
+.ai-preview-card{
+    background:#111218;
+    border:1px solid #343746;
+    border-radius:14px;
+    padding:20px;
+}
+
+.ai-preview-card hr{
+    border:none;
+    border-top:1px solid #343746;
+    margin:16px 0;
+}
+
+.preview-body{
+    color:#d4d4d8;
+    line-height:1.7;
+}
+
+.preview-body p{
+    margin-bottom:12px;
+}
+
+
+.preview-toggle{
+    margin:18px 0;
+}
+
+.preview-toggle button{
+    width:100%;
+}
+
+.ai-preview{
+    margin-top:18px;
+}
 

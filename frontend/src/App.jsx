@@ -7,6 +7,8 @@ import CreateCampaign from "./pages/campaigns/CreateCampaign";
 import Analytics from "./pages/analytics/Analytics";
 import CampaignPerformance from "./pages/campaigns/CampaignPerformance";
 import CampaignDetails from "./pages/campaigns/CampaignDetails";
+import EditCampaign from "./pages/campaigns/EditCampaign";
+
 import Templates from "./pages/templates/Templates";
 import CreateTemplate from "./pages/templates/CreateTemplate";
 import EditTemplate from "./pages/templates/EditTemplate";
@@ -73,6 +75,12 @@ element={<CampaignPerformance />}
 <Route
 path="/campaigns/:id/details"
 element={<CampaignDetails />}
+/>
+
+
+<Route
+path="/campaigns/:id/edit"
+element={<EditCampaign />}
 />
 
 <Route path="/templates" element={<Templates />} />

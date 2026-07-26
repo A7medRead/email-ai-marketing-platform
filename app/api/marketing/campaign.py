@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks, Query
 from sqlalchemy.orm import Session
 
 from app.core.dependencies import get_current_user
 from app.database.database import get_db
 from app.models.user import User
+from app.models.marketing.campaign import Campaign
 from app.models.marketing.campaign_enums import CampaignStatus
 from app.models.marketing.email_delivery import EmailDeliveryStatus
 from app.models.marketing.email_delivery import EmailDelivery
@@ -59,14 +60,42 @@ def create_campaign(
     response_model=list[CampaignResponse],
 )
 def get_campaigns(
+    page: int = 1,
+    limit: int = 10,
+    search: str | None = None,
+    status: str | None = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
 
-    service = CampaignService(db)
+    query = (
+        db.query(Campaign)
+        .filter(
+            Campaign.user_id == current_user.id
+        )
+    )
 
-    return service.get_campaigns(
-        user_id=current_user.id
+
+    if search:
+        query = query.filter(
+            Campaign.name.ilike(f"%{search}%")
+            |
+            Campaign.subject.ilike(f"%{search}%")
+        )
+
+
+    if status:
+        query = query.filter(
+            Campaign.status == status.lower()
+        )
+
+
+    return (
+        query
+        .order_by(Campaign.id.desc())
+        .offset((page - 1) * limit)
+        .limit(limit)
+        .all()
     )
 
 
@@ -380,6 +409,10 @@ def run_scheduler(
 )
 def get_deliveries(
     campaign_id: int,
+    search: str | None = Query(default=None),
+    status: str | None = Query(default=None),
+    page: int = Query(default=1, ge=1),
+    limit: int = Query(default=25, ge=1, le=100),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -402,19 +435,35 @@ def get_deliveries(
     delivery_service = EmailDeliveryService(db)
 
     deliveries = delivery_service.get_campaign_deliveries(
-        campaign_id
+        campaign_id,
+        search=search,
+        status=status,
+        page=page,
+        limit=limit,
     )
 
 
-    return [
-        {
-            "id": d.id,
-            "recipient_email": d.recipient_email,
-            "status": d.status,
-            "sent_at": d.sent_at,
-            "opened_at": d.opened_at,
-            "clicked_at": d.clicked_at,
-            "error_message": d.error_message,
-        }
-        for d in deliveries
-    ]
+    total = deliveries["total"]
+    items = deliveries["items"]
+    pages = max(1, (total + limit - 1) // limit)
+
+    return {
+        "items": [
+            {
+                "id": d.id,
+                "recipient_email": d.recipient_email,
+                "status": d.status,
+                "sent_at": d.sent_at,
+                "opened_at": d.opened_at,
+                "clicked_at": d.clicked_at,
+                "error_message": d.error_message,
+            }
+            for d in items
+        ],
+        "page": page,
+        "limit": limit,
+        "total": total,
+        "pages": pages,
+        "has_previous": page > 1,
+        "has_next": page < pages,
+    }
