@@ -1,20 +1,8 @@
-import os
 import smtplib
 import mimetypes
 
-from pathlib import Path
 from email.message import EmailMessage
-from dotenv import load_dotenv
 from fastapi import UploadFile
-
-# Load .env
-BASE_DIR = Path(__file__).resolve().parent.parent
-ENV_FILE = BASE_DIR / ".env"
-
-load_dotenv(dotenv_path=ENV_FILE)
-
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 
 async def send_email(
@@ -22,11 +10,13 @@ async def send_email(
     subject: str,
     body: str,
     attachment: UploadFile | None = None,
+    sender_email: str = None,
+    sender_password: str = None,
 ):
     msg = EmailMessage()
 
     msg["Subject"] = subject
-    msg["From"] = EMAIL_ADDRESS
+    msg["From"] = sender_email
     msg["To"] = to_email
 
     msg.add_alternative(body, subtype="html")
@@ -60,8 +50,8 @@ async def send_email(
     ) as smtp:
 
         smtp.login(
-            EMAIL_ADDRESS,
-            EMAIL_PASSWORD,
+            sender_email,
+            sender_password,
         )
 
         smtp.send_message(msg)

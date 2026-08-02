@@ -1,11 +1,17 @@
 import "./Emails.css";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import api from "../../api/client";
 import Button from "../../components/Button";
 import RichTextEditor from "../../components/RichTextEditor";
 
 export default function CreateEmail() {
+
+  const [searchParams] = useSearchParams();
+
+  const templateId = searchParams.get("template");
+
   const [form, setForm] = useState({
     purpose: "",
     description: "",
@@ -19,11 +25,73 @@ export default function CreateEmail() {
     body: "",
   });
 
+  const [originalBody, setOriginalBody] = useState("");
+
   const [loading, setLoading] = useState(false);
+
+  const [senderAccounts, setSenderAccounts] = useState([]);
+
+  const [senderAccountId, setSenderAccountId] = useState("");
 
   const [showPreview, setShowPreview] = useState(false);
 
   const editorRef = useRef(null);
+
+  useEffect(() => {
+
+    async function loadTemplate(){
+
+      if(!templateId) return;
+
+      try{
+
+        const res = await api.get(`/email/${templateId}`);
+
+        console.log("TEMPLATE RESPONSE:", res.data);
+
+        const email = res.data.email || res.data.data || res.data;
+
+        setEditor({
+          subject: email.subject || "",
+          body: email.body || email.body_html || "",
+        });
+
+        setShowPreview(true);
+
+      }catch(err){
+
+        console.error("Template load error", err);
+
+      }
+
+    }
+
+
+    loadTemplate();
+
+
+    async function loadSenderAccounts(){
+
+      try{
+
+        const res = await api.get("/sender-accounts/");
+
+        setSenderAccounts(res.data);
+
+        if(res.data.length){
+          setSenderAccountId(res.data[0].id);
+        }
+
+      }catch(err){
+        console.error(err);
+      }
+
+    }
+
+    loadSenderAccounts();
+
+  }, []);
+
 
   function handleFormChange(e) {
     setForm((prev) => ({
@@ -68,6 +136,74 @@ export default function CreateEmail() {
       setLoading(false);
     }
   }
+
+  async function saveTemplate() {
+
+    const name = window.prompt("Template name:");
+
+    if (!name) return;
+
+    try {
+
+      await api.post("/templates/", {
+        name,
+        purpose: form.purpose,
+        description: form.description,
+        tone: form.tone,
+        language: form.language,
+        subject: editor.subject,
+        body: editor.body,
+      });
+
+      alert("✅ Template saved");
+
+    } catch (err) {
+
+      console.error(err);
+      alert("❌ Failed to save template");
+
+    }
+  }
+
+
+  async function sendTestEmail() {
+
+    const to_email = window.prompt("Send test email to:");
+
+    if (!to_email) return;
+
+
+    try {
+
+      const formData = new FormData();
+
+      formData.append("to_email", to_email);
+      formData.append("sender_account_id", senderAccountId);
+      formData.append("subject", editor.subject);
+      formData.append("body", originalBody || editor.body);
+
+
+      await api.post(
+        "/email/send",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+
+      alert("✅ Test email sent");
+
+    } catch (err) {
+
+      console.error(err);
+      alert("❌ Failed to send email");
+
+    }
+  }
+
 
   async function runAction(action) {
     if (!editor.subject && !editor.body) return;
@@ -211,9 +347,9 @@ export default function CreateEmail() {
 
           <RichTextEditor
   ref={editorRef}
-            value={editor.body}
-            onChange={(value) => handleEditorChange("body", value)}
-          />
+  content={editor.body}
+  onChange={(value) => handleEditorChange("body", value)}
+/>
                     <div className="ai-toolbar">
 
             <Button
@@ -326,11 +462,17 @@ export default function CreateEmail() {
               📋 Copy Email
             </Button>
 
-            <Button disabled>
+            <Button
+              onClick={saveTemplate}
+              disabled={!editor.subject && !editor.body}
+            >
               💾 Save Template
             </Button>
 
-            <Button disabled>
+            <Button
+              onClick={sendTestEmail}
+              disabled={!editor.subject && !editor.body}
+            >
               📤 Send Test
             </Button>
 

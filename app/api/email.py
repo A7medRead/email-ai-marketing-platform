@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Form, UploadFile, File
 from sqlalchemy.orm import Session
 
 from app.core.dependencies import get_current_user
@@ -21,6 +21,8 @@ from app.services.claude_service import (
 )
 
 from app.services.email_sender import send_email
+from app.models.marketing.sender_account import SenderAccount
+from app.core.encryption import decrypt
 
 from app.repositories.email_repository import (
     get_all_emails,
@@ -183,29 +185,45 @@ def delete_email(
 # ==========================
 
 from fastapi import Form, UploadFile, File
+from app.services.marketing.sender_account_service import send_test_email
 
 @router.post("/send")
 async def send_email_endpoint(
+    sender_account_id: int = Form(...),
     to_email: str = Form(...),
     subject: str = Form(...),
     body: str = Form(...),
     attachment: UploadFile | None = File(None),
     current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
 ):
-    try:
-        await send_email(
-            to_email=to_email,
-            subject=subject,
-            body=body,
-            attachment=attachment,
+
+    account = (
+        db.query(SenderAccount)
+        .filter(
+            SenderAccount.id == sender_account_id,
+            SenderAccount.user_id == current_user.id,
         )
+        .first()
+    )
 
-        return {
-            "message": "Email sent successfully"
-        }
-
-    except Exception as e:
+    if not account:
         raise HTTPException(
-            status_code=500,
-            detail=str(e),
+            status_code=404,
+            detail="Sender account not found",
         )
+
+
+    await send_email(
+        to_email=to_email,
+        subject=subject,
+        body=body,
+        attachment=attachment,
+        sender_email=account.email,
+        sender_password=decrypt(account.encrypted_password),
+    )
+
+
+    return {
+        "message": "Email sent successfully"
+    }
