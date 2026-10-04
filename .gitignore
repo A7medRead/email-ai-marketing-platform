@@ -1,9 +1,11 @@
 .venv/
 __pycache__/
-*.pyc
+**/__pycache__/
+*.py[cod]
 .env
 *.db
-emails.db.DS_Store
-*.bak
-.DS_Store
+uploads/
 backups/
+node_modules/
+dist/
+.DS_Store

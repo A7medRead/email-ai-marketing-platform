@@ -1,0 +1,16 @@
+.git
+.venv
+**/__pycache__
+**/*.pyc
+frontend/node_modules
+frontend/dist
+uploads
+emails.db
+*.db
+.env
+backups
+archive
+._*
+**/._*
+*.bak
+.DS_Store

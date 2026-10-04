@@ -23,3 +23,11 @@ ENCRYPTION_KEY = os.getenv("ENCRYPTION_KEY")
 
 # Tracking
 TRACKING_URL = os.getenv("TRACKING_URL", "http://127.0.0.1:8000")
+
+# Transactional mail used for account recovery.
+SMTP_HOST = os.getenv("SMTP_HOST")
+SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
+SMTP_USERNAME = os.getenv("SMTP_USERNAME")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+SMTP_FROM_EMAIL = os.getenv("SMTP_FROM_EMAIL")
+FRONTEND_URL = os.getenv("FRONTEND_URL", TRACKING_URL).rstrip("/")

@@ -1,4 +1,4 @@
-﻿"""add_status_enums
+"""add_status_enums
 
 Revision ID: e9712cdd601f
 Revises: 5b2557b000ae

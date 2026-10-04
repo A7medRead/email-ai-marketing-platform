@@ -1,0 +1,33 @@
+.app-layout{
+    display:flex;
+    min-height:100vh;
+    background:#0b1220;
+}
+
+.page-content{
+    flex:1;
+    margin-left:228px;
+    padding:32px;
+    min-height:100vh;
+    width:calc(100% - 228px);
+    overflow-x:hidden;
+    box-sizing:border-box;
+}
+
+@media(max-width:1200px){
+
+    .page-content{
+        padding:24px;
+    }
+
+}
+
+@media(max-width:900px){
+
+    .page-content{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+}

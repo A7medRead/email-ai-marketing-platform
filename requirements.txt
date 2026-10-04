@@ -1,6 +1,8 @@
 altgraph==0.17.5
 annotated-doc==0.0.4
 annotated-types==0.7.0
+APScheduler==3.11.3
+Alembic==1.18.5
 anthropic==0.116.0
 anyio==4.14.2
 bcrypt==4.0.1

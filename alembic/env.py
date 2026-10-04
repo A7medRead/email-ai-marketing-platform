@@ -1,20 +1,12 @@
-﻿from logging.config import fileConfig
+from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
 
-from app.database.database import Base
-from app.models.user import User
-from app.models.email import Email
-from app.models.template import Template
-
-from app.models.marketing.sender_account import SenderAccount
-from app.models.marketing.contact import Contact
-from app.models.marketing.contact_list import ContactList
-from app.models.marketing.contact_list_contact import ContactListContact
-from app.models.marketing.campaign import Campaign
+from app.infrastructure.database import Base
+import app.features.model_registry  # noqa: F401 - register all ORM metadata
 
 config = context.config
 

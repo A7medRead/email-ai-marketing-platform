@@ -1,0 +1,130 @@
+.login-header{
+
+    width:100%;
+    padding:25px 50px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+
+.login-logo{
+
+    color:white;
+    font-size:20px;
+    font-weight:700;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+}
+
+
+.login-logo span{
+
+    width:38px;
+    height:38px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:#7c3aed;
+
+}
+
+
+.login-header-actions{
+
+    display:flex;
+    gap:12px;
+
+}
+
+
+.login-header-actions button{
+
+    background:#111827;
+
+    border:1px solid #263244;
+
+    color:white;
+
+    padding:10px 14px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}
+
+
+.login-header-actions button:hover{
+
+    border-color:#8b5cf6;
+
+}
+
+
+@media(max-width:700px){
+
+    .login-header{
+
+        padding:20px;
+
+    }
+
+}
+
+
+.login-header{
+
+    position:absolute;
+    top:20px;
+    left:40px;
+    right:40px;
+
+    padding:0;
+
+}
+
+
+.login-logo{
+
+    font-size:18px;
+
+}
+
+
+.login-logo span{
+
+    width:34px;
+    height:34px;
+
+}
+
+
+.login-header-actions button{
+
+    height:36px;
+    padding:0 12px;
+
+}
+
+
+.login-header{
+    left:40px !important;
+    right:40px !important;
+    width:auto !important;
+    box-sizing:border-box;
+}
+
+.login-header-actions{
+    right:0;
+}
+

@@ -1,0 +1,426 @@
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:228px;
+    height:100vh;
+    background:#0b1220;
+    border-right:1px solid #1f2937;
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+    z-index:1000;
+    overflow-y:auto;
+}
+
+.sidebar-logo{
+    padding:10px 8px 25px;
+}
+
+.sidebar-logo h2{
+    margin:0;
+    color:#fff;
+    font-size:24px;
+    font-weight:700;
+}
+
+.sidebar-logo p{
+    margin-top:8px;
+    color:#94a3b8;
+    font-size:14px;
+}
+
+.sidebar nav{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.sidebar-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 15px;
+    border-radius:12px;
+    color:#cbd5e1;
+    text-decoration:none;
+    transition:.25s;
+    font-size:15px;
+    font-weight:500;
+}
+
+
+
+.sidebar-link:hover{
+    background:#182233;
+    color:#fff;
+}
+
+.sidebar-link.active{
+    background:#7c3aed;
+    color:#fff;
+    box-shadow:0 10px 25px rgba(124,58,237,.35);
+}
+
+.sidebar-bottom{
+    margin-top:auto;
+    padding-top:25px;
+}
+
+.logout-btn{
+    width:100%;
+    border:none;
+    background:#182233;
+    color:#fff;
+    padding:14px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.25s;
+    font-size:15px;
+}
+
+.logout-btn:hover{
+    background:#ef4444;
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+}
+
+.sidebar-link svg{
+    width:20px;
+    height:20px;
+    min-width:20px;
+    flex-shrink:0;
+}
+
+
+
+.sidebar-extra{
+    margin-top:25px;
+}
+
+.user-card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#182233;
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:14px;
+}
+
+.user-avatar{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:#7c3aed;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-weight:700;
+    font-size:18px;
+}
+
+.user-card strong{
+    color:white;
+    display:block;
+}
+
+.user-card p{
+    margin:2px 0 0;
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.logout-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.sidebar-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.sidebar-link svg{
+    width:20px;
+    height:20px;
+    min-width:20px;
+    flex-shrink:0;
+}
+
+.sidebar-link span{
+    flex:1;
+    display:block;
+    white-space:nowrap;
+}
+
+.sidebar-extra{
+    margin-top:25px;
+}
+
+.user-card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#182233;
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:14px;
+}
+
+.user-avatar{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:#7c3aed;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-weight:700;
+}
+
+.user-card strong{
+    display:block;
+    color:#fff;
+}
+
+.user-card p{
+    margin:3px 0 0;
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.logout-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+
+/* ===== Sidebar Compact ===== */
+
+.sidebar{
+    width:230px;
+    padding:16px;
+}
+
+.sidebar-logo h2{
+    font-size:28px;
+}
+
+.sidebar-logo p{
+    font-size:12px;
+    margin-top:4px;
+}
+
+.sidebar nav{
+    gap:4px;
+}
+
+.sidebar-link{
+    padding:12px 14px;
+    font-size:14px;
+    border-radius:12px;
+    gap:12px;
+}
+
+.sidebar-link svg{
+    width:18px;
+    height:18px;
+    min-width:18px;
+}
+
+.user-card{
+    padding:12px;
+    border-radius:12px;
+}
+
+.user-avatar{
+    width:40px;
+    height:40px;
+    font-size:16px;
+}
+
+.user-card strong{
+    font-size:15px;
+}
+
+.user-card p{
+    font-size:12px;
+}
+
+.logout-btn{
+    padding:12px;
+    font-size:14px;
+    border-radius:12px;
+}
+
+
+/* ===== Match Reference Sidebar ===== */
+
+.sidebar{
+    width:210px !important;
+    padding:18px 14px !important;
+}
+
+.sidebar-logo{
+    padding:4px 6px 18px;
+}
+
+.sidebar-logo h2{
+    font-size:24px !important;
+    line-height:1;
+}
+
+.sidebar-logo p{
+    font-size:11px !important;
+    margin-top:6px;
+}
+
+.sidebar nav{
+    gap:4px;
+}
+
+.sidebar-link{
+    height:46px;
+    padding:0 14px !important;
+    border-radius:12px;
+    font-size:14px !important;
+    gap:12px;
+}
+
+.sidebar-link svg{
+    width:18px !important;
+    height:18px !important;
+    min-width:18px !important;
+}
+
+.sidebar-extra{
+    margin-top:18px;
+}
+
+.user-card{
+    padding:10px 12px !important;
+    border-radius:12px;
+}
+
+.user-avatar{
+    width:42px !important;
+    height:42px !important;
+    font-size:17px;
+}
+
+.user-card strong{
+    font-size:15px;
+}
+
+.user-card p{
+    font-size:12px;
+}
+
+.logout-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:10px;
+    font-size:14px;
+    border-radius:12px;
+}
+
+
+.sidebar-extra{
+    margin-top:auto !important;
+}
+
+.user-card{
+    margin-bottom:10px !important;
+}
+
+.logout-btn{
+    margin-top:0 !important;
+    padding:10px 12px !important;
+}
+
+
+.sidebar-extra{
+    margin-top:60px !important;
+}
+
+.sidebar-bottom{
+    margin-top:12px !important;
+}
+
+
+.user-avatar img{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+
+.user-avatar{
+    overflow:hidden;
+}
+
+.user-avatar img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+
+.user-avatar{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    overflow:hidden;
+}
+
+.user-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+}
+
+
+.sidebar-bottom .user-avatar{
+    width:56px !important;
+    height:56px !important;
+    min-width:56px;
+    border-radius:50%;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+}
+
+.sidebar-bottom .user-avatar img{
+    width:100% !important;
+    height:100% !important;
+    max-width:none;
+    max-height:none;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+}
+

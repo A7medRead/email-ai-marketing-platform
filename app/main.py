@@ -1,35 +1,22 @@
-﻿from fastapi import FastAPI
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 import os
 
-from app.api.dashboard import router as dashboard_router
-from app.api.email import router as email_router
-from app.api.template import router as template_router
-from app.api.user import router as user_router
+from app.features.analytics.api import router as dashboard_router
+from app.features.email_generation.api import router as email_router
+from app.features.templates.api import router as template_router
+from app.features.users.api import router as user_router
 
-from app.api.marketing.sender_account import router as sender_account_router
-from app.api.marketing.contact import router as contact_router
-from app.api.marketing.contact_list import router as contact_list_router
-from app.api.marketing.campaign import router as campaign_router
-from app.api.marketing.tracking import router as tracking_router
-from app.api.marketing.unsubscribe import router as unsubscribe_router
+from app.features.sender_accounts.api import router as sender_account_router
+from app.features.contacts.api import router as contact_router
+from app.features.contact_lists.api import router as contact_list_router
+from app.features.campaigns.api import router as campaign_router
+from app.features.tracking.api import router as tracking_router
+from app.features.tracking.unsubscribe_api import router as unsubscribe_router
 
-from app.models.email import Email
-from app.models.template import Template
-from app.models.user import User
-
-from app.models.marketing.sender_account import SenderAccount
-from app.models.marketing.contact import Contact
-from app.models.marketing.contact_list import ContactList
-from app.models.marketing.contact_list_contact import ContactListContact
-from app.models.marketing.campaign import Campaign
-from app.models.marketing.email_delivery import EmailDelivery
-
-from app.services.marketing.scheduler import start_scheduler
-from app.database.database import Base, engine
-
+import app.features.model_registry  # noqa: F401 - register SQLAlchemy relationships
 
 app = FastAPI(
     title="Email AI Platform",
@@ -73,16 +60,6 @@ app.include_router(contact_list_router)
 app.include_router(campaign_router)
 app.include_router(tracking_router)
 app.include_router(unsubscribe_router)
-
-
-@app.on_event("startup")
-def startup_event():
-
-    Base.metadata.create_all(
-        bind=engine
-    )
-
-    start_scheduler()
 
 
 @app.get("/")

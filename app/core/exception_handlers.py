@@ -1,12 +1,12 @@
-﻿from fastapi import Request
+from fastapi import Request
 from fastapi.responses import JSONResponse
 
-from app.core.exceptions.campaign import (
+from app.features.campaigns.exceptions import (
     ContactListNotFound,
     ContactListEmpty,
 )
 
-from app.core.exceptions.sender_account import (
+from app.features.sender_accounts.exceptions import (
     SenderAccountNotFound,
     SenderAccountNotVerified,
 )

@@ -1,0 +1,92 @@
+services:
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: "no"
+    env_file:
+      - .env
+    volumes:
+      - ./emails.db:/app/emails.db
+      - ./backups:/backups
+    command: ["/bin/sh", "-c", "python -m app.ops.migration_backup && alembic upgrade head"]
+    networks:
+      - app-internal
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    env_file:
+      - .env
+    environment:
+      TRACKING_URL: ${PUBLIC_BASE_URL:-http://159.195.115.229:8081}
+    volumes:
+      - ./emails.db:/app/emails.db
+      - ./uploads:/app/uploads
+    networks:
+      - app-internal
+    expose:
+      - "8000"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      args:
+        VITE_API_BASE_URL: /api
+    restart: unless-stopped
+    depends_on:
+      - api
+    networks:
+      app-internal: {}
+    ports:
+      - "8081:80"
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    env_file:
+      - .env
+    volumes:
+      - ./emails.db:/app/emails.db
+      - scheduler-lock:/scheduler-lock
+    command: ["python", "-m", "app.workers.campaign_scheduler_worker"]
+    networks:
+      - app-internal
+
+  backup:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    env_file:
+      - .env
+    environment:
+      DATABASE_FILE: /app/emails.db
+      BACKUP_DIR: /backups
+      BACKUP_INTERVAL_HOURS: 24
+    volumes:
+      - ./emails.db:/app/emails.db:ro
+      - ./backups:/backups
+    command: ["python", "-m", "app.ops.backup_worker"]
+    networks:
+      - app-internal
+
+networks:
+  app-internal:
+
+volumes:
+  scheduler-lock:

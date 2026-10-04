@@ -1,4 +1,4 @@
-﻿"""add_email_deliveries
+"""add_email_deliveries
 
 Revision ID: fc2cb24ff638
 Revises: e9712cdd601f
