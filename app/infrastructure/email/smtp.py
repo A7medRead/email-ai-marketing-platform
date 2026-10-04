@@ -219,6 +219,45 @@ AI Email Marketing Platform
             except Exception:
                 pass
 
+# A bare URL also ends at an HTML-escaped delimiter (&lt; &gt; &quot; &#x27;), which escaped text
+# bodies (e.g. TEXT variants) can place right after a URL.
+_TAG_OR_BARE_URL = re.compile(
+    r"<[^>]*>|https?://(?:(?!&(?:lt|gt|quot|#x27);)[^\s<>\"'])+"
+)
+_HREF_HTTP = re.compile(r"""(\bhref\s*=\s*)(["'])(https?://[^"']*)\2""", re.IGNORECASE)
+
+
+def track_links(html: str, delivery_id: int) -> str:
+    """Route http(s) links through the click-tracking endpoint.
+
+    Inside tags only complete quoted href values are rewritten (mailto:, tel:,
+    #anchors, src= etc. are left alone); outside tags bare URLs in text are
+    rewritten. The destination is carried whole in a signed token.
+    """
+
+    def tracked(url: str) -> str:
+        token = jwt.encode(
+            {"delivery_id": delivery_id, "url": url, "purpose": "click"},
+            SECRET_KEY,
+            algorithm=ALGORITHM,
+        )
+        return f"{TRACKING_URL}/track/click?token={quote(token)}"
+
+    def rewrite_href(match):
+        # &amp; is HTML escaping of the attribute, not part of the real URL.
+        url = match.group(3).replace("&amp;", "&")
+        return f"{match.group(1)}{match.group(2)}{tracked(url)}{match.group(2)}"
+
+    def replace(match):
+        text = match.group(0)
+        if text.startswith("<"):
+            return _HREF_HTTP.sub(rewrite_href, text)
+        # &amp; is HTML escaping of the text, as for href values.
+        return tracked(text.replace("&amp;", "&"))
+
+    return _TAG_OR_BARE_URL.sub(replace, html)
+
+
 def send_campaign_email(
     sender_email: str,
     sender_name: str,
@@ -272,21 +311,7 @@ def send_campaign_email(
             )
 
 
-        def replace_link(match):
-            url = match.group(0)
-            token = jwt.encode(
-                {"delivery_id": delivery_id, "url": url, "purpose": "click"},
-                SECRET_KEY,
-                algorithm=ALGORITHM,
-            )
-            return f"{TRACKING_URL}/track/click?token={quote(token)}"
-
-
-        html_body = re.sub(
-            r"https?://\S+",
-            replace_link,
-            html_body,
-        )
+        html_body = track_links(html_body, delivery_id)
 
 
         html_body += tracking_pixel

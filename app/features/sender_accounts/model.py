@@ -14,6 +14,9 @@ from app.infrastructure.database import Base
 from app.features.sender_accounts.enums import SenderAccountStatus
 
 
+DEFAULT_BATCH_SIZE = 50
+
+
 class SenderAccount(Base):
 
     __tablename__ = "sender_accounts"
@@ -87,6 +90,15 @@ class SenderAccount(Base):
     hourly_limit = Column(
         Integer,
         default=100,
+        nullable=False,
+    )
+
+
+    # Max deliveries this sender takes per dispatch batch.
+    batch_size = Column(
+        Integer,
+        default=DEFAULT_BATCH_SIZE,
+        server_default=str(DEFAULT_BATCH_SIZE),
         nullable=False,
     )
 

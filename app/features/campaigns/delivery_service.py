@@ -7,6 +7,7 @@ from app.features.campaigns.delivery_model import (
 
 from app.features.campaigns.model import Campaign
 from app.features.contacts.enums import ContactStatus
+from app.features.offers.renderer import snapshot_campaign_email
 
 from app.features.campaigns.delivery_repository import (
     EmailDeliveryRepository,
@@ -41,6 +42,10 @@ class EmailDeliveryService:
 
         if existing:
             return existing
+
+
+        # Raises ValueError for an invalid Variant, before any delivery is created.
+        snapshot_campaign_email(self.db, campaign)
 
 
         if not campaign.contact_list:

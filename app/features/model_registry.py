@@ -2,7 +2,8 @@
 
 from app.features.email_generation.model import Email
 from app.features.templates.model import Template
-from app.features.offers.model import Offer
+from app.features.responders.model import Responder
+from app.features.offers.model import Offer, OfferVariant
 from app.features.users.model import User
 from app.features.contacts.model import Contact
 from app.features.contact_lists.model import ContactList
@@ -19,6 +20,8 @@ __all__ = [
     "Email",
     "EmailDelivery",
     "Offer",
+    "OfferVariant",
+    "Responder",
     "SenderAccount",
     "Template",
     "User",

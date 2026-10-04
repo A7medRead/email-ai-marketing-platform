@@ -1,11 +1,20 @@
-from datetime import datetime
-
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.features.campaigns.delivery_model import (
+    EmailDelivery,
     EmailDeliveryStatus,
 )
 
+from app.features.campaigns.dispatcher import (
+    claim_pending_deliveries,
+    complete_delivery,
+    fail_delivery,
+    is_sender_failure,
+    recover_stale_deliveries,
+)
+
+from app.features.sender_accounts.enums import SenderAccountStatus
 from app.features.sender_accounts.model import (
     SenderAccount,
 )
@@ -14,12 +23,8 @@ from app.features.campaigns.model import (
     Campaign,
     CampaignStatus,
 )
-from app.features.contacts.model import Contact
-from app.features.contacts.enums import ContactStatus
 
-from app.features.campaigns.delivery_repository import (
-    EmailDeliveryRepository,
-)
+from app.features.offers.renderer import render_campaign_email
 
 from app.infrastructure.email.smtp import (
     send_campaign_email,
@@ -36,10 +41,6 @@ class CampaignSenderService:
     ):
 
         self.db = db
-
-        self.delivery_repository = EmailDeliveryRepository(
-            db
-        )
 
 
 
@@ -74,115 +75,200 @@ class CampaignSenderService:
             }
 
 
-        deliveries = (
-            self.delivery_repository.get_by_campaign(
-                campaign_id
-            )
+        recover_stale_deliveries(self.db)
+
+        # One pass at a time until nothing more is claimable right now.
+        # A temporary failure waits for its next_attempt_at, so this ends.
+        while self.send_next_batch(campaign):
+            pass
+
+        return self._update_campaign_totals(
+            campaign.id
         )
 
 
-        results = {
-            "sent": 0,
-            "failed": 0,
-        }
 
+    def send_next_batch(
+        self,
+        campaign: Campaign,
+    ) -> int:
+        """
+        One dispatcher pass: claim (PENDING -> SENDING, bounded by each
+        sender's batch_size), send each claimed delivery, record the outcome.
+        Returns how many deliveries were claimed.
+        """
 
-        for delivery in deliveries:
+        claimed = claim_pending_deliveries(
+            self.db,
+            campaign.user_id,
+            campaign_id=campaign.id,
+        )
 
-
-            if delivery.status != EmailDeliveryStatus.PENDING:
-                continue
-
-            contact = self.db.query(Contact).filter(
-                Contact.id == delivery.contact_id,
-                Contact.user_id == campaign.user_id,
-            ).first()
-            if not contact or contact.status != ContactStatus.ACTIVE:
-                delivery.status = EmailDeliveryStatus.FAILED
-                delivery.error_message = "Contact is no longer subscribed."
-                self.db.commit()
-                continue
-
-
-
-            sender_account = (
-                self.db.query(SenderAccount)
-                .filter(
-                    SenderAccount.id
-                    == delivery.sender_account_id
-                )
-                .first()
+        for delivery in claimed:
+            self._send_claimed(
+                campaign,
+                delivery,
             )
 
-
-            if not sender_account:
-
-                self.delivery_repository.update_status(
-                    delivery,
-                    EmailDeliveryStatus.FAILED,
-                    "Sender account not found.",
-                )
-
-                results["failed"] += 1
-
-                continue
+        return len(claimed)
 
 
 
-            result = send_campaign_email(
-                sender_email=sender_account.email,
-                sender_name=campaign.from_name or sender_account.name,
-                encrypted_password=sender_account.encrypted_password,
-                recipient_email=delivery.recipient_email,
-                subject=campaign.subject,
-                body=campaign.body,
-                delivery_id=delivery.id,
-                contact_id=delivery.contact_id,
+    def _send_claimed(
+        self,
+        campaign: Campaign,
+        delivery: EmailDelivery,
+    ):
+        """
+        Send one SENDING delivery through the sender it was assigned at claim
+        time, then record the outcome. The claim already cancelled deliveries
+        whose contact is unsubscribed, so those never reach this point.
+        """
+
+        delivery_id = delivery.id
+
+        sender_account = (
+            self.db.query(SenderAccount)
+            .filter(
+                SenderAccount.id
+                == delivery.sender_account_id
+            )
+            .first()
+        )
+
+
+        if not sender_account:
+
+            fail_delivery(
+                self.db,
+                delivery_id,
+                "Sender account not found.",
             )
 
-            success = result["success"]
-            message = result["message"]
+            return
+
+
+        try:
+            email = render_campaign_email(self.db, campaign)
+        except ValueError:
+            # Invalid Variant state: permanent failure of this delivery, never retried.
+            fail_delivery(
+                self.db,
+                delivery_id,
+                "Variant content is invalid.",
+            )
+            return
+
+
+        result = send_campaign_email(
+            sender_email=sender_account.email,
+            sender_name=email.from_name or sender_account.name,
+            encrypted_password=sender_account.encrypted_password,
+            recipient_email=delivery.recipient_email,
+            subject=email.subject,
+            body=email.html,
+            delivery_id=delivery_id,
+            contact_id=delivery.contact_id,
+        )
+
+
+        if result["success"]:
+
+            complete_delivery(
+                self.db,
+                delivery_id,
+            )
+
+        else:
+
+            fail_delivery(
+                self.db,
+                delivery_id,
+                result["message"],
+            )
+
+            if is_sender_failure(result["message"]):
+                self._mark_sender_failed(
+                    sender_account.id,
+                    result["message"],
+                )
 
 
 
-            if success:
+    def _mark_sender_failed(
+        self,
+        sender_account_id: int,
+        message: str,
+    ):
+        """
+        The sender itself is broken (auth/disabled/quota): FAILED makes it
+        ineligible for new claims. It becomes VERIFIED again only through
+        the normal sender verification flow.
+        """
 
-                delivery.status = EmailDeliveryStatus.SENT
-                delivery.sent_at = datetime.utcnow()
+        sender = self.db.get(
+            SenderAccount,
+            sender_account_id,
+        )
 
-                results["sent"] += 1
+        if sender and sender.status == SenderAccountStatus.VERIFIED:
 
-
-            else:
-
-                delivery.status = EmailDeliveryStatus.FAILED
-                delivery.error_message = message
-
-                results["failed"] += 1
-
-
+            sender.status = SenderAccountStatus.FAILED
+            sender.verified = False
+            sender.last_error = message[:500]
 
             self.db.commit()
 
 
 
-        campaign = (
-            self.db.query(Campaign)
-            .filter(
-                Campaign.id == campaign_id
+    def _update_campaign_totals(
+        self,
+        campaign_id: int,
+    ):
+        """
+        Counters are recounted from the deliveries' final states, so a
+        delivery is counted once no matter how many passes or workers ran.
+        """
+
+        def count(status):
+            return (
+                self.db.query(func.count(EmailDelivery.id))
+                .filter(
+                    EmailDelivery.campaign_id == campaign_id,
+                    EmailDelivery.status == status,
+                )
+                .scalar()
             )
-            .first()
+
+
+        sent = count(EmailDeliveryStatus.SENT)
+        failed = count(EmailDeliveryStatus.FAILED)
+        unfinished = (
+            count(EmailDeliveryStatus.PENDING)
+            + count(EmailDeliveryStatus.SENDING)
         )
 
-        if campaign:
-            campaign.sent_count = results["sent"]
-            campaign.failed_count = results["failed"]
 
-            if results["failed"] == 0:
+        self.db.expire_all()
+
+        campaign = self.db.get(Campaign, campaign_id)
+
+        if campaign:
+
+            campaign.sent_count = sent
+            campaign.failed_count = failed
+
+            if unfinished:
+                campaign.status = CampaignStatus.RUNNING
+            elif failed == 0:
                 campaign.status = CampaignStatus.COMPLETED
             else:
                 campaign.status = CampaignStatus.FAILED
 
             self.db.commit()
 
-        return results
+
+        return {
+            "sent": sent,
+            "failed": failed,
+        }

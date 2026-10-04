@@ -12,6 +12,7 @@ class CampaignBase(BaseModel):
     contact_list_id: int
     template_id: Optional[int] = None
     offer_id: Optional[int] = None
+    variant_id: Optional[int] = None
 
     name: str
     from_name: Optional[str] = None
@@ -32,6 +33,8 @@ class CampaignUpdate(BaseModel):
     subject: Optional[str] = None
     body: Optional[str] = None
     status: Optional[CampaignStatus] = None
+    # Manual Variant selection; explicit null clears it (back to legacy behavior).
+    variant_id: Optional[int] = None
 
 
 

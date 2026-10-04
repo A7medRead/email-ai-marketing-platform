@@ -10,6 +10,7 @@ from app.features.contact_lists.model import ContactList
 from app.features.contact_lists.association import ContactListContact
 from app.features.templates.model import Template
 from app.features.offers.model import Offer
+from app.features.offers.service import OfferService
 
 from app.features.campaigns.repository import CampaignRepository
 
@@ -104,7 +105,7 @@ class CampaignService:
                 )
 
         offer = None
-        if data.offer_id:
+        if data.offer_id is not None:
             offer = self.db.query(Offer).filter(
                 Offer.id == data.offer_id,
                 Offer.user_id == user_id,
@@ -112,8 +113,12 @@ class CampaignService:
             if not offer:
                 raise ValueError("Offer not found.")
 
+        if data.variant_id is not None:
+            self._validate_variant(user_id, data.offer_id, data.variant_id)
+
         body = template.body if template else data.body
-        if offer:
+        # Variant-based campaigns do not get the legacy promotion block.
+        if offer and data.variant_id is None:
             from html import escape
 
             offer_block = ["<hr><section>", f"<h2>{escape(offer.title)}</h2>"]
@@ -139,6 +144,7 @@ class CampaignService:
             contact_list_id=data.contact_list_id,
             template_id=data.template_id,
             offer_id=data.offer_id,
+            variant_id=data.variant_id,
             name=data.name,
             from_name=data.from_name,
             subject=template.subject if template else data.subject,
@@ -152,6 +158,17 @@ class CampaignService:
         return self.repository.create(
             campaign
         )
+
+
+    def _validate_variant(self, user_id: int, offer_id: int | None, variant_id: int) -> None:
+        """A selectable Variant is the user's own, active, and belongs to the campaign's Offer."""
+        if offer_id is None:
+            raise ValueError("A variant requires an offer.")
+        variant = OfferService(self.db).get_owned_variant(variant_id, user_id)
+        if variant.offer_id != offer_id:
+            raise ValueError("Variant does not belong to the selected offer.")
+        if not variant.is_active:
+            raise ValueError("Variant is not active.")
 
 
     def get_campaigns(
@@ -193,6 +210,17 @@ class CampaignService:
         update_data = data.model_dump(
             exclude_unset=True
         )
+
+        # Once prepared, the snapshot is what gets sent; changing the Variant would make the
+        # campaign's recorded selection disagree with its content.
+        if "variant_id" in update_data and update_data["variant_id"] != campaign.variant_id:
+            if campaign.status != CampaignStatus.DRAFT or campaign.prepared_body is not None:
+                raise ValueError("Variant can only be changed while the campaign is a draft.")
+
+        new_variant_id = update_data.get("variant_id")
+        # Re-saving the already-selected Variant is allowed even if it was deactivated since.
+        if new_variant_id is not None and new_variant_id != campaign.variant_id:
+            self._validate_variant(user_id, campaign.offer_id, new_variant_id)
 
 
         for key, value in update_data.items():

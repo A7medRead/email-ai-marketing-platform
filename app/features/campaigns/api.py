@@ -8,6 +8,7 @@ from app.features.campaigns.model import Campaign
 from app.features.campaigns.enums import CampaignStatus
 from app.features.campaigns.delivery_model import EmailDeliveryStatus
 from app.features.campaigns.delivery_model import EmailDelivery
+from app.features.campaigns.dispatcher import is_temporary_failure
 
 from app.features.campaigns.schemas import (
     CampaignCreate,
@@ -140,11 +141,17 @@ def update_campaign(
 
     service = CampaignService(db)
 
-    campaign = service.update_campaign(
-        campaign_id,
-        current_user.id,
-        data,
-    )
+    try:
+        campaign = service.update_campaign(
+            campaign_id,
+            current_user.id,
+            data,
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e),
+        )
 
     if not campaign:
         raise HTTPException(
@@ -210,25 +217,27 @@ def prepare_campaign(
     delivery_service = EmailDeliveryService(db)
 
 
-    existing = delivery_service.get_campaign_deliveries(
-        campaign_id
-    )
-
-
-    if existing:
+    if delivery_service.repository.get_by_campaign(campaign_id):
 
         campaign.status = CampaignStatus.PREPARED
         db.commit()
 
         return {
             "message": "Campaign already prepared",
-            "deliveries_created": len(existing),
+            "deliveries_created": 0,
         }
 
 
-    deliveries = delivery_service.create_campaign_deliveries(
-        campaign
-    )
+    try:
+        deliveries = delivery_service.create_campaign_deliveries(
+            campaign
+        )
+    except ValueError as e:
+        db.rollback()
+        raise HTTPException(
+            status_code=400,
+            detail=str(e),
+        )
 
 
     campaign.status = CampaignStatus.PREPARED
@@ -322,6 +331,8 @@ def retry_campaign(
         )
         .all()
     )
+    # Permanent failures (invalid recipient, auth, unknown errors) stay FAILED.
+    deliveries = [d for d in deliveries if is_temporary_failure(d.error_message)]
 
 
     if not deliveries:
@@ -342,6 +353,9 @@ def retry_campaign(
         delivery.status = EmailDeliveryStatus.PENDING
         delivery.error_message = None
         delivery.sent_at = None
+        delivery.attempt_count = 0
+        delivery.claimed_at = None
+        delivery.next_attempt_at = None
 
 
     campaign.status = CampaignStatus.PREPARED
@@ -401,7 +415,9 @@ def run_scheduler(
 
     scheduler = CampaignSchedulerService(db)
 
-    return scheduler.run_scheduled_campaigns()
+    return scheduler.run_scheduled_campaigns(
+        user_id=current_user.id,
+    )
 
 
 @router.get(

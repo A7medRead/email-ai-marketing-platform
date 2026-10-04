@@ -76,6 +76,16 @@ class Campaign(Base):
     )
 
 
+    # Manually selected Variant (see MAILPILOT_PRODUCT_DIRECTION 13A.10). A referenced Variant/Offer
+    # must never be deleted or silently detached: OfferService refuses with 409 (13A.13A). The
+    # SET NULL below is NOT the protection - SQLite foreign keys are not enforced at runtime here.
+    variant_id = Column(
+        Integer,
+        ForeignKey("offer_variants.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+
     name = Column(
         String(255),
         nullable=False,
@@ -100,6 +110,13 @@ class Campaign(Base):
     )
 
 
+
+    # Variant snapshot taken at /prepare; NULL for legacy (non-Variant) campaigns.
+    # Why: what a prepared campaign sends must not change if the Variant is edited afterwards,
+    # and sending must never re-read the live Variant (13A.11).
+    prepared_subject = Column(String(255), nullable=True)
+    prepared_from_name = Column(String(255), nullable=True)
+    prepared_body = Column(Text, nullable=True)
 
     status = Column(
         Enum(CampaignStatus, values_callable=lambda x: [e.value for e in x]),
@@ -170,3 +187,5 @@ class Campaign(Base):
     )
 
     offer = relationship("Offer")
+
+    variant = relationship("OfferVariant")

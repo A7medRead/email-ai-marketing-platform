@@ -19,11 +19,13 @@ from enum import Enum as PyEnum
 class EmailDeliveryStatus(str, PyEnum):
     PENDING = "pending"
     QUEUED = "queued"
+    SENDING = "sending"
     SENT = "sent"
     FAILED = "failed"
     OPENED = "opened"
     CLICKED = "clicked"
     BOUNCED = "bounced"
+    CANCELLED = "cancelled"
 
 
 
@@ -86,6 +88,26 @@ class EmailDelivery(Base):
 
     error_message = Column(
         String(500),
+        nullable=True,
+    )
+
+
+    attempt_count = Column(
+        Integer,
+        nullable=False,
+        default=0,
+        server_default="0",
+    )
+
+
+    claimed_at = Column(
+        DateTime,
+        nullable=True,
+    )
+
+
+    next_attempt_at = Column(
+        DateTime,
         nullable=True,
     )
 

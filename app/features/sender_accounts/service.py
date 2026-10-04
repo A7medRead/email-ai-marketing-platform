@@ -47,6 +47,7 @@ class SenderAccountService:
 
             status=SenderAccountStatus.PENDING,
             verified=False,
+            batch_size=data.batch_size,
         )
 
         return self.repository.create(account)
@@ -83,6 +84,11 @@ class SenderAccountService:
         update_data = data.model_dump(
             exclude_unset=True
         )
+
+
+        # batch_size is NOT NULL: an explicit null means "leave unchanged"
+        if update_data.get("batch_size") is None:
+            update_data.pop("batch_size", None)
 
 
         # لو غير الباسورد نشفره قبل الحفظ
