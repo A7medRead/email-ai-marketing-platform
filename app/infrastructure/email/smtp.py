@@ -1,7 +1,7 @@
 import smtplib
 import re
 from urllib.parse import quote
-from jose import jwt
+import jwt
 
 from email.mime.text import MIMEText
 from email.utils import formataddr

@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from fastapi.responses import HTMLResponse
-from jose import JWTError, jwt
+import jwt
+from jwt import PyJWTError as JWTError
 
 from app.infrastructure.database import get_db
 from app.features.contacts.model import Contact

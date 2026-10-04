@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import Response, RedirectResponse
 from sqlalchemy.orm import Session
 from datetime import datetime
-from jose import JWTError, jwt
+import jwt
+from jwt import PyJWTError as JWTError
 
 from app.infrastructure.database import get_db
 

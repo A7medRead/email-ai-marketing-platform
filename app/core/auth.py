@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, UTC
 
-from jose import jwt
+import jwt
 
 from app.core.config import (
     SECRET_KEY,

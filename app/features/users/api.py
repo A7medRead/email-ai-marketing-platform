@@ -15,6 +15,11 @@ from PIL import Image, ImageOps, UnidentifiedImageError
 
 
 
+from app.core.rate_limit import (
+    login_limit,
+    register_limit,
+    password_reset_limit,
+)
 from app.infrastructure.database import get_db
 
 
@@ -53,6 +58,7 @@ router = APIRouter(
 @router.post(
     "/register",
     response_model=UserResponse,
+    dependencies=[Depends(register_limit)],
 )
 def register(
     request: UserRegister,
@@ -88,6 +94,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 @router.post(
     "/login",
     response_model=TokenResponse,
+    dependencies=[Depends(login_limit)],
 )
 def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
@@ -256,7 +263,7 @@ class ResetPasswordRequest(BaseModel):
 
 
 
-@router.post("/forgot-password")
+@router.post("/forgot-password", dependencies=[Depends(password_reset_limit)])
 def forgot_password(
     data: ForgotPasswordRequest,
     db: Session = Depends(get_db),
@@ -275,7 +282,7 @@ def forgot_password(
 
 
 
-@router.post("/reset-password")
+@router.post("/reset-password", dependencies=[Depends(password_reset_limit)])
 def change_password(
     data: ResetPasswordRequest,
     db: Session = Depends(get_db),

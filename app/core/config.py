@@ -13,10 +13,13 @@ MODEL = os.getenv("MODEL")
 
 # Authentication
 SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = os.getenv("ALGORITHM")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(
     os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30)
 )
+
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY is missing from .env")
 
 # Encryption
 ENCRYPTION_KEY = os.getenv("ENCRYPTION_KEY")
