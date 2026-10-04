@@ -9,6 +9,7 @@ from app.features.sender_accounts.enums import SenderAccountStatus
 from app.features.contact_lists.model import ContactList
 from app.features.contact_lists.association import ContactListContact
 from app.features.templates.model import Template
+from app.features.offers.model import Offer
 
 from app.features.campaigns.repository import CampaignRepository
 
@@ -102,16 +103,46 @@ class CampaignService:
                     "Template not found."
                 )
 
+        offer = None
+        if data.offer_id:
+            offer = self.db.query(Offer).filter(
+                Offer.id == data.offer_id,
+                Offer.user_id == user_id,
+            ).first()
+            if not offer:
+                raise ValueError("Offer not found.")
+
+        body = template.body if template else data.body
+        if offer:
+            from html import escape
+
+            offer_block = ["<hr><section>", f"<h2>{escape(offer.title)}</h2>"]
+            if offer.discount:
+                offer_block.append(f"<p><strong>{escape(offer.discount)}</strong></p>")
+            offer_block.append(f"<p>{escape(offer.description).replace(chr(10), '<br>')}</p>")
+            if offer.coupon_code:
+                offer_block.append(f"<p>Code: <strong>{escape(offer.coupon_code)}</strong></p>")
+            if offer.expires_at:
+                offer_block.append(f"<p>Valid until {offer.expires_at:%B %d, %Y}</p>")
+            if offer.cta_url:
+                offer_block.append(
+                    f'<p><a href="{escape(str(offer.cta_url), quote=True)}">'
+                    f'{escape(offer.cta_label or "Shop now")}</a></p>'
+                )
+            offer_block.append("</section>")
+            body = f"{body}\n{''.join(offer_block)}"
+
 
         campaign = Campaign(
             user_id=user_id,
             sender_account_id=data.sender_account_id,
             contact_list_id=data.contact_list_id,
             template_id=data.template_id,
+            offer_id=data.offer_id,
             name=data.name,
             from_name=data.from_name,
             subject=template.subject if template else data.subject,
-            body=template.body if template else data.body,
+            body=body,
             status=CampaignStatus.DRAFT,
             scheduled_at=data.scheduled_at,
             total_recipients=len(contact_list.contacts),

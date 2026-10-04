@@ -1,5 +1,7 @@
+/*  Styles scoped to route wrapper .ui-page-scope--campaign-editor  */
 
-.create-campaign-page{
+
+:where(.ui-page-scope--campaign-editor) .create-campaign-page{
 
     width:100%;
     display:flex;
@@ -9,7 +11,7 @@
 }
 
 
-.create-campaign-card{
+:where(.ui-page-scope--campaign-editor) .create-campaign-card{
 
     width:650px;
     background:#171821;
@@ -25,16 +27,14 @@
 }
 
 
-.create-campaign-card h1,
-.create-campaign-card h2,
-.create-campaign-card h3{
+:where(.ui-page-scope--campaign-editor) .create-campaign-card h1, :where(.ui-page-scope--campaign-editor) .create-campaign-card h2, :where(.ui-page-scope--campaign-editor) .create-campaign-card h3{
 
     text-align:center;
 
 }
 
 
-.subtitle{
+:where(.ui-page-scope--campaign-editor) .subtitle{
 
     color:#a1a1aa;
     margin-bottom:35px;
@@ -42,7 +42,7 @@
 }
 
 
-.form-section{
+:where(.ui-page-scope--campaign-editor) .form-section{
 
     margin-bottom:30px;
     text-align:left;
@@ -50,7 +50,7 @@
 }
 
 
-.form-section h3{
+:where(.ui-page-scope--campaign-editor) .form-section h3{
 
     color:#f4f4f5;
     font-size:18px;
@@ -59,7 +59,7 @@
 }
 
 
-.form-label{
+:where(.ui-page-scope--campaign-editor) .form-label{
 
     display:block;
     width:100%;
@@ -72,9 +72,7 @@
 }
 
 
-.create-campaign-card select,
-.create-campaign-card input,
-.create-campaign-card textarea{
+:where(.ui-page-scope--campaign-editor) .create-campaign-card select, :where(.ui-page-scope--campaign-editor) .create-campaign-card input, :where(.ui-page-scope--campaign-editor) .create-campaign-card textarea{
 
     width:100%;
     box-sizing:border-box;
@@ -96,7 +94,7 @@
 }
 
 
-.create-campaign-card textarea{
+:where(.ui-page-scope--campaign-editor) .create-campaign-card textarea{
 
     min-height:150px;
     resize:vertical;
@@ -104,18 +102,16 @@
 }
 
 
-.create-campaign-card select:focus,
-.create-campaign-card input:focus,
-.create-campaign-card textarea:focus{
+:where(.ui-page-scope--campaign-editor) .create-campaign-card select:focus, :where(.ui-page-scope--campaign-editor) .create-campaign-card input:focus, :where(.ui-page-scope--campaign-editor) .create-campaign-card textarea:focus{
 
     outline:none;
-    border-color:#8b5cf6;
+    border-color:#5b8d89;
 
 }
 
 
 
-.template-preview{
+:where(.ui-page-scope--campaign-editor) .template-preview{
 
     background:#111118;
 
@@ -131,3 +127,4 @@
 
 }
 
+:where(.ui-page-scope--campaign-editor) .campaign-offer-preview { margin-top:16px; padding:16px; border:1px dashed var(--color-border); border-radius:10px; background:var(--color-muted); }

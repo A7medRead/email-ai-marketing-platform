@@ -20,21 +20,22 @@ const {id}=useParams();
 
 const [data,setData]=useState(null);
 const [deliveries,setDeliveries]=useState([]);
+const [error,setError]=useState("");
 
 
 useEffect(()=>{
 
 api.get(`/campaigns/${id}/analytics`)
-.then(res=>setData(res.data));
+.then(res=>setData(res.data)).catch(()=>setError("Could not load campaign analytics."));
 
 api.get(`/campaigns/${id}/deliveries`)
-.then(res=>setDeliveries(res.data));
+.then(res=>setDeliveries(res.data)).catch(()=>setError("Could not load delivery details."));
 
 },[id]);
 
 
 if(!data)
-return <h2>Loading...</h2>;
+return <main className="page"><h2>{error || "Loading campaign analytics…"}</h2></main>;
 
 
 return (
@@ -60,7 +61,7 @@ Campaign Performance
 
 <div className="cards" style={{
 display:"grid",
-gridTemplateColumns:"repeat(4,1fr)",
+gridTemplateColumns:"repeat(auto-fit,minmax(190px,1fr))",
 gap:"20px",
 marginTop:"30px",
 marginBottom:"40px"

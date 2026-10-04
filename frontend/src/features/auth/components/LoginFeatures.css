@@ -1,5 +1,7 @@
+/*  Styles scoped to route wrapper .ui-page-scope--auth-login  */
 
-.login-features{
+
+:where(.ui-page-scope--auth-login) .login-features{
 
     width:100%;
 
@@ -16,7 +18,7 @@
 }
 
 
-.feature-card{
+:where(.ui-page-scope--auth-login) .feature-card{
 
     background:#0f172a;
 
@@ -29,7 +31,7 @@
 }
 
 
-.feature-icon{
+:where(.ui-page-scope--auth-login) .feature-icon{
 
     width:45px;
 
@@ -41,7 +43,7 @@
 
     justify-content:center;
 
-    background:#312e81;
+    background:#264b50;
 
     border-radius:12px;
 
@@ -52,7 +54,7 @@
 }
 
 
-.feature-card h3{
+:where(.ui-page-scope--auth-login) .feature-card h3{
 
     color:white;
 
@@ -61,7 +63,7 @@
 }
 
 
-.feature-card p{
+:where(.ui-page-scope--auth-login) .feature-card p{
 
     color:#94a3b8;
 
@@ -74,7 +76,7 @@
 
 @media(max-width:900px){
 
-    .login-features{
+    :where(.ui-page-scope--auth-login) .login-features{
 
         grid-template-columns:1fr 1fr;
 
@@ -85,7 +87,7 @@
 
 @media(max-width:600px){
 
-    .login-features{
+    :where(.ui-page-scope--auth-login) .login-features{
 
         grid-template-columns:1fr;
 
@@ -95,21 +97,20 @@
 
 
 
-.feature-card{
+:where(.ui-page-scope--auth-login) .feature-card{
 
     transition:.3s ease;
 
 }
 
 
-.feature-card:hover{
+:where(.ui-page-scope--auth-login) .feature-card:hover{
 
     transform:translateY(-8px);
 
-    border-color:#7c3aed;
+    border-color:#427a77;
 
-    box-shadow:0 15px 40px rgba(124,58,237,.15);
+    box-shadow:0 12px 28px rgba(20,45,50,.2);
 
 }
-
 

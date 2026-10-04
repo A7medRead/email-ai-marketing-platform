@@ -16,6 +16,7 @@ company:"",
 phone:"",
 position:""
 });
+const [error,setError]=useState("");
 
 
 useEffect(()=>{
@@ -23,7 +24,7 @@ useEffect(()=>{
 api.get(`/contacts/${id}`)
 .then(res=>{
 setForm(res.data);
-});
+}).catch(()=>setError("Could not load this contact. Please go back and try again."));
 
 },[id]);
 
@@ -49,7 +50,7 @@ navigate(`/contacts/${id}`);
 
 return (
 
-<div>
+<div className="page">
 
 <Button
 variant="secondary"
@@ -61,8 +62,7 @@ onClick={()=>navigate(`/contacts/${id}`)}
 <h1>Edit Contact</h1>
 
 
-<div className="card"
-style={{maxWidth:"500px"}}>
+<form className="form-card form-stack" onSubmit={async e=>{e.preventDefault();try{await save();}catch{setError("Could not save changes. Please try again.");}}}>
 
 {[
 "first_name",
@@ -73,30 +73,18 @@ style={{maxWidth:"500px"}}>
 "position"
 ].map(key=>(
 
-<input
-key={key}
-name={key}
-value={form[key] || ""}
-placeholder={key}
-onChange={change}
-style={{
-display:"block",
-width:"100%",
-margin:"10px 0"
-}}
-/>
+<label className="form-field" key={key}>{key.replaceAll("_", " ").replace(/^\w/, c=>c.toUpperCase())}<input name={key} type={key === "email" ? "email" : "text"} value={form[key] || ""} onChange={change} /></label>
 
 ))}
 
 
-<Button
-onClick={save}
->
+{error && <p role="alert" className="form-error">{error}</p>}
+<Button type="submit">
 Save Changes
 </Button>
 
 
-</div>
+</form>
 
 </div>
 

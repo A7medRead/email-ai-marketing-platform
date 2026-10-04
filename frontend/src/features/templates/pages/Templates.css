@@ -1,7 +1,9 @@
+/*  Styles scoped to route wrapper .ui-page-scope--templates  */
 
-.templates-add-btn{
 
-    background:#9333ea;
+:where(.ui-page-scope--templates) .templates-add-btn{
+
+    background:#427a77;
     color:white;
 
     border:none;
@@ -14,7 +16,7 @@
 }
 
 
-.templates-cards{
+:where(.ui-page-scope--templates) .templates-cards{
 
     display:grid;
 
@@ -25,21 +27,21 @@
 }
 
 
-.templates-card{
+:where(.ui-page-scope--templates) .templates-card{
 
     min-height:260px;
 
 }
 
 
-.templates-avatar{
+:where(.ui-page-scope--templates) .templates-avatar{
 
     width:70px;
     height:70px;
 
     border-radius:50%;
 
-    background:#5b21b6;
+    background:#356966;
 
     display:flex;
 
@@ -51,7 +53,7 @@
 }
 
 
-.templates-actions{
+:where(.ui-page-scope--templates) .templates-actions{
 
     margin-top:25px;
 
@@ -62,7 +64,7 @@
 }
 
 
-.templates-actions button{
+:where(.ui-page-scope--templates) .templates-actions button{
 
     padding:10px 16px;
 
@@ -73,7 +75,7 @@
 
 @media(max-width:900px){
 
-    .templates-cards{
+    :where(.ui-page-scope--templates) .templates-cards{
 
         grid-template-columns:1fr;
 

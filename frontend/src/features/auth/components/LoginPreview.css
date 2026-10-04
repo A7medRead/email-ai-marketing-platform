@@ -1,5 +1,7 @@
+/*  Styles scoped to route wrapper .ui-page-scope--auth-login  */
 
-.login-preview{
+
+:where(.ui-page-scope--auth-login) .login-preview{
 
     width:560px;
     height:390px;
@@ -15,12 +17,12 @@
     position:relative;
 
     box-shadow:
-    0 0 80px rgba(124,58,237,.18);
+    0 0 80px rgba(66,122,119,.12);
 
 }
 
 
-.preview-header{
+:where(.ui-page-scope--auth-login) .preview-header{
 
     display:flex;
     justify-content:space-between;
@@ -29,7 +31,7 @@
 }
 
 
-.preview-header h3{
+:where(.ui-page-scope--auth-login) .preview-header h3{
 
     color:white;
     font-size:20px;
@@ -37,16 +39,16 @@
 }
 
 
-.preview-header span{
+:where(.ui-page-scope--auth-login) .preview-header span{
 
-    color:#a78bfa;
+    color:#9bc5c2;
     font-size:13px;
 
 }
 
 
 
-.preview-chart{
+:where(.ui-page-scope--auth-login) .preview-chart{
 
     height:140px;
 
@@ -63,7 +65,7 @@
 }
 
 
-.chart-line{
+:where(.ui-page-scope--auth-login) .chart-line{
 
     position:absolute;
 
@@ -73,7 +75,7 @@
     left:10%;
     top:45%;
 
-    border-top:4px solid #8b5cf6;
+    border-top:4px solid #5b8d89;
 
     border-radius:50%;
 
@@ -83,7 +85,7 @@
 
 
 
-.preview-cards{
+:where(.ui-page-scope--auth-login) .preview-cards{
 
     display:flex;
 
@@ -94,7 +96,7 @@
 }
 
 
-.preview-cards div{
+:where(.ui-page-scope--auth-login) .preview-cards div{
 
     flex:1;
 
@@ -109,7 +111,7 @@
 }
 
 
-.preview-cards small{
+:where(.ui-page-scope--auth-login) .preview-cards small{
 
     color:#94a3b8;
 
@@ -118,7 +120,7 @@
 }
 
 
-.preview-cards strong{
+:where(.ui-page-scope--auth-login) .preview-cards strong{
 
     color:white;
 
@@ -128,7 +130,7 @@
 
 
 
-.ai-suggestion{
+:where(.ui-page-scope--auth-login) .ai-suggestion{
 
     position:absolute;
 
@@ -138,9 +140,9 @@
 
     width:190px;
 
-    background:#1e1640;
+    background:#1a2a35;
 
-    border:1px solid #7c3aed;
+    border:1px solid #427a77;
 
     border-radius:16px;
 
@@ -149,14 +151,14 @@
 }
 
 
-.ai-suggestion h4{
+:where(.ui-page-scope--auth-login) .ai-suggestion h4{
 
     color:white;
 
 }
 
 
-.ai-suggestion p{
+:where(.ui-page-scope--auth-login) .ai-suggestion p{
 
     color:#cbd5e1;
 
@@ -165,13 +167,13 @@
 }
 
 
-.ai-suggestion button{
+:where(.ui-page-scope--auth-login) .ai-suggestion button{
 
     margin-top:10px;
 
     width:100%;
 
-    background:#7c3aed;
+    background:#427a77;
 
     color:white;
 
@@ -186,12 +188,12 @@
 
 
 
-.login-preview{
+:where(.ui-page-scope--auth-login) .login-preview{
     overflow:visible;
 }
 
 
-.ai-suggestion{
+:where(.ui-page-scope--auth-login) .ai-suggestion{
     right:-20px;
     top:110px;
     width:210px;
@@ -199,18 +201,18 @@
 }
 
 
-.login-preview{
+:where(.ui-page-scope--auth-login) .login-preview{
     transform:translateX(-20px);
 }
 
 
 @media(max-width:1200px){
 
-    .login-preview{
+    :where(.ui-page-scope--auth-login) .login-preview{
         transform:none;
     }
 
-    .ai-suggestion{
+    :where(.ui-page-scope--auth-login) .ai-suggestion{
         right:10px;
     }
 
@@ -219,14 +221,14 @@
 
 
 
-.preview-card{
+:where(.ui-page-scope--auth-login) .preview-card{
 
     animation: previewFloat 5s ease-in-out infinite;
 
 }
 
 
-.ai-box{
+:where(.ui-page-scope--auth-login) .ai-box{
 
     animation: suggestionMove 3s ease-in-out infinite;
 
@@ -268,12 +270,12 @@
 
 
 
-.preview-card{
+:where(.ui-page-scope--auth-login) .preview-card{
     overflow:hidden !important;
 }
 
 
-.ai-box{
+:where(.ui-page-scope--auth-login) .ai-box{
     width:220px !important;
     right:-10px !important;
     top:80px !important;
@@ -281,47 +283,46 @@
 }
 
 
-.preview-stats{
+:where(.ui-page-scope--auth-login) .preview-stats{
     gap:12px !important;
 }
 
 
-.preview-stats div{
+:where(.ui-page-scope--auth-login) .preview-stats div{
     padding:14px !important;
 }
 
 
 
 
-.ai-box{
+:where(.ui-page-scope--auth-login) .ai-box{
     right:-35px !important;
     top:95px !important;
     z-index:3;
 }
 
 
-.preview-stats{
+:where(.ui-page-scope--auth-login) .preview-stats{
     padding-right:35px !important;
 }
 
 
 
 
-.login-preview,
-.preview-card{
+:where(.ui-page-scope--auth-login) .login-preview, :where(.ui-page-scope--auth-login) .preview-card{
     position:relative;
 }
 
 
-.preview-card{
+:where(.ui-page-scope--auth-login) .preview-card{
     box-shadow:
-    0 0 80px rgba(124,58,237,.18);
+    0 12px 32px rgba(20,45,50,.20);
 }
 
 
 /* chart animation */
 
-.fake-chart span{
+:where(.ui-page-scope--auth-login) .fake-chart span{
     animation:chartMove 3s ease-in-out infinite alternate;
 }
 
@@ -341,7 +342,7 @@
 
 /* floating AI box */
 
-.ai-box{
+:where(.ui-page-scope--auth-login) .ai-box{
     animation:floatAI 4s ease-in-out infinite;
 }
 
@@ -361,13 +362,13 @@
 
 
 
-.ai-box{
+:where(.ui-page-scope--auth-login) .ai-box{
     right:20px;
     transform:translateX(-10px);
 }
 
 
-.ai-box{
+:where(.ui-page-scope--auth-login) .ai-box{
     animation: floatAI 3s ease-in-out infinite;
 }
 

@@ -1,0 +1,187 @@
+/* Styles scoped to route wrapper .ui-page-scope--settings */
+:where(.ui-page-scope--settings) .settings-page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 42px 36px;
+    color: #172033;
+}
+
+:where(.ui-page-scope--settings) .settings-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+:where(.ui-page-scope--settings) .settings-heading-icon,
+:where(.ui-page-scope--settings) .settings-card-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    color: var(--color-primary);
+    background: #eaf3f2;
+    border-radius: 12px;
+}
+
+:where(.ui-page-scope--settings) .settings-heading-icon {
+    width: 48px;
+    height: 48px;
+}
+
+:where(.ui-page-scope--settings) .settings-eyebrow {
+    margin: 0 0 5px;
+    color: #527a78;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+}
+
+:where(.ui-page-scope--settings) .settings-heading h1 {
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: -.03em;
+}
+
+:where(.ui-page-scope--settings) .settings-heading > div > p:last-child {
+    margin: 8px 0 0;
+    color: #697386;
+    font-size: 14px;
+}
+
+:where(.ui-page-scope--settings) .settings-card {
+    padding: 26px 28px 22px;
+    background: #fff;
+    border: 1px solid #e7e9f0;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(19, 29, 51, .04);
+}
+
+:where(.ui-page-scope--settings) .settings-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #edf0f5;
+}
+
+:where(.ui-page-scope--settings) .settings-card-icon {
+    width: 40px;
+    height: 40px;
+}
+
+:where(.ui-page-scope--settings) .settings-card-heading h2 {
+    margin: 0;
+    font-size: 17px;
+}
+
+:where(.ui-page-scope--settings) .settings-card-heading p {
+    margin: 5px 0 0;
+    color: #778094;
+    font-size: 13px;
+}
+
+:where(.ui-page-scope--settings) .settings-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 19px 0;
+    color: #354056;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid #edf0f5;
+}
+
+:where(.ui-page-scope--settings) .settings-field > span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+:where(.ui-page-scope--settings) .settings-field > span svg {
+    color: #527a78;
+}
+
+:where(.ui-page-scope--settings) .settings-field select {
+    width: min(260px, 52%);
+    padding: 10px 12px;
+    color: #263149;
+    background: #fff;
+    border: 1px solid #dce1eb;
+    border-radius: 9px;
+    font: inherit;
+}
+
+:where(.ui-page-scope--settings) .settings-field select:focus {
+    outline: 3px solid rgba(66, 122, 119, .22);
+    border-color: var(--color-primary);
+}
+
+:where(.ui-page-scope--settings) .settings-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 20px;
+}
+
+:where(.ui-page-scope--settings) .settings-message {
+    min-height: 20px;
+    margin: 0;
+    color: #b54747;
+    font-size: 13px;
+}
+
+:where(.ui-page-scope--settings) .settings-message.success {
+    color: #16804a;
+}
+
+:where(.ui-page-scope--settings) .settings-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 16px;
+    color: #fff;
+    background: var(--color-primary);
+    border: 0;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+:where(.ui-page-scope--settings) .settings-actions button:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+}
+
+:where(.ui-page-scope--settings) .settings-actions button:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+@media (max-width: 640px) {
+    :where(.ui-page-scope--settings) .settings-page {
+        padding: 28px 18px;
+    }
+
+    :where(.ui-page-scope--settings) .settings-card {
+        padding: 20px 17px;
+    }
+
+    :where(.ui-page-scope--settings) .settings-field {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 11px;
+    }
+
+    :where(.ui-page-scope--settings) .settings-field select {
+        width: 100%;
+    }
+
+    :where(.ui-page-scope--settings) .settings-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}

@@ -69,6 +69,12 @@ class Campaign(Base):
         nullable=True,
     )
 
+    offer_id = Column(
+        Integer,
+        ForeignKey("offers.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+
 
     name = Column(
         String(255),
@@ -162,3 +168,5 @@ class Campaign(Base):
     template = relationship(
         "Template",
     )
+
+    offer = relationship("Offer")

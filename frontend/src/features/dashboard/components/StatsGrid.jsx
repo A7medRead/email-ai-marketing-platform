@@ -19,21 +19,21 @@ export default function StatsGrid({stats,marketing}){
         ? ((marketing.clicked / stats.total_sent) * 100).toFixed(1)
         : 0;
 
-    const deliveryRate = stats.total_sent
+    const attempted = Number(stats.total_sent || 0) + Number(stats.total_failed || 0);
+    const deliveryRate = attempted
         ? (
-            ((stats.total_sent - stats.total_failed) /
-            stats.total_sent) * 100
+            (Number(stats.total_sent || 0) /
+            attempted) * 100
         ).toFixed(1)
         : 0;
 
-    const bounceRate = stats.total_sent
+    const bounceRate = attempted
         ? (
-            (stats.total_failed /
-            stats.total_sent) * 100
+            (Number(stats.total_failed || 0) /
+            attempted) * 100
         ).toFixed(1)
         : 0;
 
-    const unsubscribeRate = "0.4";
 
     const cards=[
 
@@ -41,8 +41,7 @@ export default function StatsGrid({stats,marketing}){
             title:"Emails Sent",
             value:stats.total_sent,
             icon:Send,
-            color:"#7c3aed",
-            change:"+12.4%"
+            color:"#427a77",
         },
 
         {
@@ -50,7 +49,6 @@ export default function StatsGrid({stats,marketing}){
             value:`${openRate}%`,
             icon:Mail,
             color:"#10b981",
-            change:"+8.7%"
         },
 
         {
@@ -58,7 +56,6 @@ export default function StatsGrid({stats,marketing}){
             value:`${clickRate}%`,
             icon:MousePointerClick,
             color:"#2563eb",
-            change:"+3.1%"
         },
 
         {
@@ -66,7 +63,6 @@ export default function StatsGrid({stats,marketing}){
             value:`${deliveryRate}%`,
             icon:ShieldCheck,
             color:"#f97316",
-            change:"+0.6%"
         },
 
         {
@@ -74,17 +70,14 @@ export default function StatsGrid({stats,marketing}){
             value:`${bounceRate}%`,
             icon:AlertTriangle,
             color:"#ef4444",
-            change:"-0.1%",
-            changeColor:"#ef4444"
         },
 
         {
             title:"Unsubscribe Rate",
-            value:`${unsubscribeRate}%`,
+            value:"—",
             icon:UserMinus,
-            color:"#8b5cf6",
-            change:"-0.2%",
-            changeColor:"#ef4444"
+            color:"#5b8d89",
+            subtitle:"Not tracked"
         }
 
     ];

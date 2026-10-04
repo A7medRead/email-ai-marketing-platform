@@ -1,21 +1,22 @@
+/*  Styles scoped to route wrapper .ui-page-scope--email-generation  */
 
 /* Emails List */
 
-.emails-page{
+:where(.ui-page-scope--email-generation) .emails-page{
 
     width:100%;
 
 }
 
 
-.emails-page h1{
+:where(.ui-page-scope--email-generation) .emails-page h1{
 
     margin-bottom:20px;
 
 }
 
 
-.emails-page table{
+:where(.ui-page-scope--email-generation) .emails-page table{
 
     width:100%;
 
@@ -34,8 +35,7 @@
 }
 
 
-.emails-page th,
-.emails-page td{
+:where(.ui-page-scope--email-generation) .emails-page th, :where(.ui-page-scope--email-generation) .emails-page td{
 
     padding:14px;
 
@@ -46,23 +46,23 @@
 }
 
 
-.emails-page th{
+:where(.ui-page-scope--email-generation) .emails-page th{
 
     color:#f3f4f6;
 
 }
 
 
-.emails-page td{
+:where(.ui-page-scope--email-generation) .emails-page td{
 
     color:#a1a1aa;
 
 }
 
 
-.emails-page button{
+:where(.ui-page-scope--email-generation) .emails-page button{
 
-    background:#9333ea;
+    background:#427a77;
 
     color:white;
 
@@ -77,23 +77,23 @@
 }
 
 
-.emails-page a{
+:where(.ui-page-scope--email-generation) .emails-page a{
 
-    color:#c084fc;
+    color:#356966;
 
     text-decoration:none;
 
 }
 
 
-.email-details-page{
+:where(.ui-page-scope--email-generation) .email-details-page{
 
     width:100%;
 
 }
 
 
-.email-details-page pre{
+:where(.ui-page-scope--email-generation) .email-details-page pre{
 
     background:#171821;
 
@@ -109,7 +109,7 @@
 
 
 
-.email-create-page{
+:where(.ui-page-scope--email-generation) .email-create-page{
 
     width:100%;
 
@@ -120,41 +120,39 @@
    AI EMAIL STUDIO
    ======================================================= */
 
-.ai-studio{
+:where(.ui-page-scope--email-generation) .ai-studio{
     max-width:1200px;
     margin:0 auto;
     padding:24px;
 }
 
-.ai-title{
+:where(.ui-page-scope--email-generation) .ai-title{
     font-size:42px;
     font-weight:700;
     margin-bottom:28px;
     color:#fff;
 }
 
-.ai-grid{
+:where(.ui-page-scope--email-generation) .ai-grid{
     display:grid;
     grid-template-columns:420px 1fr;
     gap:24px;
     align-items:start;
 }
 
-.ai-card{
+:where(.ui-page-scope--email-generation) .ai-card{
     background:#171821;
     border:1px solid #2e303a;
     border-radius:18px;
     padding:24px;
 }
 
-.ai-card h2{
+:where(.ui-page-scope--email-generation) .ai-card h2{
     margin-top:0;
     margin-bottom:20px;
 }
 
-.ai-input,
-.ai-textarea,
-.ai-select{
+:where(.ui-page-scope--email-generation) .ai-input, :where(.ui-page-scope--email-generation) .ai-textarea, :where(.ui-page-scope--email-generation) .ai-select{
     width:100%;
     background:#111218;
     color:white;
@@ -166,26 +164,24 @@
     transition:.2s;
 }
 
-.ai-input:focus,
-.ai-textarea:focus,
-.ai-select:focus{
-    border-color:#9333ea;
+:where(.ui-page-scope--email-generation) .ai-input:focus, :where(.ui-page-scope--email-generation) .ai-textarea:focus, :where(.ui-page-scope--email-generation) .ai-select:focus{
+    border-color:#427a77;
     box-shadow:0 0 0 3px rgba(147,51,234,.15);
 }
 
-.ai-textarea{
+:where(.ui-page-scope--email-generation) .ai-textarea{
     resize:vertical;
     min-height:140px;
 }
 
-.ai-toolbar{
+:where(.ui-page-scope--email-generation) .ai-toolbar{
     display:grid;
     grid-template-columns:repeat(3,minmax(0,1fr));
     gap:10px;
     margin-top:18px;
 }
 
-.ai-toolbar button{
+:where(.ui-page-scope--email-generation) .ai-toolbar button{
     width:100%;
     min-width:0;
     padding:10px 12px;
@@ -193,90 +189,90 @@
 }
 
 @media(max-width:1000px){
-    .ai-grid{
+    :where(.ui-page-scope--email-generation) .ai-grid{
         grid-template-columns:1fr;
     }
 }
 
 
-.ai-editor{
+:where(.ui-page-scope--email-generation) .ai-editor{
     min-height:550px;
     resize:vertical;
 }
 
-.ai-generate button{
+:where(.ui-page-scope--email-generation) .ai-generate button{
     width:100%;
 }
 
 /* ===== Final AI Studio Polish ===== */
 
-.ai-grid{
+:where(.ui-page-scope--email-generation) .ai-grid{
     align-items:stretch;
 }
 
-.ai-card{
+:where(.ui-page-scope--email-generation) .ai-card{
     display:flex;
     flex-direction:column;
 }
 
 
-.ai-generate{
+:where(.ui-page-scope--email-generation) .ai-generate{
     margin-top:auto;
     padding-top:24px;
 }
 
-.ai-generate button{
+:where(.ui-page-scope--email-generation) .ai-generate button{
     width:100%;
 }
 
 
-.ai-editor{
+:where(.ui-page-scope--email-generation) .ai-editor{
     min-height:600px;
     resize:vertical;
 }
 
 
-.ai-toolbar button{
+:where(.ui-page-scope--email-generation) .ai-toolbar button{
     height:42px;
     font-size:13px;
     font-weight:600;
 }
 
 
-.ai-actions{
+:where(.ui-page-scope--email-generation) .ai-actions{
     display:flex;
     gap:12px;
     margin-top:20px;
     flex-wrap:wrap;
 }
 
-.ai-actions button{
+:where(.ui-page-scope--email-generation) .ai-actions button{
     flex:1;
 }
 
 
-.ai-card{
+:where(.ui-page-scope--email-generation) .ai-card{
     background:#171722;
     border:1px solid rgba(255,255,255,.06);
     border-radius:18px;
     padding:22px;
 }
 
-.ai-card h2{
+:where(.ui-page-scope--email-generation) .ai-card h2{
     margin-bottom:18px;
 }
 
 
 /* ===== TipTap ===== */
 
-.rich-editor{
+:where(.ui-page-scope--email-generation) .rich-editor{
     border:1px solid rgba(255,255,255,.08);
     border-radius:12px;
     overflow:hidden;
     background:#101018;
 }
 
-.rich-toolbar{
+:where(.ui-page-scope--email-generation) .rich-toolbar{
     display:flex;
     gap:8px;
     padding:10px;
@@ -284,35 +280,35 @@
     background:#181824;
 }
 
-.rich-toolbar button{
+:where(.ui-page-scope--email-generation) .rich-toolbar button{
     padding:6px 12px;
     border:none;
     border-radius:8px;
     cursor:pointer;
 }
 
-.rich-editor .ProseMirror{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror{
     min-height:600px;
     padding:18px;
     outline:none;
     color:#fff;
 }
 
-.rich-editor .ProseMirror p{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror p{
     margin:0 0 12px;
 }
 
 
 /* ===== Rich Text Editor Upgrade ===== */
 
-.rich-editor{
+:where(.ui-page-scope--email-generation) .rich-editor{
     border:1px solid #2e303a;
     border-radius:16px;
     overflow:hidden;
     background:#101018;
 }
 
-.rich-toolbar{
+:where(.ui-page-scope--email-generation) .rich-toolbar{
     display:flex;
     gap:8px;
     padding:12px;
@@ -320,8 +316,8 @@
     border-bottom:1px solid #2e303a;
 }
 
-.rich-toolbar button{
-    background:#9333ea;
+:where(.ui-page-scope--email-generation) .rich-toolbar button{
+    background:#427a77;
     color:white;
     border:none;
     padding:8px 14px;
@@ -331,15 +327,15 @@
     transition:.2s;
 }
 
-.rich-toolbar button:hover{
+:where(.ui-page-scope--email-generation) .rich-toolbar button:hover{
     opacity:.85;
 }
 
-.rich-toolbar button.is-active{
-    background:#c084fc;
+:where(.ui-page-scope--email-generation) .rich-toolbar button.is-active{
+    background:#356966;
 }
 
-.rich-editor .ProseMirror{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror{
     min-height:600px;
     padding:22px;
     color:#e4e4e7;
@@ -348,102 +344,102 @@
     line-height:1.7;
 }
 
-.rich-editor .ProseMirror p{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror p{
     margin-bottom:14px;
 }
 
-.rich-editor .ProseMirror ul{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror ul{
     padding-left:25px;
 }
 
 
-.rich-editor .ProseMirror:focus{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror:focus{
     outline:none;
 }
 
-.rich-editor .ProseMirror h2{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror h2{
     color:#fff;
     margin:20px 0;
 }
 
-.rich-editor .ProseMirror strong{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror strong{
     color:#fff;
 }
 
 
-.rich-editor .ProseMirror{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror{
     min-height:600px;
     padding:24px;
     color:#e4e4e7;
     outline:none !important;
-    caret-color:#9333ea;
+    caret-color:#427a77;
 }
 
-.rich-editor .ProseMirror:focus{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror:focus{
     outline:none !important;
 }
 
-.rich-editor .ProseMirror p{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror p{
     margin-bottom:14px;
 }
 
-.rich-editor .ProseMirror h2{
+:where(.ui-page-scope--email-generation) .rich-editor .ProseMirror h2{
     font-size:24px;
     margin:20px 0;
 }
 
-.rich-toolbar button{
+:where(.ui-page-scope--email-generation) .rich-toolbar button{
     transition:.2s;
 }
 
-.rich-toolbar button:hover{
+:where(.ui-page-scope--email-generation) .rich-toolbar button:hover{
     transform:translateY(-1px);
 }
 
 
-.rich-toolbar{
+:where(.ui-page-scope--email-generation) .rich-toolbar{
     position:sticky;
     top:0;
     z-index:5;
 }
 
 
-.ai-preview{
+:where(.ui-page-scope--email-generation) .ai-preview{
     margin-top:25px;
 }
 
-.ai-preview-card{
+:where(.ui-page-scope--email-generation) .ai-preview-card{
     background:#111218;
     border:1px solid #343746;
     border-radius:14px;
     padding:20px;
 }
 
-.ai-preview-card hr{
+:where(.ui-page-scope--email-generation) .ai-preview-card hr{
     border:none;
     border-top:1px solid #343746;
     margin:16px 0;
 }
 
-.preview-body{
+:where(.ui-page-scope--email-generation) .preview-body{
     color:#d4d4d8;
     line-height:1.7;
 }
 
-.preview-body p{
+:where(.ui-page-scope--email-generation) .preview-body p{
     margin-bottom:12px;
 }
 
 
-.preview-toggle{
+:where(.ui-page-scope--email-generation) .preview-toggle{
     margin:18px 0;
 }
 
-.preview-toggle button{
+:where(.ui-page-scope--email-generation) .preview-toggle button{
     width:100%;
 }
 
-.ai-preview{
+:where(.ui-page-scope--email-generation) .ai-preview{
     margin-top:18px;
 }
 
@@ -451,37 +447,37 @@
 
 /* ===== Emails UX Upgrade ===== */
 
-.emails-header{
+:where(.ui-page-scope--email-generation) .emails-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin-bottom:25px;
 }
 
-.emails-header h1{
+:where(.ui-page-scope--email-generation) .emails-header h1{
     margin:0;
     font-size:42px;
 }
 
-.emails-header p{
+:where(.ui-page-scope--email-generation) .emails-header p{
     color:#9ca3af;
 }
 
-.create-email-btn{
-    background:#9333ea;
+:where(.ui-page-scope--email-generation) .create-email-btn{
+    background:#427a77;
     color:white !important;
     padding:12px 22px;
     border-radius:12px;
     font-weight:600;
 }
 
-.emails-tools{
+:where(.ui-page-scope--email-generation) .emails-tools{
     display:flex;
     justify-content:space-between;
     margin-bottom:20px;
 }
 
-.emails-tools input{
+:where(.ui-page-scope--email-generation) .emails-tools input{
     width:320px;
     background:#111218;
     border:1px solid #343746;
@@ -490,31 +486,31 @@
     border-radius:12px;
 }
 
-.emails-table-wrapper{
+:where(.ui-page-scope--email-generation) .emails-table-wrapper{
     background:#171821;
     border:1px solid #272938;
     border-radius:18px;
     overflow:hidden;
 }
 
-.emails-page tr:hover{
-    background:#1d1f2b;
+:where(.ui-page-scope--email-generation) .emails-page tr:hover{
+    background:#f1f7f6;
 }
 
-.purpose-badge{
+:where(.ui-page-scope--email-generation) .purpose-badge{
     background:#272938;
-    color:#c084fc;
+    color:#356966;
     padding:6px 12px;
     border-radius:20px;
     font-size:13px;
 }
 
-.actions{
+:where(.ui-page-scope--email-generation) .actions{
     display:flex;
     gap:8px;
 }
 
-.subject-cell strong{
+:where(.ui-page-scope--email-generation) .subject-cell strong{
     color:white;
 }
 
@@ -522,17 +518,17 @@
 
 /* Actions Dropdown */
 
-.actions-menu{
+:where(.ui-page-scope--email-generation) .actions-menu{
     position:relative;
 }
 
 
-.actions-menu summary{
+:where(.ui-page-scope--email-generation) .actions-menu summary{
 
     list-style:none;
     cursor:pointer;
 
-    background:#9333ea;
+    background:#427a77;
     color:white;
 
     width:38px;
@@ -547,7 +543,7 @@
 }
 
 
-.action-dropdown{
+:where(.ui-page-scope--email-generation) .action-dropdown{
 
     position:absolute;
     right:0;
@@ -567,7 +563,7 @@
 }
 
 
-.action-dropdown button{
+:where(.ui-page-scope--email-generation) .action-dropdown button{
 
     width:100%;
     text-align:left;
@@ -584,14 +580,14 @@
 }
 
 
-.action-dropdown button:hover{
+:where(.ui-page-scope--email-generation) .action-dropdown button:hover{
 
     background:#272938;
 
 }
 
 
-.action-dropdown .delete-action{
+:where(.ui-page-scope--email-generation) .action-dropdown .delete-action{
 
     color:#f87171;
 
@@ -599,17 +595,17 @@
 
 
 
-.email-time{
+:where(.ui-page-scope--email-generation) .email-time{
     color:#71717a;
     font-size:12px;
 }
 
 
-.subject-cell{
+:where(.ui-page-scope--email-generation) .subject-cell{
     max-width:320px;
 }
 
-.subject-cell strong{
+:where(.ui-page-scope--email-generation) .subject-cell strong{
     display:block;
     white-space:nowrap;
     overflow:hidden;
@@ -617,7 +613,7 @@
 }
 
 
-.purpose-badge{
+:where(.ui-page-scope--email-generation) .purpose-badge{
     display:inline-block;
     max-width:260px;
     white-space:nowrap;
@@ -626,13 +622,13 @@
 }
 
 
-.emails-page tbody tr{
+:where(.ui-page-scope--email-generation) .emails-page tbody tr{
     transition:.2s;
 }
 
 
-.emails-page tbody tr:hover{
-    background:#1d1f2b;
+:where(.ui-page-scope--email-generation) .emails-page tbody tr:hover{
+    background:#f1f7f6;
 }
 
 
@@ -640,13 +636,13 @@
 /* ===== Emails Table UX Polish ===== */
 
 
-.subject-cell{
+:where(.ui-page-scope--email-generation) .subject-cell{
     width:360px;
     text-align:left !important;
 }
 
 
-.subject-cell strong{
+:where(.ui-page-scope--email-generation) .subject-cell strong{
 
     display:-webkit-box;
     -webkit-line-clamp:2;
@@ -657,7 +653,7 @@
 }
 
 
-.purpose-badge{
+:where(.ui-page-scope--email-generation) .purpose-badge{
 
     max-width:320px;
     padding:6px 12px;
@@ -668,7 +664,7 @@
 
     border-radius:999px;
 
-    color:#c084fc;
+    color:#356966;
 
     font-size:13px;
 
@@ -681,7 +677,7 @@
 }
 
 
-.actions-menu summary{
+:where(.ui-page-scope--email-generation) .actions-menu summary{
 
     width:34px;
     height:34px;
@@ -692,7 +688,7 @@
 
     border-radius:10px;
 
-    background:#9333ea;
+    background:#427a77;
 
     color:white;
 
@@ -705,36 +701,35 @@
 }
 
 
-.actions-menu summary:hover{
+:where(.ui-page-scope--email-generation) .actions-menu summary:hover{
 
     transform:scale(1.05);
 
 }
 
 
-.actions-menu[open] summary{
+:where(.ui-page-scope--email-generation) .actions-menu[open] summary{
 
-    background:#7e22ce;
-
-}
-
-
-.emails-page tbody tr:hover td{
-
-    background:rgba(255,255,255,.02);
+    background:#356966;
 
 }
 
 
+:where(.ui-page-scope--email-generation) .emails-page tbody tr:hover td{
+    color:#263149 !important;
+    background:#f1f7f6 !important;
+}
 
 
-.subject-cell{
+
+
+:where(.ui-page-scope--email-generation) .subject-cell{
     width:420px;
     max-width:420px;
 }
 
 
-.subject-cell strong{
+:where(.ui-page-scope--email-generation) .subject-cell strong{
 
     display:block;
 
@@ -758,48 +753,43 @@
 
 /* ===== Table Column Balance ===== */
 
-.emails-page table{
+:where(.ui-page-scope--email-generation) .emails-page table{
     table-layout:fixed;
 }
 
 
-.emails-page th:nth-child(1),
-.emails-page td:nth-child(1){
+:where(.ui-page-scope--email-generation) .emails-page th:nth-child(1), :where(.ui-page-scope--email-generation) .emails-page td:nth-child(1){
     width:70px;
 }
 
 
-.emails-page th:nth-child(2),
-.emails-page td:nth-child(2){
+:where(.ui-page-scope--email-generation) .emails-page th:nth-child(2), :where(.ui-page-scope--email-generation) .emails-page td:nth-child(2){
     width:360px;
 }
 
 
-.emails-page th:nth-child(3),
-.emails-page td:nth-child(3){
+:where(.ui-page-scope--email-generation) .emails-page th:nth-child(3), :where(.ui-page-scope--email-generation) .emails-page td:nth-child(3){
     width:300px;
 }
 
 
-.emails-page th:nth-child(4),
-.emails-page td:nth-child(4){
+:where(.ui-page-scope--email-generation) .emails-page th:nth-child(4), :where(.ui-page-scope--email-generation) .emails-page td:nth-child(4){
     width:160px;
 }
 
 
-.emails-page th:nth-child(5),
-.emails-page td:nth-child(5){
+:where(.ui-page-scope--email-generation) .emails-page th:nth-child(5), :where(.ui-page-scope--email-generation) .emails-page td:nth-child(5){
     width:90px;
 }
 
 
 
-.actions-menu{
+:where(.ui-page-scope--email-generation) .actions-menu{
     position:relative;
 }
 
 
-.actions-menu .action-dropdown{
+:where(.ui-page-scope--email-generation) .actions-menu .action-dropdown{
 
     position:absolute;
 
@@ -818,7 +808,7 @@
 
 /* ===== Emails Toolbar ===== */
 
-.emails-header{
+:where(.ui-page-scope--email-generation) .emails-header{
 
     display:flex;
     justify-content:space-between;
@@ -828,7 +818,7 @@
 }
 
 
-.emails-count{
+:where(.ui-page-scope--email-generation) .emails-count{
 
     color:#71717a;
     margin-top:-10px;
@@ -836,7 +826,7 @@
 }
 
 
-.emails-toolbar{
+:where(.ui-page-scope--email-generation) .emails-toolbar{
 
     display:flex;
     gap:12px;
@@ -845,8 +835,7 @@
 }
 
 
-.email-search,
-.email-filter{
+:where(.ui-page-scope--email-generation) .email-search, :where(.ui-page-scope--email-generation) .email-filter{
 
     background:#111218;
 
@@ -861,16 +850,16 @@
 }
 
 
-.email-search{
+:where(.ui-page-scope--email-generation) .email-search{
 
     width:240px;
 
 }
 
 
-.create-email-btn{
+:where(.ui-page-scope--email-generation) .create-email-btn{
 
-    background:#9333ea;
+    background:#427a77;
 
     color:white;
 
@@ -885,9 +874,9 @@
 }
 
 
-.create-email-btn:hover{
+:where(.ui-page-scope--email-generation) .create-email-btn:hover{
 
-    background:#7e22ce;
+    background:#356966;
 
 }
 
@@ -896,14 +885,14 @@
 
 /* ===== Header Spacing Fix ===== */
 
-.emails-header{
+:where(.ui-page-scope--email-generation) .emails-header{
 
     padding:10px 0 25px;
 
 }
 
 
-.emails-header h1{
+:where(.ui-page-scope--email-generation) .emails-header h1{
 
     margin:0;
 
@@ -912,7 +901,7 @@
 }
 
 
-.emails-count{
+:where(.ui-page-scope--email-generation) .emails-count{
 
     margin:8px 0 0;
 
@@ -921,7 +910,7 @@
 }
 
 
-.emails-toolbar{
+:where(.ui-page-scope--email-generation) .emails-toolbar{
 
     margin-top:5px;
 
@@ -930,7 +919,7 @@
 
 
 
-.empty-emails{
+:where(.ui-page-scope--email-generation) .empty-emails{
 
     text-align:center;
 
@@ -941,16 +930,16 @@
 }
 
 
-.empty-emails h3{
+:where(.ui-page-scope--email-generation) .empty-emails h3{
 
-    color:white;
+    color:#334155;
 
     margin-bottom:10px;
 
 }
 
 
-.empty-emails p{
+:where(.ui-page-scope--email-generation) .empty-emails p{
 
     margin:0;
 
@@ -958,22 +947,27 @@
 
 
 
-.email-row{
+:where(.ui-page-scope--email-generation) .email-row{
     cursor:pointer;
     transition:.2s;
 }
 
-.email-row:hover{
-    background:#202230;
+:where(.ui-page-scope--email-generation) .email-row:hover{
+    background:#f1f7f6;
 }
 
-.actions-menu{
+:where(.ui-page-scope--email-generation) .email-row:hover td{
+    color:#263149 !important;
+    background:#f1f7f6 !important;
+}
+
+:where(.ui-page-scope--email-generation) .actions-menu{
     cursor:default;
 }
 
 
 
-.pagination{
+:where(.ui-page-scope--email-generation) .pagination{
 
 display:flex;
 justify-content:center;
@@ -984,7 +978,7 @@ margin-top:25px;
 }
 
 
-.pagination button{
+:where(.ui-page-scope--email-generation) .pagination button{
 
 background:#171821;
 color:white;
@@ -996,10 +990,9 @@ cursor:pointer;
 }
 
 
-.pagination button:disabled{
+:where(.ui-page-scope--email-generation) .pagination button:disabled{
 
 opacity:.4;
 cursor:not-allowed;
 
 }
-

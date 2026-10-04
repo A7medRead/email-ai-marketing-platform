@@ -1,6 +1,4 @@
 import "./Sidebar.css";
-import { useEffect, useState } from "react";
-import api, { assetUrl } from "../shared/api/client";
 import {
     LayoutDashboard,
     Megaphone,
@@ -11,34 +9,13 @@ import {
     Send,
     Settings,
     CircleHelp,
-    LogOut
+    Tag
 } from "lucide-react";
 
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Sidebar(){
-
-    const [user,setUser]=useState(null);
-
-    useEffect(()=>{
-        api.get("/users/me")
-        .then(res=>{
-            console.log("USER DATA:", res.data); setUser(res.data);
-        })
-        .catch(err=>{
-            console.log(err);
-        });
-    },[]);
-
-    const navigate=useNavigate();
     const location=useLocation();
-
-    function logout(){
-
-        localStorage.removeItem("token");
-        navigate("/");
-
-    }
 
     const links=[
 
@@ -70,6 +47,12 @@ export default function Sidebar(){
             name:"Templates",
             path:"/templates",
             icon:FileText
+        },
+
+        {
+            name:"Offers",
+            path:"/offers",
+            icon:Tag
         },
 
         {
@@ -120,7 +103,7 @@ export default function Sidebar(){
                                 key={link.path}
                                 to={link.path}
                                 className={
-                                    location.pathname===link.path
+                                    (location.pathname===link.path || location.pathname.startsWith(`${link.path}/`))
                                     ?
                                     "sidebar-link active"
                                     :
@@ -148,7 +131,10 @@ export default function Sidebar(){
 
             <div className="sidebar-extra">
 
-                <a className="sidebar-link">
+                <Link
+                    to="/settings"
+                    className={location.pathname === "/settings" ? "sidebar-link active" : "sidebar-link"}
+                >
 
                     <Settings size={20}/>
 
@@ -158,9 +144,9 @@ export default function Sidebar(){
 
                     </span>
 
-                </a>
+                </Link>
 
-                <a className="sidebar-link">
+                <div className="sidebar-link sidebar-link-muted" aria-disabled="true">
 
                     <CircleHelp size={20}/>
 
@@ -170,53 +156,7 @@ export default function Sidebar(){
 
                     </span>
 
-                </a>
-
-            </div>
-
-            <div className="sidebar-bottom">
-
-                <div className="user-card">
-
-                    <div className="user-avatar">
-    <img
-        src={
-            user?.avatar
-            ? assetUrl(user.avatar)
-            : "https://via.placeholder.com/80"
-        }
-        alt="avatar"
-    />
-</div>
-
-                    <div>
-
-                        <strong>
-
-                            {user?.name || "User"}
-
-                        </strong>
-
-                        <p>
-
-                            {user?.email || "user@example.com"}
-
-                        </p>
-
-                    </div>
-
                 </div>
-
-                <button
-                    onClick={logout}
-                    className="logout-btn"
-                >
-
-                    <LogOut size={18}/>
-
-                    Logout
-
-                </button>
 
             </div>
 

@@ -1,4 +1,7 @@
-.login-footer{
+/*  Styles scoped to route wrapper .ui-page-scope--auth-login  */
+
+
+:where(.ui-page-scope--auth-login) .login-footer{
 
     max-width:1200px;
 
@@ -21,7 +24,7 @@
 }
 
 
-.footer-brand{
+:where(.ui-page-scope--auth-login) .footer-brand{
 
     color:white;
 
@@ -30,7 +33,7 @@
 }
 
 
-.footer-links{
+:where(.ui-page-scope--auth-login) .footer-links{
 
     display:flex;
 
@@ -39,7 +42,7 @@
 }
 
 
-.footer-links span{
+:where(.ui-page-scope--auth-login) .footer-links span{
 
     color:#94a3b8;
 
@@ -50,14 +53,14 @@
 }
 
 
-.footer-links span:hover{
+:where(.ui-page-scope--auth-login) .footer-links span:hover{
 
-    color:#8b5cf6;
+    color:#5b8d89;
 
 }
 
 
-.footer-copy{
+:where(.ui-page-scope--auth-login) .footer-copy{
 
     text-align:right;
 
@@ -69,7 +72,7 @@
 
 @media(max-width:900px){
 
-    .login-footer{
+    :where(.ui-page-scope--auth-login) .login-footer{
 
         grid-template-columns:1fr;
 
@@ -80,7 +83,7 @@
     }
 
 
-    .footer-links{
+    :where(.ui-page-scope--auth-login) .footer-links{
 
         justify-content:center;
 
@@ -89,7 +92,7 @@
     }
 
 
-    .footer-copy{
+    :where(.ui-page-scope--auth-login) .footer-copy{
 
         text-align:center;
 

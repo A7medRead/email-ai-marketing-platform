@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import api from "../../../shared/api/client";
 import Loading from "../../../shared/ui/Loading";
 
@@ -18,7 +18,8 @@ export default function Dashboard(){
     const [marketing,setMarketing]=useState(null);
     const [campaigns,setCampaigns]=useState([]);
     const [activities,setActivities]=useState([]);
-    const [search,setSearch]=useState("");
+    const { search } = useOutletContext();
+    const [loadError,setLoadError]=useState(false);
 
     useEffect(()=>{
 
@@ -48,6 +49,7 @@ export default function Dashboard(){
             }catch(err){
 
                 console.error(err);
+                setLoadError(true);
 
             }
 
@@ -67,6 +69,10 @@ export default function Dashboard(){
     return Math.floor(diff/86400) + " days ago";
 }
 
+    if(loadError){
+        return <div className="dashboard-page"><div className="dashboard-panel" role="alert"><h2>Dashboard couldn’t load</h2><p>Please refresh the page to try again.</p><button onClick={() => window.location.reload()}>Refresh</button></div></div>;
+    }
+
     if(!stats||!marketing){
 
         return <Loading/>;
@@ -77,7 +83,7 @@ export default function Dashboard(){
 
         <div className="dashboard-page">
 
-            <DashboardHeader search={search} setSearch={setSearch} />
+            <DashboardHeader />
 
             <StatsGrid
                 stats={stats}
@@ -86,10 +92,7 @@ export default function Dashboard(){
 
             <div className="dashboard-grid">
 
-                <PerformanceChart
-                    stats={stats}
-                    marketing={marketing}
-                />
+            <PerformanceChart />
 
                 <TopCampaigns campaigns={campaigns} search={search} />
 
@@ -165,7 +168,7 @@ activities.map((a,index)=>(
 
 {
 
-campaigns.slice(0,3).map(c=>(
+    campaigns.filter(c => ["scheduled", "draft", "queued"].includes(String(c.status).toLowerCase())).length ? campaigns.filter(c => ["scheduled", "draft", "queued"].includes(String(c.status).toLowerCase())).slice(0,3).map(c=>(
 
 <div onClick={() => navigate("/campaigns/" + c.id + "/details")} className="upcoming-card" key={c.id}>
 
@@ -185,7 +188,7 @@ campaigns.slice(0,3).map(c=>(
 
 </div>
 
-))
+)) : <p className="dashboard-empty">No upcoming campaigns.</p>
 
 }
 
@@ -207,11 +210,10 @@ campaigns.slice(0,3).map(c=>(
 
 <button onClick={() => navigate("/contacts/create")}>Add Contact</button>
 
-<button onClick={() => navigate("/contacts")}>Import Contacts</button>
+<button onClick={() => navigate("/contacts")}>Manage Contacts</button>
 
 <button onClick={() => navigate("/templates/create")}>Create Template</button>
 
-<button onClick={() => navigate("/analytics")}>View Analytics</button>
 
 </div>
 

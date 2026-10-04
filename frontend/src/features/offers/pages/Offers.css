@@ -1,0 +1,29 @@
+:where(.ui-page-scope--offers) .offers-page { max-width: 1160px; margin: 0 auto; padding-bottom: 48px; }
+:where(.ui-page-scope--offers) .offers-header { margin-bottom: 24px; }
+:where(.ui-page-scope--offers) .offers-eyebrow { display:flex; align-items:center; gap:7px; color:var(--color-primary); font-size:12px; font-weight:700; letter-spacing:.08em; margin:0 0 8px; }
+:where(.ui-page-scope--offers) .offers-form-card { padding:24px; margin-bottom:32px; scroll-margin-top:24px; background:#fff; color:#1e293b; border-color:#e4e9ed; }
+:where(.ui-page-scope--offers) .offers-form-heading, :where(.ui-page-scope--offers) .offers-list-heading { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+:where(.ui-page-scope--offers) .offers-form-heading h2, :where(.ui-page-scope--offers) .offers-list-heading h2 { margin:0; }
+:where(.ui-page-scope--offers) .offers-form-heading p { margin:6px 0 0; color:var(--color-muted-foreground); }
+:where(.ui-page-scope--offers) .offers-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:20px; }
+:where(.ui-page-scope--offers) .offers-field { display:grid; gap:7px; font-size:14px; font-weight:600; }
+:where(.ui-page-scope--offers) .offers-field input, :where(.ui-page-scope--offers) .offers-field textarea { width:100%; min-height:44px; padding:10px 12px; border:1px solid var(--color-border); border-radius:8px; background:#fff; color:var(--color-foreground); font:inherit; }
+:where(.ui-page-scope--offers) .offers-field :is(input,textarea):focus-visible { outline:2px solid var(--color-primary); outline-offset:2px; }
+:where(.ui-page-scope--offers) .offers-description, :where(.ui-page-scope--offers) .offers-error, :where(.ui-page-scope--offers) .offers-submit { grid-column:1/-1; }
+:where(.ui-page-scope--offers) .offers-error { color:#b42318; margin:0; }
+:where(.ui-page-scope--offers) .offers-submit { display:flex; justify-content:flex-end; }
+:where(.ui-page-scope--offers) .offers-list-heading { margin-bottom:16px; }
+:where(.ui-page-scope--offers) .offers-list-heading span { color:var(--color-muted-foreground); font-size:14px; }
+:where(.ui-page-scope--offers) .offers-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:18px; }
+:where(.ui-page-scope--offers) .offers-card { padding:20px; min-width:0; background:#fff; color:#1e293b; border-color:#e4e9ed; }
+:where(.ui-page-scope--offers) .offers-card-top, :where(.ui-page-scope--offers) .offers-card-actions { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+:where(.ui-page-scope--offers) .offers-tag { display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:6px 10px; background:#e8f1f4; color:#1e293b; font-size:12px; font-weight:700; }
+:where(.ui-page-scope--offers) .offers-card-actions button { display:grid; place-items:center; width:40px; height:40px; border:1px solid var(--color-border); border-radius:8px; background:transparent; color:var(--color-foreground); cursor:pointer; }
+:where(.ui-page-scope--offers) .offers-card-actions button:hover { background:#e8f1f4; }
+:where(.ui-page-scope--offers) .offers-card h3 { margin:18px 0 8px; }
+:where(.ui-page-scope--offers) .offers-card > p { color:var(--color-muted-foreground); line-height:1.55; white-space:pre-wrap; }
+:where(.ui-page-scope--offers) .offers-code { display:flex; justify-content:space-between; gap:10px; padding:12px; border:1px dashed var(--color-border); border-radius:8px; }
+:where(.ui-page-scope--offers) .offers-dates { display:flex; flex-wrap:wrap; gap:8px 16px; color:var(--color-muted-foreground); font-size:13px; margin-top:14px; }
+:where(.ui-page-scope--offers) .offers-internal-name { display:block; margin-top:18px; color:var(--color-muted-foreground); }
+@media(max-width:640px) { :where(.ui-page-scope--offers) .offers-form { grid-template-columns:1fr; } :where(.ui-page-scope--offers) .offers-description, :where(.ui-page-scope--offers) .offers-error, :where(.ui-page-scope--offers) .offers-submit { grid-column:auto; } :where(.ui-page-scope--offers) .offers-form-card { padding:16px; } }
+/* Styles scoped to route wrapper .ui-page-scope--offers */

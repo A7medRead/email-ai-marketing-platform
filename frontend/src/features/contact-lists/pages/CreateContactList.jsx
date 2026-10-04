@@ -12,6 +12,7 @@ const [form,setForm] = useState({
     name:"",
     description:""
 });
+const [error,setError]=useState("");
 
 
 function change(e){
@@ -38,6 +39,7 @@ navigate("/contact-lists");
 catch(err){
 
 console.log(err.response?.data || err);
+setError("Could not create the contact list. Please check the details and try again.");
 
 }
 
@@ -64,28 +66,13 @@ Create customer group
 </p>
 
 
-<form
-onSubmit={submit}
-style={{
-display:"grid",
-gap:"18px",
-maxWidth:"600px"
-}}
->
+<div className="form-card"><form onSubmit={submit} className="form-stack">
 
-<input
-name="name"
-placeholder="List Name"
-onChange={change}
-/>
+<label className="form-field">List Name<input required name="name" value={form.name} onChange={change} />
+</label>
 
-
-<textarea
-name="description"
-placeholder="Description"
-rows="5"
-onChange={change}
-/>
+<label className="form-field">Description<textarea name="description" value={form.description} rows="5" onChange={change} /></label>
+{error && <p role="alert" className="form-error">{error}</p>}
 
 
 <Button type="submit">
@@ -93,7 +80,7 @@ Create List
 </Button>
 
 
-</form>
+</form></div>
 
 
 </div>

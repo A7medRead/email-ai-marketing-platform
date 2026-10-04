@@ -71,66 +71,28 @@ Create a new customer contact
 
 
 
-<div style={{
-maxWidth:"600px",
-marginTop:"40px",
-background:"#16171d",
-border:"1px solid #2e303a",
-padding:"30px",
-borderRadius:"16px"
-}}>
+<div className="form-card">
 
 
-<form
-onSubmit={submit}
-style={{
-display:"grid",
-gap:"18px"
-}}
->
+<form onSubmit={submit} className="form-stack">
 
 
-<input
-name="first_name"
-placeholder="First Name"
-onChange={handle}
-/>
+<label className="form-field">First Name<input id="first-name" name="first_name" onChange={handle} /></label>
 
 
-<input
-name="last_name"
-placeholder="Last Name"
-onChange={handle}
-/>
+<label className="form-field">Last Name<input id="last-name" name="last_name" onChange={handle} /></label>
 
 
-<input
-name="email"
-placeholder="Email Address"
-type="email"
-onChange={handle}
-/>
+<label className="form-field">Email Address<input id="contact-email" name="email" type="email" onChange={handle} /></label>
 
 
-<input
-name="company"
-placeholder="Company"
-onChange={handle}
-/>
+<label className="form-field">Company<input id="company" name="company" onChange={handle} /></label>
 
 
-<input
-name="phone"
-placeholder="Phone Number"
-onChange={handle}
-/>
+<label className="form-field">Phone Number<input id="phone" name="phone" onChange={handle} /></label>
 
 
-<input
-name="position"
-placeholder="Job Position"
-onChange={handle}
-/>
+<label className="form-field">Job Position<input id="position" name="position" onChange={handle} /></label>
 
 
 

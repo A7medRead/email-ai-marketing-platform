@@ -115,6 +115,10 @@ export default function Login(){
                         <div className="login-field">
 
                             <input
+                                type="email"
+                                autoComplete="email"
+                                required
+                                aria-label="Email address"
                                 placeholder="Email"
                                 value={email}
                                 onChange={
@@ -129,6 +133,9 @@ export default function Login(){
 
                             <input
                                 type={showPassword ? "text" : "password"}
+                                autoComplete="current-password"
+                                required
+                                aria-label="Password"
                                 placeholder="Password"
                                 value={password}
                                 onChange={

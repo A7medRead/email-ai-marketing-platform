@@ -19,13 +19,7 @@ export default function LoginHeader(){
 
             <div className="login-header-actions">
 
-                <button>
-                    🌙
-                </button>
-
-                <button>
-                    EN
-                </button>
+                <span className="login-language">English</span>
 
             </div>
 

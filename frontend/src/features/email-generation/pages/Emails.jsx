@@ -11,6 +11,8 @@ const [emails,setEmails] = useState([]);
 const [page,setPage] = useState(1);
 
 const [pages,setPages] = useState(1);
+const [total,setTotal] = useState(0);
+const [loadError,setLoadError] = useState(false);
 
 const [search,setSearch] = useState("");
 
@@ -23,9 +25,12 @@ api.get(`/email/history?page=${page}&limit=10`)
 .then(res=>{
 setEmails(res.data.items || []);
 setPages(res.data.pages || 1);
+setTotal(res.data.total ?? 0);
+setLoadError(false);
 })
 .catch(err=>{
 console.log(err);
+setLoadError(true);
 });
 
 }, [page]);
@@ -36,6 +41,8 @@ loadEmails();
 
 
 function deleteEmail(id){
+
+if (!window.confirm("Delete this email? This action cannot be undone.")) return;
 
 api.delete(`/email/${id}`)
 .then(()=>{
@@ -52,25 +59,26 @@ return (
 
 <div className="emails-page">
 
-<div className="emails-header">
+<div className="emails-header page-header">
 
 <div>
 <h1>Emails</h1>
 
 <p className="emails-count">
-{emails.length} emails created
+{total} emails created
 </p>
 
 </div>
 
 
-<div className="emails-toolbar">
+<div className="emails-toolbar page-header-actions">
 
 <input
 className="email-search"
 placeholder="Search emails..."
 value={search}
 onChange={(e)=>setSearch(e.target.value)}
+aria-label="Search emails on this page"
 />
 
 
@@ -123,7 +131,7 @@ to="/emails/create"
 
 <tbody>
 
-{emails
+{loadError ? <tr><td colSpan="5"><div className="empty-emails"><h3>Couldn’t load emails</h3><p>Please refresh the page to try again.</p></div></td></tr> : emails
 .filter(email => {
 
 const text =
@@ -260,7 +268,7 @@ onClick={()=>deleteEmail(email.id)}
 
 ))}
 
-{emails.filter(email => {
+{!loadError && emails.filter(email => {
 
 const text =
 `${email.subject} ${email.purpose}`

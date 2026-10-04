@@ -4,9 +4,8 @@ export default function StatsCard({
     title,
     value,
     icon: Icon,
-    color="#8b5cf6",
-    change="+0%",
-    changeColor="#22c55e"
+    color="#5b8d89",
+    subtitle="All time"
 }){
 
     return(
@@ -16,10 +15,6 @@ export default function StatsCard({
             initial={{opacity:0,y:20}}
             animate={{opacity:1,y:0}}
             transition={{duration:.35}}
-            whileHover={{
-                y:-6,
-                scale:1.02
-            }}
         >
 
             <div className="stats-header">
@@ -47,24 +42,7 @@ export default function StatsCard({
 
             </h2>
 
-            <div className="stats-footer">
-
-                <span
-                    className="stats-change"
-                    style={{color:changeColor}}
-                >
-
-                    {change}
-
-                </span>
-
-                <span className="stats-period">
-
-                    vs last 7 days
-
-                </span>
-
-            </div>
+            <div className="stats-footer"><span className="stats-period">{subtitle}</span></div>
 
         </motion.div>
 

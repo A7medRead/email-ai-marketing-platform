@@ -14,6 +14,7 @@ email:"",
 display_name:"",
 smtp_password:""
 });
+const [error,setError]=useState("");
 
 
 function change(e){
@@ -41,6 +42,7 @@ navigate("/senders");
 catch(err){
 
 console.log(err.response?.data || err);
+setError("Could not create the sender account. Check the details and try again.");
 
 }
 
@@ -72,38 +74,18 @@ Configure email sending account
 
 
 
-<form
-onSubmit={submit}
-style={{
-display:"grid",
-gap:"18px",
-maxWidth:"600px",
-marginTop:"30px"
-}}
->
+<div className="form-card"><form onSubmit={submit} className="form-stack">
 
 
-<input
-name="display_name"
-placeholder="Display Name"
-onChange={change}
-/>
+<label className="form-field">Display Name<input required name="display_name" value={form.display_name} onChange={change} /></label>
 
 
-<input
-name="email"
-placeholder="Email Address"
-type="email"
-onChange={change}
-/>
+<label className="form-field">Email Address<input required type="email" autoComplete="email" name="email" value={form.email} onChange={change} /></label>
 
 
-<input
-name="smtp_password"
-placeholder="SMTP Password"
-type="password"
-onChange={change}
-/>
+<label className="form-field">SMTP Password<input required type="password" autoComplete="new-password" name="smtp_password" value={form.smtp_password} onChange={change} /></label>
+
+{error && <p role="alert" className="form-error">{error}</p>}
 
 
 <Button type="submit">
@@ -111,7 +93,7 @@ Create Sender
 </Button>
 
 
-</form>
+</form></div>
 
 
 </div>

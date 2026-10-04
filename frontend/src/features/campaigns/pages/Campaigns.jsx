@@ -110,7 +110,7 @@ return (
 <div className="campaigns-page">
 
 
-<div className="campaigns-header">
+<div className="campaigns-header page-header">
 
 <div>
 
@@ -125,12 +125,8 @@ Manage and track your email campaigns
 </div>
 
 
-<Link to="/campaigns/create">
-
-<Button>
+<Link className="ui-button primary page-primary-action" to="/campaigns/create">
 + Create Campaign
-</Button>
-
 </Link>
 
 
@@ -139,6 +135,7 @@ Manage and track your email campaigns
 
 
 
+<div className="campaigns-filters">
 <input
 placeholder="Search campaigns..."
 value={search}
@@ -146,7 +143,7 @@ onChange={(e)=>{
 setPage(1);
 setSearch(e.target.value);
 }}
-className="contact-search"
+className="campaign-search"
 />
 
 
@@ -156,6 +153,7 @@ onChange={(e)=>{
 setPage(1);
 setStatus(e.target.value);
 }}
+className="campaign-status"
 >
 
 <option value="">
@@ -183,6 +181,8 @@ Failed
 </option>
 
 </select>
+
+</div>
 
 
 <div className="campaigns-grid">

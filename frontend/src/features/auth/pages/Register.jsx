@@ -27,6 +27,8 @@ export default function Register(){
 
         e.preventDefault();
 
+        if (password.length < 8) { setError("Use a password with at least 8 characters."); return; }
+
 
         if(password !== confirm){
 
@@ -108,6 +110,10 @@ export default function Register(){
 
 
                     <input
+                        type="text"
+                        autoComplete="name"
+                        required
+                        aria-label="Full name"
                         placeholder="Full name"
                         value={name}
                         onChange={
@@ -117,6 +123,10 @@ export default function Register(){
 
 
                     <input
+                        type="email"
+                        autoComplete="email"
+                        required
+                        aria-label="Email address"
                         placeholder="Email"
                         value={email}
                         onChange={
@@ -127,6 +137,10 @@ export default function Register(){
 
                     <input
                         type="password"
+                        autoComplete="new-password"
+                        minLength={8}
+                        required
+                        aria-label="Password"
                         placeholder="Password"
                         value={password}
                         onChange={
@@ -137,6 +151,10 @@ export default function Register(){
 
                     <input
                         type="password"
+                        autoComplete="new-password"
+                        minLength={8}
+                        required
+                        aria-label="Confirm password"
                         placeholder="Confirm password"
                         value={confirm}
                         onChange={

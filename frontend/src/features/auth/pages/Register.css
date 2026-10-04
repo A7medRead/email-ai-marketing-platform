@@ -1,4 +1,7 @@
-.register-page{
+/*  Styles scoped to route wrapper .ui-page-scope--auth-register  */
+
+
+:where(.ui-page-scope--auth-register) .register-page{
 
     min-height:100vh;
 
@@ -9,9 +12,9 @@
 }
 
 
-.register-card{
+:where(.ui-page-scope--auth-register) .register-card{
 
-    width:430px;
+    width:min(430px, calc(100% - 32px));
 
     margin:70px auto;
 
@@ -26,14 +29,23 @@
 }
 
 
-.register-card p{
+:where(.ui-page-scope--auth-register) .register-card h1{color:#f8fafc;margin:0 0 12px;}
+:where(.ui-page-scope--auth-register) .register-card form{display:grid;gap:4px;}
+:where(.ui-page-scope--auth-register) .login-header{display:flex;justify-content:space-between;align-items:center;width:100%;padding:20px clamp(20px,5vw,50px);}
+:where(.ui-page-scope--auth-register) .login-logo{display:flex;align-items:center;gap:12px;color:#f8fafc;font-size:18px;font-weight:700;}
+:where(.ui-page-scope--auth-register) .login-logo span{display:grid;width:36px;height:36px;place-items:center;color:#315f5d;background:#e3efee;border-radius:11px;}
+:where(.ui-page-scope--auth-register) .login-language{color:#cbd5e1;font-size:13px;}
+:where(.ui-page-scope--auth-register) .login-footer{display:flex;justify-content:space-between;align-items:center;gap:20px;max-width:1200px;margin:24px auto 0;padding:22px 24px;border-top:1px solid #263244;color:#94a3b8;font-size:13px;}
+:where(.ui-page-scope--auth-register) .footer-brand{color:#f8fafc;font-weight:600;}
+:where(.ui-page-scope--auth-register) .footer-copy{color:#94a3b8;text-align:right;}
+:where(.ui-page-scope--auth-register) .register-card p{
 
     color:#94a3b8;
 
 }
 
 
-.register-card input{
+:where(.ui-page-scope--auth-register) .register-card input{
 
     width:100%;
 
@@ -52,9 +64,10 @@
     color:white;
 
 }
+:where(.ui-page-scope--auth-register) .register-card input:focus-visible{outline:3px solid rgba(66,122,119,.28);outline-offset:2px;border-color:#6b9a96;}
 
 
-.register-card button{
+:where(.ui-page-scope--auth-register) .register-card button{
 
     width:100%;
 
@@ -64,7 +77,7 @@
 
     border-radius:12px;
 
-    background:#8b5cf6;
+    background:#5b8d89;
 
     color:white;
 
@@ -73,7 +86,7 @@
 }
 
 
-.register-card a{
+:where(.ui-page-scope--auth-register) .register-card a{
 
     display:block;
 
@@ -81,17 +94,23 @@
 
     text-align:center;
 
-    color:#8b5cf6;
+    color:#5b8d89;
 
     cursor:pointer;
 
 }
 
 
-.register-error{
+:where(.ui-page-scope--auth-register) .register-error{
 
     color:#f87171;
 
     margin-bottom:15px;
 
+}
+
+@media(max-width:700px){
+    :where(.ui-page-scope--auth-register) .register-card{margin:34px auto;padding:26px;}
+    :where(.ui-page-scope--auth-register) .login-footer{flex-direction:column;text-align:center;}
+    :where(.ui-page-scope--auth-register) .footer-copy{text-align:center;}
 }

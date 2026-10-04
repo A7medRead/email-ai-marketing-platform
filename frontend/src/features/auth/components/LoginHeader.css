@@ -1,4 +1,7 @@
-.login-header{
+/*  Styles scoped to route wrapper .ui-page-scope--auth-login  */
+
+
+:where(.ui-page-scope--auth-login) .login-header{
 
     width:100%;
     padding:25px 50px;
@@ -10,7 +13,7 @@
 }
 
 
-.login-logo{
+:where(.ui-page-scope--auth-login) .login-logo{
 
     color:white;
     font-size:20px;
@@ -23,7 +26,7 @@
 }
 
 
-.login-logo span{
+:where(.ui-page-scope--auth-login) .login-logo span{
 
     width:38px;
     height:38px;
@@ -34,12 +37,12 @@
 
     border-radius:12px;
 
-    background:#7c3aed;
+    background:#427a77;
 
 }
 
 
-.login-header-actions{
+:where(.ui-page-scope--auth-login) .login-header-actions{
 
     display:flex;
     gap:12px;
@@ -47,7 +50,7 @@
 }
 
 
-.login-header-actions button{
+:where(.ui-page-scope--auth-login) .login-header-actions button{
 
     background:#111827;
 
@@ -64,16 +67,16 @@
 }
 
 
-.login-header-actions button:hover{
+:where(.ui-page-scope--auth-login) .login-header-actions button:hover{
 
-    border-color:#8b5cf6;
+    border-color:#5b8d89;
 
 }
 
 
 @media(max-width:700px){
 
-    .login-header{
+    :where(.ui-page-scope--auth-login) .login-header{
 
         padding:20px;
 
@@ -82,7 +85,7 @@
 }
 
 
-.login-header{
+:where(.ui-page-scope--auth-login) .login-header{
 
     position:absolute;
     top:20px;
@@ -94,14 +97,14 @@
 }
 
 
-.login-logo{
+:where(.ui-page-scope--auth-login) .login-logo{
 
     font-size:18px;
 
 }
 
 
-.login-logo span{
+:where(.ui-page-scope--auth-login) .login-logo span{
 
     width:34px;
     height:34px;
@@ -109,7 +112,7 @@
 }
 
 
-.login-header-actions button{
+:where(.ui-page-scope--auth-login) .login-header-actions button{
 
     height:36px;
     padding:0 12px;
@@ -117,14 +120,14 @@
 }
 
 
-.login-header{
+:where(.ui-page-scope--auth-login) .login-header{
     left:40px !important;
     right:40px !important;
     width:auto !important;
     box-sizing:border-box;
 }
 
-.login-header-actions{
+:where(.ui-page-scope--auth-login) .login-header-actions{
     right:0;
 }
 

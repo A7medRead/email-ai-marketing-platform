@@ -87,15 +87,7 @@ Edit Sender Account
 </h1>
 
 
-<form
-onSubmit={submit}
-style={{
-display:"grid",
-gap:"18px",
-maxWidth:"600px",
-marginTop:"30px"
-}}
->
+<form onSubmit={submit} className="form-card form-stack">
 
 
 <input

@@ -59,7 +59,7 @@ return (
 <div className="page">
 
 
-<div className="contacts-header">
+<div className="contacts-header page-header">
 
 
 <div>
@@ -74,6 +74,7 @@ Manage your email templates
 
 
 <Button
+className="page-primary-action"
 onClick={()=>{console.log("CREATE TEMPLATE CLICKED"); navigate("/templates/create")}}
 >
 + Create Template

@@ -1,5 +1,8 @@
+/*  Styles scoped to route wrapper .ui-page-scope--contacts  */
 
-.contacts-header{
+
+
+:where(.ui-page-scope--contacts) .contacts-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -8,7 +11,7 @@
 
 
 
-.contact-search{
+:where(.ui-page-scope--contacts) .contact-search{
 
     width:100%;
     padding:12px;
@@ -22,7 +25,7 @@
 }
 
 
-.contact-cards{
+:where(.ui-page-scope--contacts) .contact-cards{
 
     display:grid;
     grid-template-columns:repeat(2,minmax(320px,1fr));
@@ -31,7 +34,7 @@
 }
 
 
-.contact-card{
+:where(.ui-page-scope--contacts) .contact-card{
 
     min-height:260px;
     text-align:left;
@@ -39,13 +42,13 @@
 }
 
 
-.contact-avatar{
+:where(.ui-page-scope--contacts) .contact-avatar{
 
     width:70px;
     height:70px;
     border-radius:50%;
 
-    background:#5b21b6;
+    background:#356966;
 
     display:flex;
     align-items:center;
@@ -59,7 +62,7 @@
 }
 
 
-.contact-name{
+:where(.ui-page-scope--contacts) .contact-name{
 
     font-size:22px;
     margin-bottom:12px;
@@ -67,7 +70,7 @@
 }
 
 
-.status-active{
+:where(.ui-page-scope--contacts) .status-active{
 
     padding:5px 12px;
     border-radius:20px;
@@ -76,7 +79,7 @@
 }
 
 
-.contact-actions{
+:where(.ui-page-scope--contacts) .contact-actions{
 
     margin-top:25px;
     display:flex;
@@ -85,7 +88,7 @@
 }
 
 
-.contact-actions button{
+:where(.ui-page-scope--contacts) .contact-actions button{
 
     padding:10px 18px;
     border-radius:10px;
@@ -98,10 +101,10 @@
 }
 
 
-.contact-actions .edit{
+:where(.ui-page-scope--contacts) .contact-actions .edit{
 
-    border-color:#7c3aed;
-    color:#c084fc;
+    border-color:#427a77;
+    color:#356966;
 
 }
 
@@ -109,7 +112,7 @@
 
 @media(max-width:900px){
 
-    .contact-cards{
+    :where(.ui-page-scope--contacts) .contact-cards{
 
         grid-template-columns:1fr;
 
@@ -119,7 +122,7 @@
 
 
 
-.contacts-pagination{
+:where(.ui-page-scope--contacts) .contacts-pagination{
 
     display:flex;
     align-items:center;
@@ -132,7 +135,7 @@
 }
 
 
-.contacts-pagination span{
+:where(.ui-page-scope--contacts) .contacts-pagination span{
 
     padding:8px 18px;
 

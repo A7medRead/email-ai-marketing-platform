@@ -77,6 +77,9 @@ export default function ForgotPassword(){
 
 
                             <input
+                                type="email"
+                                autoComplete="email"
+                                required
                                 placeholder="Email address"
                                 value={email}
                                 onChange={

@@ -1,13 +1,34 @@
-.campaigns-page{
+/*  Styles scoped to route wrapper .ui-page-scope--campaign-list  */
+
+
+:where(.ui-page-scope--campaign-list) .campaigns-page{
     width:100%;
     display:flex;
     flex-direction:column;
-    align-items:center;
+    align-items:stretch;
     box-sizing:border-box;
 }
 
+:where(.ui-page-scope--campaign-list) .campaigns-filters{
+    display:flex;
+    gap:12px;
+    width:100%;
+    margin:0 0 24px;
+}
+:where(.ui-page-scope--campaign-list) .campaign-search{
+    flex:1;
+    min-width:0;
+    height:44px;
+    padding:0 14px;
+}
+:where(.ui-page-scope--campaign-list) .campaign-status{
+    width:180px;
+    height:44px;
+    padding:0 12px;
+}
 
-.campaigns-header{
+
+:where(.ui-page-scope--campaign-list) .campaigns-header{
     width:100%;
     display:flex;
     justify-content:space-between;
@@ -16,12 +37,12 @@
 }
 
 
-.campaigns-header h1{
+:where(.ui-page-scope--campaign-list) .campaigns-header h1{
     margin:0;
 }
 
 
-.campaigns-header p{
+:where(.ui-page-scope--campaign-list) .campaigns-header p{
     margin-top:8px;
     color:#9ca3af;
 }
@@ -31,26 +52,26 @@
 
 
 
-.campaigns-card h2{
+:where(.ui-page-scope--campaign-list) .campaigns-card h2{
     text-align:center;
     margin:0 0 15px;
 }
 
 
-.campaigns-card .campaign-stats{
+:where(.ui-page-scope--campaign-list) .campaigns-card .campaign-stats{
     display:flex;
     flex-direction:column;
     gap:12px;
 }
 
 
-.campaigns-card .campaign-stats p{
+:where(.ui-page-scope--campaign-list) .campaigns-card .campaign-stats p{
     display:flex;
     justify-content:space-between;
 }
 
 
-.campaigns-card .action-buttons{
+:where(.ui-page-scope--campaign-list) .campaigns-card .action-buttons{
     display:flex;
     flex-wrap:wrap;
     gap:10px;
@@ -58,17 +79,13 @@
 
 
 
-@media(max-width:900px){
-
-    .campaigns-header{
-        flex-direction:column;
-        gap:20px;
-    }
-
+@media(max-width:560px){
+    :where(.ui-page-scope--campaign-list) .campaigns-filters{flex-direction:column;}
+    :where(.ui-page-scope--campaign-list) .campaign-status{width:100%;}
 }
 
 
-.campaigns-grid{
+:where(.ui-page-scope--campaign-list) .campaigns-grid{
 
     width:100%;
 
@@ -79,4 +96,3 @@
     gap:25px;
 
 }
-

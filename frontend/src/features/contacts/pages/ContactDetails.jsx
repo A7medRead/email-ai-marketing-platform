@@ -11,6 +11,7 @@ const { id } = useParams();
 const navigate = useNavigate();
 
 const [contact,setContact] = useState(null);
+const [error,setError] = useState("");
 
 
 useEffect(()=>{
@@ -18,7 +19,7 @@ useEffect(()=>{
 api.get(`/contacts/${id}`)
 .then(res=>{
 setContact(res.data);
-});
+}).catch(()=>setError("Could not load this contact. Check the contacts list and try again."));
 
 },[id]);
 
@@ -27,7 +28,7 @@ if(!contact){
 
 return (
 <div className="page">
-<h2>Loading...</h2>
+<h2>{error || "Loading contact…"}</h2>
 </div>
 );
 

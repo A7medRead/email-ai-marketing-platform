@@ -237,7 +237,7 @@ return (
 <div className="page">
 
 
-<div className="contacts-header">
+<div className="contacts-header page-header">
 
 <div>
 <h1>Contacts</h1>
@@ -247,7 +247,7 @@ Manage your customer contacts ({contacts.length})
 </div>
 
 
-<div style={{display:"flex",gap:"12px"}}>
+<div className="page-header-actions">
 
 <input
 type="file"

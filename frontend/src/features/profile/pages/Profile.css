@@ -1,4 +1,7 @@
-.profile-page{
+/*  Styles scoped to route wrapper .ui-page-scope--profile  */
+
+
+:where(.ui-page-scope--profile) .profile-page{
     padding:30px;
     color:white;
 }
@@ -6,16 +9,16 @@
 
 /* Header */
 
-.profile-title{
+:where(.ui-page-scope--profile) .profile-title{
     margin-bottom:25px;
 }
 
-.profile-title h1{
+:where(.ui-page-scope--profile) .profile-title h1{
     font-size:32px;
     margin:0;
 }
 
-.profile-breadcrumb{
+:where(.ui-page-scope--profile) .profile-breadcrumb{
     color:#94a3b8;
     margin-top:8px;
 }
@@ -23,7 +26,7 @@
 
 /* Hero */
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     background:linear-gradient(120deg,#15132b,#0f172a);
     border:1px solid #25204a;
     border-radius:22px;
@@ -36,18 +39,18 @@
 }
 
 
-.profile-hero:after{
+:where(.ui-page-scope--profile) .profile-hero:after{
     content:"✉";
     position:absolute;
     right:80px;
     top:40px;
     font-size:120px;
     opacity:.12;
-    color:#8b5cf6;
+    color:#5b8d89;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     display:flex;
     align-items:center;
     gap:25px;
@@ -55,30 +58,30 @@
 }
 
 
-.profile-avatar{
+:where(.ui-page-scope--profile) .profile-avatar{
     width:150px;
     height:150px;
     border-radius:50%;
     object-fit:cover;
-    border:4px solid #7c3aed;
-    box-shadow:0 0 0 4px #7c3aed;
+    border:4px solid #427a77;
+    box-shadow:0 0 0 4px #427a77;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:36px;
     margin:0;
 }
 
 
-.profile-email{
+:where(.ui-page-scope--profile) .profile-email{
     color:#94a3b8;
 }
 
 
-.profile-badge{
+:where(.ui-page-scope--profile) .profile-badge{
     display:inline-block;
-    background:#6d28d9;
+    background:#356966;
     padding:6px 15px;
     border-radius:20px;
     margin:10px 0;
@@ -87,8 +90,8 @@
 
 /* Button */
 
-.profile-btn{
-    background:#7c3aed;
+:where(.ui-page-scope--profile) .profile-btn{
+    background:#427a77;
     color:white;
     border:none;
     padding:12px 25px;
@@ -102,7 +105,7 @@
 
 /* Info cards */
 
-.profile-stats{
+:where(.ui-page-scope--profile) .profile-stats{
     display:grid;
     grid-template-columns:repeat(5,1fr);
     gap:15px;
@@ -110,8 +113,7 @@
 }
 
 
-.profile-box,
-.profile-panel{
+:where(.ui-page-scope--profile) .profile-box, :where(.ui-page-scope--profile) .profile-panel{
     background:#111827;
     border:1px solid #1f2937;
     border-radius:18px;
@@ -119,7 +121,7 @@
 }
 
 
-.profile-box h4{
+:where(.ui-page-scope--profile) .profile-box h4{
     color:#94a3b8;
     margin:0 0 10px;
 }
@@ -127,7 +129,7 @@
 
 /* Bottom */
 
-.profile-bottom{
+:where(.ui-page-scope--profile) .profile-bottom{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:20px;
@@ -135,23 +137,23 @@
 }
 
 
-.profile-panel h3{
+:where(.ui-page-scope--profile) .profile-panel h3{
     margin-top:0;
 }
 
 
-.profile-panel p{
+:where(.ui-page-scope--profile) .profile-panel p{
     color:#94a3b8;
 }
 
 
-.profile-panel strong{
+:where(.ui-page-scope--profile) .profile-panel strong{
     display:block;
     margin-bottom:15px;
 }
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     padding:15px;
     border-bottom:1px solid #1f2937;
 }
@@ -159,13 +161,13 @@
 
 /* Avatar edit */
 
-.avatar-edit{
+:where(.ui-page-scope--profile) .avatar-edit{
     position:absolute;
     left:120px;
     top:110px;
     width:35px;
     height:35px;
-    background:#7c3aed;
+    background:#427a77;
     border-radius:50%;
     display:flex;
     align-items:center;
@@ -175,14 +177,14 @@
 }
 
 
-.avatar-edit input{
+:where(.ui-page-scope--profile) .avatar-edit input{
     display:none;
 }
 
 
 /* Modal */
 
-.profile-modal-bg{
+:where(.ui-page-scope--profile) .profile-modal-bg{
     position:fixed;
     inset:0;
     background:rgba(0,0,0,.65);
@@ -193,7 +195,7 @@
 }
 
 
-.profile-modal{
+:where(.ui-page-scope--profile) .profile-modal{
     width:480px;
     background:#111827;
     padding:35px;
@@ -203,13 +205,13 @@
 }
 
 
-.modal-header h2{
+:where(.ui-page-scope--profile) .modal-header h2{
     color:white;
     margin-bottom:25px;
 }
 
 
-.profile-modal label{
+:where(.ui-page-scope--profile) .profile-modal label{
     display:block;
     color:#94a3b8;
     margin:12px 0 6px;
@@ -217,7 +219,7 @@
 }
 
 
-.edit-input{
+:where(.ui-page-scope--profile) .edit-input{
     width:100%;
     box-sizing:border-box;
     background:#0f172a;
@@ -228,20 +230,20 @@
 }
 
 
-.edit-input:focus{
+:where(.ui-page-scope--profile) .edit-input:focus{
     outline:none;
-    border-color:#8b5cf6;
+    border-color:#5b8d89;
 }
 
 
-.modal-actions{
+:where(.ui-page-scope--profile) .modal-actions{
     display:flex;
     gap:12px;
     margin-top:25px;
 }
 
 
-.modal-btn{
+:where(.ui-page-scope--profile) .modal-btn{
     flex:1;
     padding:12px;
     border-radius:10px;
@@ -250,13 +252,13 @@
 }
 
 
-.save-btn{
-    background:#7c3aed;
+:where(.ui-page-scope--profile) .save-btn{
+    background:#427a77;
     color:white;
 }
 
 
-.cancel-btn{
+:where(.ui-page-scope--profile) .cancel-btn{
     background:#1f2937;
     color:white;
 }
@@ -264,40 +266,40 @@
 
 /* final polish */
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     min-height:170px;
     padding:35px 45px;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     gap:35px;
 }
 
 
-.profile-avatar{
+:where(.ui-page-scope--profile) .profile-avatar{
     width:160px;
     height:160px;
 }
 
 
-.avatar-edit{
+:where(.ui-page-scope--profile) .avatar-edit{
     left:125px;
     top:125px;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:38px;
 }
 
 
-.profile-stats{
+:where(.ui-page-scope--profile) .profile-stats{
     margin-top:28px;
 }
 
 
-.profile-box{
+:where(.ui-page-scope--profile) .profile-box{
     min-height:70px;
     display:flex;
     flex-direction:column;
@@ -305,36 +307,36 @@
 }
 
 
-.profile-bottom{
+:where(.ui-page-scope--profile) .profile-bottom{
     margin-top:25px;
 }
 
 
-.profile-panel{
+:where(.ui-page-scope--profile) .profile-panel{
     min-height:260px;
 }
 
 
-.profile-panel h3{
+:where(.ui-page-scope--profile) .profile-panel h3{
     font-size:22px;
     margin-bottom:25px;
 }
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     padding:18px 10px;
     font-size:16px;
 }
 
 
-.profile-panel p{
+:where(.ui-page-scope--profile) .profile-panel p{
     margin-top:18px;
 }
 
 
 
-.profile-box svg{
-    color:#8b5cf6;
+:where(.ui-page-scope--profile) .profile-box svg{
+    color:#5b8d89;
     margin-bottom:10px;
 }
 
@@ -342,52 +344,52 @@
 
 /* final profile polish */
 
-.profile-page{
+:where(.ui-page-scope--profile) .profile-page{
     padding:35px;
 }
 
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     min-height:180px;
     padding:35px 45px;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     gap:35px;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:38px;
     font-weight:700;
 }
 
 
-.profile-email{
+:where(.ui-page-scope--profile) .profile-email{
     margin:12px 0;
     font-size:16px;
 }
 
 
-.profile-badge{
+:where(.ui-page-scope--profile) .profile-badge{
     font-size:14px;
     font-weight:600;
 }
 
 
-.profile-btn{
+:where(.ui-page-scope--profile) .profile-btn{
     padding:12px 28px;
     font-weight:600;
 }
 
 
-.profile-stats{
+:where(.ui-page-scope--profile) .profile-stats{
     margin-top:25px;
 }
 
 
-.profile-box{
+:where(.ui-page-scope--profile) .profile-box{
     min-height:95px;
     display:flex;
     flex-direction:column;
@@ -396,28 +398,28 @@
 }
 
 
-.profile-box svg{
+:where(.ui-page-scope--profile) .profile-box svg{
     width:22px;
     height:22px;
 }
 
 
-.profile-bottom{
+:where(.ui-page-scope--profile) .profile-bottom{
     margin-top:25px;
 }
 
 
-.profile-panel{
+:where(.ui-page-scope--profile) .profile-panel{
     min-height:250px;
 }
 
 
-.profile-panel h3{
+:where(.ui-page-scope--profile) .profile-panel h3{
     font-size:22px;
 }
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     padding:18px 10px;
     font-size:16px;
 }
@@ -427,29 +429,29 @@
 
 /* hero final adjustment */
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     height:170px;
     padding:35px 55px;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     align-items:center;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:34px;
     margin-bottom:5px;
 }
 
 
-.profile-email{
+:where(.ui-page-scope--profile) .profile-email{
     margin:8px 0 12px;
 }
 
 
-.profile-hero:after{
+:where(.ui-page-scope--profile) .profile-hero:after{
     content:"✉";
     right:80px;
     top:45px;
@@ -460,18 +462,18 @@
 
 /* account cards */
 
-.profile-panel{
+:where(.ui-page-scope--profile) .profile-panel{
     padding:28px;
 }
 
 
-.profile-panel p{
+:where(.ui-page-scope--profile) .profile-panel p{
     margin-top:18px;
     margin-bottom:5px;
 }
 
 
-.profile-panel strong{
+:where(.ui-page-scope--profile) .profile-panel strong{
     font-size:17px;
 }
 
@@ -480,42 +482,42 @@
 
 /* hero correction */
 
-.profile-page{
+:where(.ui-page-scope--profile) .profile-page{
     padding-top:25px;
 }
 
 
-.profile-title{
+:where(.ui-page-scope--profile) .profile-title{
     margin-bottom:25px;
 }
 
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     min-height:180px;
     height:auto;
     padding:35px 45px;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     align-items:center;
 }
 
 
-.profile-avatar{
+:where(.ui-page-scope--profile) .profile-avatar{
     width:140px;
     height:140px;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:36px;
 }
 
 
 
 
-.overview-row{
+:where(.ui-page-scope--profile) .overview-row{
     display:flex;
     gap:15px;
     align-items:center;
@@ -523,37 +525,37 @@
 }
 
 
-.overview-row svg{
-    color:#8b5cf6;
+:where(.ui-page-scope--profile) .overview-row svg{
+    color:#5b8d89;
 }
 
 
-.overview-row p{
+:where(.ui-page-scope--profile) .overview-row p{
     margin:0;
     color:#94a3b8;
 }
 
 
-.overview-row strong{
+:where(.ui-page-scope--profile) .overview-row strong{
     color:white;
 }
 
 
-.active-status{
+:where(.ui-page-scope--profile) .active-status{
     color:#22c55e !important;
 }
 
 
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     display:flex;
     align-items:center;
     gap:15px;
 }
 
 
-.activity-icon{
+:where(.ui-page-scope--profile) .activity-icon{
     width:34px;
     height:34px;
     border-radius:50%;
@@ -564,19 +566,19 @@
 }
 
 
-.success{
+:where(.ui-page-scope--profile) .success{
     background:#14532d;
     color:#22c55e;
 }
 
 
-.edit{
+:where(.ui-page-scope--profile) .edit{
     background:#3b0764;
-    color:#c084fc;
+    color:#356966;
 }
 
 
-.file{
+:where(.ui-page-scope--profile) .file{
     background:#172554;
     color:#60a5fa;
 }
@@ -584,7 +586,7 @@
 
 
 
-.overview-row{
+:where(.ui-page-scope--profile) .overview-row{
     display:flex;
     align-items:center;
     gap:15px;
@@ -592,23 +594,23 @@
 }
 
 
-.overview-row svg{
-    color:#8b5cf6;
+:where(.ui-page-scope--profile) .overview-row svg{
+    color:#5b8d89;
 }
 
 
-.overview-row p{
+:where(.ui-page-scope--profile) .overview-row p{
     margin:0 0 5px;
     color:#94a3b8;
 }
 
 
-.overview-row strong{
+:where(.ui-page-scope--profile) .overview-row strong{
     color:#fff;
 }
 
 
-.active-status{
+:where(.ui-page-scope--profile) .active-status{
     color:#22c55e !important;
 }
 
@@ -617,67 +619,67 @@
 
 /* profile final spacing */
 
-.profile-page{
+:where(.ui-page-scope--profile) .profile-page{
     padding:35px;
 }
 
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     min-height:220px;
     padding:45px;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     gap:35px;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:40px;
     letter-spacing:-1px;
 }
 
 
-.profile-badge{
+:where(.ui-page-scope--profile) .profile-badge{
     font-size:15px;
     padding:7px 18px;
 }
 
 
-.profile-stats{
+:where(.ui-page-scope--profile) .profile-stats{
     margin-top:30px;
 }
 
 
-.profile-box{
+:where(.ui-page-scope--profile) .profile-box{
     min-height:110px;
     transition:.2s;
 }
 
 
-.profile-box:hover{
+:where(.ui-page-scope--profile) .profile-box:hover{
     transform:translateY(-3px);
-    border-color:#7c3aed;
+    border-color:#427a77;
 }
 
 
-.profile-box h4{
+:where(.ui-page-scope--profile) .profile-box h4{
     font-size:17px;
 }
 
 
-.profile-bottom{
+:where(.ui-page-scope--profile) .profile-bottom{
     margin-top:30px;
 }
 
 
-.profile-panel{
+:where(.ui-page-scope--profile) .profile-panel{
     padding:30px;
 }
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     display:flex;
     align-items:center;
     min-height:65px;
@@ -689,65 +691,65 @@
 
 /* Profile UI final polish */
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     min-height:220px;
     padding:45px;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     gap:35px;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:42px;
     font-weight:700;
 }
 
 
-.profile-email{
+:where(.ui-page-scope--profile) .profile-email{
     margin-top:15px;
     font-size:16px;
 }
 
 
-.profile-avatar{
+:where(.ui-page-scope--profile) .profile-avatar{
     width:170px;
     height:170px;
 }
 
 
-.profile-stats{
+:where(.ui-page-scope--profile) .profile-stats{
     gap:18px;
     margin-top:30px;
 }
 
 
-.profile-box{
+:where(.ui-page-scope--profile) .profile-box{
     min-height:115px;
     justify-content:center;
 }
 
 
-.profile-box:hover{
-    border-color:#7c3aed;
+:where(.ui-page-scope--profile) .profile-box:hover{
+    border-color:#427a77;
 }
 
 
-.profile-bottom{
+:where(.ui-page-scope--profile) .profile-bottom{
     gap:25px;
     margin-top:30px;
 }
 
 
-.profile-panel{
+:where(.ui-page-scope--profile) .profile-panel{
     padding:30px;
     min-height:280px;
 }
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     display:flex;
     align-items:center;
     gap:12px;
@@ -755,78 +757,78 @@
 }
 
 
-.activity svg{
-    color:#8b5cf6;
+:where(.ui-page-scope--profile) .activity svg{
+    color:#5b8d89;
 }
 
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     display:flex;
     align-items:center;
     gap:12px;
 }
 
-.activity svg{
-    color:#8b5cf6;
+:where(.ui-page-scope--profile) .activity svg{
+    color:#5b8d89;
 }
 
 
 /* Profile final polish */
 
-.profile-page{
+:where(.ui-page-scope--profile) .profile-page{
     padding:40px;
 }
 
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     min-height:220px;
     padding:45px;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     gap:35px;
 }
 
 
-.profile-avatar{
+:where(.ui-page-scope--profile) .profile-avatar{
     width:170px;
     height:170px;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:42px;
     font-weight:700;
 }
 
 
-.profile-email{
+:where(.ui-page-scope--profile) .profile-email{
     margin-top:14px;
     font-size:16px;
 }
 
 
-.profile-btn{
+:where(.ui-page-scope--profile) .profile-btn{
     margin-top:10px;
     transition:.25s;
 }
 
 
-.profile-btn:hover{
+:where(.ui-page-scope--profile) .profile-btn:hover{
     transform:translateY(-2px);
     box-shadow:0 10px 25px rgba(124,58,237,.35);
 }
 
 
-.profile-stats{
+:where(.ui-page-scope--profile) .profile-stats{
     margin-top:30px;
     gap:18px;
 }
 
 
-.profile-box{
+:where(.ui-page-scope--profile) .profile-box{
     min-height:90px;
     display:flex;
     flex-direction:column;
@@ -835,24 +837,24 @@
 }
 
 
-.profile-box:hover{
-    border-color:#8b5cf6;
+:where(.ui-page-scope--profile) .profile-box:hover{
+    border-color:#5b8d89;
     transform:translateY(-3px);
 }
 
 
-.profile-bottom{
+:where(.ui-page-scope--profile) .profile-bottom{
     margin-top:30px;
     gap:25px;
 }
 
 
-.profile-panel{
+:where(.ui-page-scope--profile) .profile-panel{
     min-height:260px;
 }
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     padding:20px 10px;
     display:flex;
     align-items:center;
@@ -860,7 +862,7 @@
 }
 
 
-.activity svg{
+:where(.ui-page-scope--profile) .activity svg{
     width:30px;
     height:30px;
 }
@@ -870,7 +872,7 @@
 
 /* Hero improvement */
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     background:
     radial-gradient(circle at 85% 50%,rgba(124,58,237,.18),transparent 35%),
     linear-gradient(120deg,#15132b,#0f172a);
@@ -879,7 +881,7 @@
 }
 
 
-.profile-hero:after{
+:where(.ui-page-scope--profile) .profile-hero:after{
     content:"✉";
     right:90px;
     top:55px;
@@ -888,49 +890,49 @@
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     width:100%;
 }
 
 
-.profile-main > div:last-child{
+:where(.ui-page-scope--profile) .profile-main > div:last-child{
     margin-left:15px;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     letter-spacing:-1px;
 }
 
 
-.profile-badge{
+:where(.ui-page-scope--profile) .profile-badge{
     font-size:15px;
     padding:7px 18px;
 }
 
 
-.profile-btn{
+:where(.ui-page-scope--profile) .profile-btn{
     padding:13px 28px;
 }
 
 
-.profile-stats{
+:where(.ui-page-scope--profile) .profile-stats{
     margin-top:35px;
 }
 
 
-.profile-box{
+:where(.ui-page-scope--profile) .profile-box{
     background:#111827;
     border:1px solid #1e293b;
 }
 
 
-.profile-panel{
+:where(.ui-page-scope--profile) .profile-panel{
     background:#111827;
 }
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     display:flex;
     align-items:center;
     min-height:45px;
@@ -941,42 +943,42 @@
 
 /* final profile adjustments */
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     height:260px;
     display:flex;
     align-items:center;
 }
 
 
-.profile-avatar{
+:where(.ui-page-scope--profile) .profile-avatar{
     width:180px;
     height:180px;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     align-items:center;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:44px;
     margin-bottom:8px;
 }
 
 
-.profile-email{
+:where(.ui-page-scope--profile) .profile-email{
     font-size:17px;
 }
 
 
-.profile-stats .profile-box{
+:where(.ui-page-scope--profile) .profile-stats .profile-box{
     position:relative;
     overflow:hidden;
 }
 
 
-.profile-stats .profile-box:before{
+:where(.ui-page-scope--profile) .profile-stats .profile-box:before{
     content:"";
     position:absolute;
     inset:0;
@@ -988,35 +990,35 @@
 }
 
 
-.profile-box h4{
+:where(.ui-page-scope--profile) .profile-box h4{
     position:relative;
     z-index:1;
 }
 
 
-.profile-box{
+:where(.ui-page-scope--profile) .profile-box{
     font-size:17px;
 }
 
 
-.profile-panel h3{
+:where(.ui-page-scope--profile) .profile-panel h3{
     font-size:22px;
 }
 
 
-.profile-panel p{
+:where(.ui-page-scope--profile) .profile-panel p{
     margin-top:25px;
 }
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     border-radius:12px;
     margin-bottom:8px;
     transition:.2s;
 }
 
 
-.activity:hover{
+:where(.ui-page-scope--profile) .activity:hover{
     background:#172033;
 }
 
@@ -1025,61 +1027,61 @@
 
 /* hero alignment final */
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     padding:40px;
     min-height:220px;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     gap:45px;
 }
 
 
-.profile-main > div:last-child{
+:where(.ui-page-scope--profile) .profile-main > div:last-child{
     display:flex;
     flex-direction:column;
     justify-content:center;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:38px;
 }
 
 
-.profile-email{
+:where(.ui-page-scope--profile) .profile-email{
     margin:12px 0;
 }
 
 
-.profile-hero:after{
+:where(.ui-page-scope--profile) .profile-hero:after{
     right:70px;
     top:40px;
     font-size:130px;
 }
 
 
-.profile-stats{
+:where(.ui-page-scope--profile) .profile-stats{
     margin-top:25px;
 }
 
 
-.profile-bottom{
+:where(.ui-page-scope--profile) .profile-bottom{
     margin-top:25px;
 }
 
 
 
 
-.activity{
+:where(.ui-page-scope--profile) .activity{
     display:flex;
     align-items:center;
     gap:18px;
 }
 
 
-.activity-icon{
+:where(.ui-page-scope--profile) .activity-icon{
     width:40px;
     height:40px;
     border-radius:50%;
@@ -1089,19 +1091,19 @@
 }
 
 
-.activity-icon.success{
+:where(.ui-page-scope--profile) .activity-icon.success{
     background:#14532d;
     color:#22c55e;
 }
 
 
-.activity-icon.edit{
+:where(.ui-page-scope--profile) .activity-icon.edit{
     background:#581c87;
-    color:#c084fc;
+    color:#356966;
 }
 
 
-.activity-icon.file{
+:where(.ui-page-scope--profile) .activity-icon.file{
     background:#172554;
     color:#60a5fa;
 }
@@ -1111,7 +1113,7 @@
 
 /* hero match design */
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     height:260px;
     padding:35px 45px;
     display:flex;
@@ -1125,44 +1127,44 @@
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     display:flex;
     align-items:center;
     gap:55px;
 }
 
 
-.profile-avatar{
+:where(.ui-page-scope--profile) .profile-avatar{
     width:170px;
     height:170px;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:42px;
     margin:0 0 10px;
 }
 
 
-.profile-badge{
+:where(.ui-page-scope--profile) .profile-badge{
     font-size:16px;
     padding:8px 20px;
 }
 
 
-.profile-email{
+:where(.ui-page-scope--profile) .profile-email{
     margin:18px 0;
     font-size:17px;
 }
 
 
-.profile-btn{
+:where(.ui-page-scope--profile) .profile-btn{
     padding:13px 30px;
     border-radius:10px;
 }
 
 
-.profile-hero:after{
+:where(.ui-page-scope--profile) .profile-hero:after{
     right:90px;
     top:55px;
     font-size:130px;
@@ -1172,54 +1174,54 @@
 
 
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     height:230px;
     padding:30px 35px;
 }
 
 
-.profile-main{
+:where(.ui-page-scope--profile) .profile-main{
     gap:35px;
 }
 
 
-.profile-avatar{
+:where(.ui-page-scope--profile) .profile-avatar{
     width:155px;
     height:155px;
 }
 
 
-.profile-name{
+:where(.ui-page-scope--profile) .profile-name{
     font-size:38px;
     line-height:1;
     margin-bottom:12px;
 }
 
 
-.profile-badge{
+:where(.ui-page-scope--profile) .profile-badge{
     margin:0 0 14px 0;
 }
 
 
-.profile-email{
+:where(.ui-page-scope--profile) .profile-email{
     margin:12px 0;
 }
 
 
-.profile-btn{
+:where(.ui-page-scope--profile) .profile-btn{
     margin-top:4px;
 }
 
 
 
 
-.profile-hero:after{
+:where(.ui-page-scope--profile) .profile-hero:after{
     content:"✉";
     position:absolute;
     right:90px;
     top:45px;
     font-size:120px;
-    color:#8b5cf6;
+    color:#5b8d89;
     opacity:.18;
     transform:rotate(-5deg);
 }
@@ -1236,7 +1238,7 @@
 
 
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     overflow:hidden;
 }
 
@@ -1263,7 +1265,7 @@
 
 
 
-.profile-hero{
+:where(.ui-page-scope--profile) .profile-hero{
     background:
     radial-gradient(
         circle at 85% 50%,
@@ -1294,7 +1296,7 @@
 
 
 
-.hero-mail-art{
+:where(.ui-page-scope--profile) .hero-mail-art{
     position:absolute;
     right:80px;
     top:45px;
@@ -1303,26 +1305,26 @@
     opacity:.75;
 }
 
-.hero-mail-art img{
+:where(.ui-page-scope--profile) .hero-mail-art img{
     width:240px;
     height:auto;
     display:block;
 }
 
 
-.hero-mail-art{
+:where(.ui-page-scope--profile) .hero-mail-art{
     right:95px;
     top:55px;
     width:210px;
     opacity:.45;
 }
 
-.hero-mail-art img{
+:where(.ui-page-scope--profile) .hero-mail-art img{
     width:210px;
 }
 
 
-.hero-mail-art{
+:where(.ui-page-scope--profile) .hero-mail-art{
     position:absolute;
     right:70px;
     top:25px;
@@ -1332,13 +1334,13 @@
     z-index:2;
 }
 
-.hero-mail-art img{
+:where(.ui-page-scope--profile) .hero-mail-art img{
     width:300px;
     height:auto;
 }
 
 
-.hero-mail-art{
+:where(.ui-page-scope--profile) .hero-mail-art{
     position:absolute;
     right:80px;
     top:45px;
@@ -1347,25 +1349,25 @@
     filter: drop-shadow(0 0 35px rgba(124,58,237,.7));
 }
 
-.hero-mail-art img{
+:where(.ui-page-scope--profile) .hero-mail-art img{
     width:260px;
     height:auto;
 }
 
 
-.hero-mail-art img{
+:where(.ui-page-scope--profile) .hero-mail-art img{
     filter: drop-shadow(0 0 35px rgba(168,85,247,.8));
 }
 
 
-.hero-mail-art{
+:where(.ui-page-scope--profile) .hero-mail-art{
     right:75px;
     top:55px;
     width:320px;
     opacity:.75;
 }
 
-.hero-mail-art img{
+:where(.ui-page-scope--profile) .hero-mail-art img{
     width:320px;
     filter:drop-shadow(0 0 22px rgba(139,92,246,.55));
 }

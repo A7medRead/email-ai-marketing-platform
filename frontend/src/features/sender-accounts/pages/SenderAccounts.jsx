@@ -186,7 +186,7 @@ return (
 <div className="page">
 
 
-<div className="contacts-header">
+<div className="contacts-header page-header">
 
 <div>
 
@@ -210,6 +210,7 @@ onChange={importSenders}
 />
 
 
+<div className="page-header-actions">
 <Button
 variant="secondary"
 onClick={exportSenders}
@@ -231,12 +232,14 @@ onClick={()=>navigate("/senders/create")}
 >
 + Add Sender
 </Button>
+</div>
 
 
 </div>
 
 
 
+<div className="senders-filters">
 <input
 placeholder="Search sender accounts..."
 value={search}
@@ -244,7 +247,7 @@ onChange={(e)=>{
 setPage(1);
 setSearch(e.target.value);
 }}
-className="contact-search"
+className="senders-search"
 />
 
 
@@ -254,6 +257,7 @@ onChange={(e)=>{
 setPage(1);
 setStatus(e.target.value);
 }}
+className="senders-status"
 >
 
 <option value="">
@@ -273,6 +277,8 @@ Failed
 </option>
 
 </select>
+
+</div>
 
 
 <div className="senders-cards">

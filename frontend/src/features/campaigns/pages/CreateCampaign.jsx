@@ -3,6 +3,7 @@ import "./CreateCampaign.css";
 import {useEffect,useState} from "react";
 import {useNavigate} from "react-router-dom";
 import api from "../../../shared/api/client";
+import sanitizeEmailHtml from "../../../shared/utils/sanitizeEmailHtml";
 
 
 export default function CreateCampaign(){
@@ -13,6 +14,7 @@ const navigate = useNavigate();
 const [senders,setSenders]=useState([]);
 const [lists,setLists]=useState([]);
 const [templates,setTemplates]=useState([]);
+const [offers,setOffers]=useState([]);
 
 const [error,setError]=useState("");
 
@@ -23,6 +25,7 @@ const [form,setForm]=useState({
 sender_account_id:"",
 contact_list_id:"",
 template_id:"",
+offer_id:"",
 name:"",
 from_name:"",
 subject:"",
@@ -46,6 +49,8 @@ api.get("/contact-lists/")
 
 api.get("/templates/")
 .then(res=>setTemplates(res.data.items || res.data));
+
+api.get("/offers/").then(res=>setOffers(res.data)).catch(()=>setOffers([]));
 
 
 },[]);
@@ -121,6 +126,7 @@ const payload = {
     template_id: form.template_id
         ? Number(form.template_id)
         : null,
+    offer_id: form.offer_id ? Number(form.offer_id) : null,
     scheduled_at: form.scheduled_at || null
 };
 
@@ -179,15 +185,7 @@ Create and send email campaigns
 
 
 
-<div
-style={{
-maxWidth:"700px",
-background:"#16171d",
-padding:"30px",
-borderRadius:"16px",
-marginTop:"30px"
-}}
->
+<div className="campaign-form-section">
 
 
 
@@ -222,6 +220,12 @@ senders
 }
 
 
+</select>
+
+<label className="form-label">Promotion offer (optional)</label>
+<select name="offer_id" value={form.offer_id} onChange={change} style={{width:"100%",marginBottom:"15px"}}>
+<option value="">No offer</option>
+{offers.map(offer=><option key={offer.id} value={offer.id}>{offer.name}{offer.discount ? ` — ${offer.discount}` : ""}</option>)}
 </select>
 
 
@@ -344,15 +348,7 @@ style={{width:"100%",marginBottom:"15px"}}
 
 
 
-<div
-style={{
-marginTop:"20px",
-marginBottom:"25px",
-background:"#101116",
-padding:"20px",
-borderRadius:"12px"
-}}
->
+<div className="campaign-preview-card" style={{marginTop:"20px",marginBottom:"25px",padding:"20px"}}>
 
 <h3>
 Email Preview
@@ -373,16 +369,12 @@ Email Preview
 </p>
 
 <div
-style={{
-background:"#16171d",
-padding:"15px",
-borderRadius:"8px",
-color:"#fff"
-}}
+className="campaign-email-preview"
 dangerouslySetInnerHTML={{
-__html: form.body || "No content"
+__html: sanitizeEmailHtml(form.body || "No content")
 }}
 />
+{form.offer_id && (()=>{ const offer = offers.find(item=>String(item.id)===String(form.offer_id)); return offer ? <section className="campaign-offer-preview"><strong>{offer.title}</strong>{offer.discount && <p>{offer.discount}</p>}<p>{offer.description}</p>{offer.coupon_code && <p>Code: <strong>{offer.coupon_code}</strong></p>}{offer.expires_at && <small>Valid until {new Date(offer.expires_at).toLocaleDateString()}</small>}{offer.cta_label && <p>{offer.cta_label}{offer.cta_url ? ` · ${offer.cta_url}` : ""}</p>}</section> : null; })()}
 
 
 </div>
@@ -420,11 +412,11 @@ error &&
 
 
 
-<Button
+<div className="form-actions"><Button
 onClick={submit}
 >
 🚀 Create Campaign
-</Button>
+</Button></div>
 
 
 

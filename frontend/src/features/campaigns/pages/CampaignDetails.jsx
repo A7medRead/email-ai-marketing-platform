@@ -3,6 +3,7 @@ import "./CampaignDetails.css";
 import { useCallback, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import api from "../../../shared/api/client";
+import sanitizeEmailHtml from "../../../shared/utils/sanitizeEmailHtml";
 
 
 export default function CampaignDetails(){
@@ -187,7 +188,7 @@ borderRadius:"12px",
 marginBottom:"20px"
 }}
 dangerouslySetInnerHTML={{
-__html: campaign.body || "No content"
+__html: sanitizeEmailHtml(campaign.body || "No content")
 }}
 />
 
@@ -415,7 +416,7 @@ Clicked: {d.clicked_at || "-"}
 
 
 
-<div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:"12px",marginTop:"20px"}}>
+<div className="campaign-details-pagination">
   <Button
     disabled={!hasPrevious}
     onClick={() => setPage(p => Math.max(1, p - 1))}

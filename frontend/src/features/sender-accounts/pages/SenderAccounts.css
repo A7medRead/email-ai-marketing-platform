@@ -1,7 +1,27 @@
+/*  Styles scoped to route wrapper .ui-page-scope--sender-accounts  */
 
-.senders-add-btn{
+:where(.ui-page-scope--sender-accounts) .senders-filters{
+    display:flex;
+    gap:12px;
+    width:100%;
+    margin:0 0 24px;
+}
+:where(.ui-page-scope--sender-accounts) .senders-search{
+    flex:1;
+    min-width:0;
+    height:44px;
+    padding:0 14px;
+}
+:where(.ui-page-scope--sender-accounts) .senders-status{
+    width:180px;
+    height:44px;
+    padding:0 12px;
+}
 
-    background:#9333ea;
+
+:where(.ui-page-scope--sender-accounts) .senders-add-btn{
+
+    background:#427a77;
     color:white;
 
     border:none;
@@ -13,7 +33,7 @@
 }
 
 
-.senders-cards{
+:where(.ui-page-scope--sender-accounts) .senders-cards{
 
     display:grid;
     grid-template-columns:repeat(2,minmax(320px,1fr));
@@ -22,21 +42,21 @@
 }
 
 
-.senders-card{
+:where(.ui-page-scope--sender-accounts) .senders-card{
 
     min-height:260px;
 
 }
 
 
-.senders-avatar{
+:where(.ui-page-scope--sender-accounts) .senders-avatar{
 
     width:70px;
     height:70px;
 
     border-radius:50%;
 
-    background:#5b21b6;
+    background:#356966;
 
     display:flex;
 
@@ -48,7 +68,7 @@
 }
 
 
-.senders-actions{
+:where(.ui-page-scope--sender-accounts) .senders-actions{
 
     margin-top:25px;
 
@@ -59,7 +79,7 @@
 }
 
 
-.senders-actions button{
+:where(.ui-page-scope--sender-accounts) .senders-actions button{
 
     padding:8px 14px;
 
@@ -76,7 +96,7 @@
 
 @media(max-width:900px){
 
-    .senders-cards{
+    :where(.ui-page-scope--sender-accounts) .senders-cards{
 
         grid-template-columns:1fr;
 
@@ -84,3 +104,7 @@
 
 }
 
+@media(max-width:560px){
+    :where(.ui-page-scope--sender-accounts) .senders-filters{flex-direction:column;}
+    :where(.ui-page-scope--sender-accounts) .senders-status{width:100%;}
+}

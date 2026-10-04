@@ -82,75 +82,31 @@ Create reusable email template
 
 
 
-<div
-style={{
-maxWidth:"600px",
-marginTop:"30px",
-background:"#16171d",
-padding:"30px",
-borderRadius:"16px"
-}}
->
+<div className="form-card">
 
 
-<form
-onSubmit={submit}
-style={{
-display:"grid",
-gap:"18px"
-}}
->
+<form onSubmit={submit} className="form-stack">
 
 
-<input
-name="name"
-placeholder="Template Name"
-onChange={change}
-/>
+<label className="form-field">Template Name<input id="template-name" name="name" onChange={change} /></label>
 
 
-<input
-name="purpose"
-placeholder="Purpose"
-onChange={change}
-/>
+<label className="form-field">Purpose<input id="template-purpose" name="purpose" onChange={change} /></label>
 
 
-<textarea
-name="description"
-placeholder="Description"
-rows="5"
-onChange={change}
-/>
+<label className="form-field">Description<textarea id="template-description" name="description" rows="5" onChange={change} /></label>
 
 
-<input
-name="tone"
-placeholder="Tone (Professional, Friendly...)"
-onChange={change}
-/>
+<label className="form-field">Tone<input id="template-tone" name="tone" placeholder="Professional, friendly…" onChange={change} /></label>
 
 
-<input
-name="language"
-placeholder="Language"
-onChange={change}
-/>
+<label className="form-field">Language<input id="template-language" name="language" onChange={change} /></label>
 
 
-<input
-name="subject"
-placeholder="Email Subject"
-onChange={change}
-/>
+<label className="form-field">Email Subject<input id="template-subject" name="subject" onChange={change} /></label>
 
 
-<textarea
-name="body"
-placeholder="Email Body"
-rows="8"
-onChange={change}
-/>
+<label className="form-field">Email Body<textarea id="template-body" name="body" rows="8" onChange={change} /></label>
 
 
 <Button type="submit">

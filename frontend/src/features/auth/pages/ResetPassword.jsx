@@ -1,9 +1,11 @@
 import { useState } from "react";
 import api from "../../../shared/api/client";
+import "./ForgotPassword.css";
 
 export default function ResetPassword(){
 
     const [password,setPassword]=useState("");
+    const [confirm,setConfirm]=useState("");
     const [done,setDone]=useState(false);
     const [error,setError]=useState("");
 
@@ -13,6 +15,19 @@ export default function ResetPassword(){
     async function handleSubmit(e){
 
         e.preventDefault();
+
+        if (!token) {
+            setError("This password reset link is invalid or incomplete. Request a new link.");
+            return;
+        }
+        if (password.length < 8) {
+            setError("Use a password with at least 8 characters.");
+            return;
+        }
+        if (password !== confirm) {
+            setError("Passwords do not match.");
+            return;
+        }
 
         try{
 
@@ -49,6 +64,8 @@ export default function ResetPassword(){
                     New Password
                 </h1>
 
+                <p>Choose a new password of at least 8 characters.</p>
+
 
                 {
                     error && 
@@ -73,10 +90,21 @@ export default function ResetPassword(){
                             <input
                                 type="password"
                                 placeholder="New password"
+                                autoComplete="new-password"
+                                required
                                 value={password}
                                 onChange={
                                     e=>setPassword(e.target.value)
                                 }
+                            />
+
+                            <input
+                                type="password"
+                                placeholder="Confirm new password"
+                                autoComplete="new-password"
+                                required
+                                value={confirm}
+                                onChange={e=>setConfirm(e.target.value)}
                             />
 
 

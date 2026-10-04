@@ -8,9 +8,6 @@ MapPin,
 Languages,
 Volume2,
 Mail,
-Calendar,
-CheckCircle,
-CreditCard
 } from "lucide-react";
 import "./Profile.css";
 import mailArt from "../../../shared/assets/profile-mail.svg";
@@ -213,62 +210,6 @@ Account Overview
 <p>Email Address</p>
 <strong>{user.email}</strong>
 </div>
-</div>
-
-
-<div className="overview-row">
-<Calendar size={20}/>
-<div>
-<p>Member Since</p>
-<strong>August 2026</strong>
-</div>
-</div>
-
-
-<div className="overview-row">
-<CheckCircle size={20}/>
-<div>
-<p>Account Status</p>
-<strong className="active-status">
-Active
-</strong>
-</div>
-</div>
-
-
-<div className="overview-row">
-<CreditCard size={20}/>
-<div>
-<p>Plan</p>
-<strong>
-Professional Plan
-</strong>
-</div>
-</div>
-
-
-</div>
-
-
-<div className="profile-panel">
-
-<h3>
-Recent Activity
-</h3>
-
-<div className="activity">
-<span className="activity-icon success">✓</span>
-Logged in successfully
-</div>
-
-<div className="activity">
-<span className="activity-icon edit">✎</span>
-Updated profile information
-</div>
-
-<div className="activity">
-<span className="activity-icon file">▣</span>
-Changed email template
 </div>
 
 

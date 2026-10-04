@@ -19,6 +19,7 @@ language:"",
 subject:"",
 body:""
 });
+const [error,setError]=useState("");
 
 
 useEffect(()=>{
@@ -39,7 +40,7 @@ tone:template.tone,
 language:template.language,
 subject:template.subject || "",
 body:template.body || ""
-});
+}).catch(()=>setError("Could not load this template."));
 }
 
 });
@@ -76,6 +77,7 @@ navigate("/templates");
 catch(err){
 
 console.log(JSON.stringify(err.response?.data || err, null, 2));
+setError("Could not save this template. Please try again.");
 
 }
 
@@ -102,73 +104,30 @@ Edit Template
 
 
 
-<form
-onSubmit={submit}
-style={{
-display:"grid",
-gap:"18px",
-maxWidth:"600px",
-marginTop:"30px"
-}}
->
+<div className="form-card"><form onSubmit={submit} className="form-stack">
 
 
-<input
-name="name"
-value={form.name}
-placeholder="Template Name"
-onChange={change}
-/>
+<label className="form-field">Template Name<input required name="name" value={form.name} onChange={change} /></label>
 
 
-<input
-name="purpose"
-value={form.purpose}
-placeholder="Purpose"
-onChange={change}
-/>
+<label className="form-field">Purpose<input name="purpose" value={form.purpose} onChange={change} /></label>
 
 
-<textarea
-name="description"
-value={form.description}
-placeholder="Description"
-rows="5"
-onChange={change}
-/>
+<label className="form-field">Description<textarea name="description" value={form.description} rows="5" onChange={change} /></label>
 
 
-<input
-name="tone"
-value={form.tone}
-placeholder="Tone"
-onChange={change}
-/>
+<label className="form-field">Tone<input name="tone" value={form.tone} onChange={change} /></label>
 
 
-<input
-name="language"
-value={form.language}
-placeholder="Language"
-onChange={change}
-/>
+<label className="form-field">Language<input name="language" value={form.language} onChange={change} /></label>
 
 
-<input
-name="subject"
-value={form.subject}
-placeholder="Email Subject"
-onChange={change}
-/>
+<label className="form-field">Email Subject<input name="subject" value={form.subject} onChange={change} /></label>
 
 
-<textarea
-name="body"
-value={form.body}
-placeholder="Email Body"
-rows="8"
-onChange={change}
-/>
+<label className="form-field">Email Body<textarea name="body" value={form.body} rows="8" onChange={change} /></label>
+
+{error && <p role="alert" className="form-error">{error}</p>}
 
 
 <Button type="submit">
@@ -176,7 +135,7 @@ Save Changes
 </Button>
 
 
-</form>
+</form></div>
 
 
 </div>

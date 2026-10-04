@@ -1,7 +1,7 @@
 # MailPilot
 
 MailPilot is an AI-assisted email marketing application with campaign, contact,
-sender-account, template, and analytics features.
+sender-account, offer, template, and analytics features.
 
 ## Start locally
 

@@ -1,5 +1,7 @@
+/*  Styles scoped to route wrapper .ui-page-scope--campaign-details  */
 
-.campaigndetails-cards{
+
+:where(.ui-page-scope--campaign-details) .campaigndetails-cards{
 
     display:grid;
     grid-template-columns:repeat(2,minmax(320px,1fr));
@@ -8,7 +10,7 @@
 }
 
 
-.campaigndetails-card{
+:where(.ui-page-scope--campaign-details) .campaigndetails-card{
 
     background:#171821;
 
@@ -21,7 +23,7 @@
 }
 
 
-.campaigndetails-actions{
+:where(.ui-page-scope--campaign-details) .campaigndetails-actions{
 
     margin-top:25px;
 
@@ -32,7 +34,7 @@
 }
 
 
-.campaigndetails-actions button{
+:where(.ui-page-scope--campaign-details) .campaigndetails-actions button{
 
     padding:10px 18px;
 
@@ -43,7 +45,7 @@
 
 @media(max-width:900px){
 
-    .campaigndetails-cards{
+    :where(.ui-page-scope--campaign-details) .campaigndetails-cards{
 
         grid-template-columns:1fr;
 

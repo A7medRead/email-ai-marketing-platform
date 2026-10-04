@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import api from "../../../shared/api/client";
 import Button from "../../../shared/ui/Button";
 import RichTextEditor from "../components/RichTextEditor";
+import sanitizeEmailHtml from "../../../shared/utils/sanitizeEmailHtml";
 
 export default function CreateEmail() {
 
@@ -485,9 +486,9 @@ export default function CreateEmail() {
                 <div
                   className="preview-body"
                   dangerouslySetInnerHTML={{
-                    __html:
-                      editor.body ||
+                    __html: sanitizeEmailHtml(editor.body ||
                       "<p>Your email preview will appear here...</p>"
+                    )
                   }}
                 />
 

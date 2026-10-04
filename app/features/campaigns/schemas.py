@@ -11,6 +11,7 @@ class CampaignBase(BaseModel):
     sender_account_id: int
     contact_list_id: int
     template_id: Optional[int] = None
+    offer_id: Optional[int] = None
 
     name: str
     from_name: Optional[str] = None

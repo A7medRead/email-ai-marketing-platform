@@ -6,7 +6,8 @@ export default function Button({
     onClick,
     type="button",
     disabled=false,
-    style={}
+    style={},
+    className=""
 }){
 
 return (
@@ -16,7 +17,7 @@ type={type}
 onClick={onClick}
 disabled={disabled}
 style={style}
-className={`ui-button ${variant}`}
+className={`ui-button ${variant} ${className}`.trim()}
 >
 
 {children}

@@ -1,7 +1,9 @@
+/*  Styles scoped to route wrapper .ui-page-scope--contact-lists  */
 
-.contactlists-add-btn{
 
-    background:#9333ea;
+:where(.ui-page-scope--contact-lists) .contactlists-add-btn{
+
+    background:#427a77;
     color:white;
     border:none;
     padding:12px 22px;
@@ -11,7 +13,7 @@
 }
 
 
-.contactlists-cards{
+:where(.ui-page-scope--contact-lists) .contactlists-cards{
 
     display:grid;
     grid-template-columns:repeat(2,minmax(320px,1fr));
@@ -20,20 +22,33 @@
 }
 
 
-.contactlists-card{
+:where(.ui-page-scope--contact-lists) .contactlists-card{
 
     min-height:260px;
 
 }
 
+:where(.ui-page-scope--contact-lists) .contactlists-empty{
+    grid-column: 1 / -1;
+    min-height: 220px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    padding: 32px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e4e9ed;
+    border-radius: 14px;
+}
 
-.contactlists-avatar{
+
+:where(.ui-page-scope--contact-lists) .contactlists-avatar{
 
     width:70px;
     height:70px;
     border-radius:50%;
 
-    background:#5b21b6;
+    background:#356966;
 
     display:flex;
     align-items:center;
@@ -44,7 +59,7 @@
 }
 
 
-.contactlists-actions{
+:where(.ui-page-scope--contact-lists) .contactlists-actions{
 
     margin-top:25px;
 
@@ -53,11 +68,10 @@
 
 @media(max-width:900px){
 
-    .contactlists-cards{
+    :where(.ui-page-scope--contact-lists) .contactlists-cards{
 
         grid-template-columns:1fr;
 
     }
 
 }
-

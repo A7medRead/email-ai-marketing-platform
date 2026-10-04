@@ -1,245 +1,502 @@
+/* Deliberate application-wide reset. Page and feature styling belongs to its route scope. */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, sans-serif;
+  color: #1e293b;
+  background: #f6f8fc;
+  font-size: 14px;
+  --color-primary: #427a77;
+  --color-primary-hover: #356966;
+  --color-foreground: #1e293b;
+  --color-muted-foreground: #64748b;
+  --color-background: #f6f8fc;
+  --color-card: #ffffff;
+  --color-border: #e4e9ed;
+  --radius-card: 14px;
+  --shadow-card: 0 8px 24px rgba(25, 36, 64, .045);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
 }
 
 body {
-  margin: 0;
+  min-width: 320px;
+  color: var(--color-foreground);
+  background: var(--color-background);
+  line-height: 1.5;
 }
 
-#root {
-  width:100%;
-  min-height:100vh;
-  box-sizing:border-box;
+button, input, select, textarea { font: inherit; }
+
+:focus-visible {
+  outline: 3px solid rgba(66, 122, 119, .32);
+  outline-offset: 2px;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+/* Shared visual language for the authenticated workspace and its feature pages. */
+.app-layout {
+  min-height: 100vh;
+  background: var(--color-background) !important;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+.page-content {
+  padding: 104px 36px 32px !important;
+  background: var(--color-background);
+  display: flex;
+  flex-direction: column;
+}
+
+.app-layout .page-content > .ui-page-scope {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  min-height: calc(100vh - 136px);
+}
+
+.app-layout .ui-page-scope--contacts > .page,
+.app-layout .ui-page-scope--sender-accounts > .page,
+.app-layout .ui-page-scope--campaign-details > .page,
+.app-layout .ui-page-scope--campaign-list > .campaigns-page,
+.app-layout .ui-page-scope--email-generation > .emails-page {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+
+.ui-page-scope {
+  min-width: 0;
+  color: var(--color-foreground);
+}
+
+.ui-page-scope h1,
+.ui-page-scope h2,
+.ui-page-scope h3,
+.ui-page-scope h4 {
+  color: #172033;
+  letter-spacing: -.025em;
+}
+
+.ui-page-scope h1 { font-size: 28px; line-height: 1.25; font-weight: 700; }
+
+.ui-page-scope .page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.ui-page-scope .page-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-left: auto;
+}
+.ui-page-scope .page-header-actions > * { flex: 0 0 auto; }
+.ui-page-scope .page-primary-action { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; white-space: nowrap; }
+.ui-page-scope .form-stack > .ui-button,
+.ui-page-scope .form-actions > .ui-button { justify-self: end; min-width: 160px; }
+.ui-page-scope .form-actions { display: flex; justify-content: flex-end; width: 100%; margin-top: 8px; }
+
+@media (max-width: 760px) {
+  .ui-page-scope .page-header { align-items: stretch; flex-direction: column; gap: 14px; }
+  .ui-page-scope .page-header-actions { width: 100%; margin-left: 0; }
+  .ui-page-scope .page-primary-action { min-height: 44px; }
+}
+
+.ui-page-scope p,
+.ui-page-scope .subtitle {
+  color: var(--color-muted-foreground);
+}
+
+.ui-page-scope .page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.app-layout .ui-page-scope .contact-cards,
+.app-layout .ui-page-scope .contactlists-cards,
+.app-layout .ui-page-scope .templates-cards,
+.app-layout .ui-page-scope .senders-cards {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 18px;
+}
+
+.app-layout .ui-page-scope .emails-page { overflow-x: auto; }
+
+.app-layout .ui-page-scope .contacts-header,
+.app-layout .ui-page-scope .campaigns-header,
+.app-layout .ui-page-scope .emails-header {
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.ui-card,
+.ui-page-scope .dashboard-panel,
+.ui-page-scope .stats-card,
+.ui-page-scope .campaigns-card,
+.ui-page-scope .contact-card,
+.ui-page-scope .contactlists-card,
+.ui-page-scope .templates-card,
+.ui-page-scope .senders-card,
+.ui-page-scope .profile-panel,
+.ui-page-scope .profile-box {
+  color: #263149;
+  background: var(--color-card) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-card) !important;
+  box-shadow: var(--shadow-card);
+}
+
+.ui-button:not(.secondary):not(.outline):not(.danger),
+.ui-page-scope .settings-actions button,
+.ui-page-scope .create-email-btn,
+.ui-page-scope .campaigns-add-btn,
+.ui-page-scope .templates-add-btn,
+.ui-page-scope .senders-add-btn,
+.ui-page-scope .contactlists-add-btn {
+  min-height: 42px;
+  color: #fff !important;
+  background: var(--color-primary) !important;
+  border-radius: 9px !important;
+  font-weight: 650;
+}
+
+.ui-button:not(.secondary):not(.outline):not(.danger):hover:not(:disabled),
+.ui-page-scope .settings-actions button:hover:not(:disabled) {
+  background: var(--color-primary-hover) !important;
+}
+
+.ui-button.secondary {
+  color: #506075 !important;
+  background: #eef2f5 !important;
+}
+
+.ui-button.danger { color: #fff !important; background: #c2413a !important; }
+.ui-button.danger:hover:not(:disabled) { background: #a9322c !important; }
+
+.ui-button.outline {
+  color: #506075 !important;
+  border-color: #d8dee7 !important;
+}
+
+.app-layout .ui-page-scope input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+.app-layout .ui-page-scope select,
+.app-layout .ui-page-scope textarea {
+  color: #263149;
+  background: #fff;
+  border: 1px solid #d8deea;
+  border-radius: 9px;
+}
+
+.ui-page-scope input::placeholder,
+.ui-page-scope textarea::placeholder { color: #8390a5; }
+
+.route-not-found { min-height: 100vh; display: grid; align-content: center; justify-items: center; padding: 24px; text-align: center; color: #263149; background: #f6f8fc; }
+.route-not-found p { color: #64748b; }
+.route-not-found a { color: #356966; font-weight: 650; }
+
+.ui-page-scope table {
+  color: #334155;
+  background: #fff !important;
+  border-color: var(--color-border) !important;
+}
+
+.ui-page-scope table th {
+  color: #526078 !important;
+  background: #f7f8fc;
+}
+
+.ui-page-scope table td { color: #334155 !important; }
+
+.app-layout .ui-page-scope .emails-page table {
+  color: #334155;
+  background: #fff !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+.app-layout .ui-page-scope .emails-page th,
+.app-layout .ui-page-scope .emails-page td { color: #334155 !important; border-color: #e9edf2 !important; }
+.app-layout .ui-page-scope .emails-page th { background: #f7f8fa; }
+.app-layout .ui-page-scope .emails-page a { color: var(--color-primary); }
+.app-layout .ui-page-scope .emails-page button { background: var(--color-primary); }
+
+.app-layout .ui-page-scope--profile .profile-page { color: #1e293b; }
+.app-layout .ui-page-scope--profile .profile-hero {
+  color: #1e293b;
+  background: linear-gradient(120deg, #e9f3f2, #f7f9fb) !important;
+  border: 1px solid #dce9e8 !important;
+  box-shadow: var(--shadow-card);
+}
+.app-layout .ui-page-scope--profile .profile-badge { color: #315f5d; background: #dcecea; }
+.app-layout .ui-page-scope--profile .profile-btn { background: var(--color-primary); }
+.app-layout .ui-page-scope--profile .profile-modal {
+  color: #263149;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 60px rgba(22, 35, 54, .2);
+}
+.app-layout .ui-page-scope--profile .profile-modal label { color: #526174; }
+.app-layout .ui-page-scope--profile .activity-icon.edit { color: #356966; background: #eaf3f2; }
+
+.app-layout .ui-page-scope--contact-details .contactdetails-details-card {
+  color: #334155;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.app-layout .ui-page-scope--campaign-editor .create-campaign-card,
+.app-layout .ui-page-scope--campaign-details .campaigndetails-card {
+  color: #334155;
+  background: #fff !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-card) !important;
+  box-shadow: var(--shadow-card);
+}
+
+.app-layout .ui-page-scope--campaign-editor .form-section h3,
+.app-layout .ui-page-scope--campaign-editor .form-label { color: #526174; }
+
+.app-layout .ui-page-scope--campaign-editor .template-preview {
+  color: #526174;
+  background: #f7f9fa;
+  border-color: #e2e8f0;
+}
+
+/* Shared form surfaces used by create pages. */
+.ui-page-scope .form-card {
+  width: min(100%, 700px);
+  margin: 28px auto 0;
+  padding: 28px;
+  color: #334155;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+.ui-page-scope .form-stack { display: grid; gap: 16px; }
+.ui-page-scope .form-field { display: grid; gap: 6px; color: #526174; font-weight: 600; }
+.ui-page-scope .form-field input,
+.ui-page-scope .form-field textarea { width: 100%; min-height: 44px; padding: 10px 12px; }
+.ui-page-scope .form-field textarea { min-height: 110px; resize: vertical; }
+.ui-page-scope .form-error { color: #b42318; margin: 0; font-size: 13px; }
+
+.ui-page-scope .campaign-form-section,
+.ui-page-scope .campaign-preview-card {
+  color: #334155;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+.ui-page-scope .campaign-form-section { width: min(100%, 700px); margin-top: 28px; padding: 28px; }
+.ui-page-scope .campaign-form-section h3 { color: #334155; }
+.ui-page-scope .campaign-email-preview { padding: 16px; color: #334155; background: #f7f9fa; border: 1px solid var(--color-border); border-radius: 10px; }
+
+.ui-page-scope .empty-state { min-height: 190px; display: grid; align-content: center; gap: 6px; padding: 32px 20px; color: #64748b; }
+.ui-page-scope .empty-state h3 { margin: 0; color: #334155; }
+.ui-page-scope .empty-state p { margin: 0; color: #64748b; }
+
+.app-layout .ui-page-scope .email-details-page pre {
+  color: #334155;
+  background: #f7f9fb;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.app-layout .profile-dropdown,
+.app-layout .notification-dropdown {
+  color: #334155;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 12px 32px rgba(22, 35, 54, .14);
+}
+
+.app-layout .notification-dropdown strong { color: #263149; }
+.app-layout .notification-dropdown p {
+  color: #526078;
+  border-color: #e2e8f0;
+}
+
+.app-layout .dashboard-header-top,
+.app-layout .dashboard-profile-menu { position: relative; }
+.app-layout .header-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.app-layout .profile-dropdown { top: calc(100% + 10px); right: 0; width: 190px; }
+.app-layout .profile-dropdown strong { color: #263149; }
+.app-layout .profile-dropdown button { color: #526078; }
+.app-layout .profile-dropdown .logout-item { color: #c2413b; }
+
+/* Keep hover feedback calm: no lifts, zooms, glows, or sudden shadows. */
+.ui-page-scope button,
+.ui-page-scope a {
+  transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
+}
+
+.ui-page-scope button:hover,
+.ui-page-scope a:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.ui-page-scope :is(.ui-card, .stats-card, .dashboard-panel, .profile-box, .profile-panel, .contact-card, .contactlists-card, .templates-card, .senders-card, .campaigns-card, .campaigndetails-card, .contactdetails-details-card, .emails-row, .email-row, .feature-card) {
+  transition: background-color 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.ui-page-scope :is(.ui-card, .stats-card, .dashboard-panel, .profile-box, .profile-panel, .contact-card, .contactlists-card, .templates-card, .senders-card, .campaigns-card, .campaigndetails-card, .contactdetails-details-card, .emails-row, .email-row, .feature-card):hover {
+  transform: none !important;
+  box-shadow: var(--shadow-card) !important;
+  border-color: #d4e2e0 !important;
+}
+
+.ui-page-scope .emails-page tbody tr:hover td {
+  background: #f8fafc !important;
+}
+
+.app-layout .ui-page-scope--email-generation .emails-page tbody tr:hover td {
+  color: #263149 !important;
+  background: #f1f7f6 !important;
+  box-shadow: none !important;
+}
+
+.ui-page-scope :is(.dashboard-table tbody tr, .upcoming-card):hover {
+  background: #f1f7f6;
+}
+
+/* The dashboard used to be the only dark feature page; align its panels to the workspace. */
+.app-layout .dashboard-page {
+  min-height: 100vh;
+  padding: 8px 4px 28px;
+  color: #1e293b;
+  background: transparent;
+}
+
+.app-layout .dashboard-header-left h1,
+.app-layout .dashboard-header-left p,
+.app-layout .dashboard-panel h3,
+.app-layout .stats-title,
+.app-layout .stats-value,
+.app-layout .stats-period,
+.app-layout .panel-header,
+.app-layout .activity-item strong,
+.app-layout .upcoming-card strong,
+.app-layout .upcoming-card p,
+.app-layout .dashboard-table td { color: #334155; }
+
+.app-layout .dashboard-header-left p,
+.app-layout .stats-period,
+.app-layout .activity-item p { color: #758197; }
+
+.app-layout .dashboard-panel,
+.app-layout .stats-card {
+  background: #fff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: var(--shadow-card);
+}
+
+.app-layout .dashboard-search,
+.app-layout .icon-btn,
+.app-layout .header-icon,
+.app-layout .header-user,
+.app-layout .chart-filter,
+.app-layout .view-all-btn {
+  color: #526078;
+  background: #fff;
+  border-color: #e2e8f0;
+}
+
+.app-layout .dashboard-search input { color: #263149; }
+.app-layout .dashboard-search input::placeholder { color: #8290a5; }
+.app-layout .dashboard-table th { color: #68758b; background: #f7f8fc; }
+.app-layout .dashboard-table tbody tr:hover { background: #f1f7f6 !important; }
+.app-layout .view-all-btn:hover { background: #f1f7f6 !important; color: #315f5d !important; }
+.app-layout .activity:hover { background: #f1f7f6 !important; }
+.app-layout .actions-menu summary:hover { background: #356966 !important; }
+.app-layout .profile-dropdown button:hover { background: #f1f7f6 !important; color: #315f5d !important; }
+.app-layout .upcoming-card { border-color: #edf0f5; }
+.app-layout .recharts-cartesian-grid line { stroke: #e8ecf3; }
+.app-layout .recharts-cartesian-axis-tick text { fill: #718096; }
+
+.app-layout .dashboard-header-right { min-width: min(650px, 55vw); }
+
+@media (max-width: 760px) {
+  .app-layout .dashboard-header { flex-direction: column; gap: 18px; }
+  .app-layout .dashboard-header-right { width: 100%; min-width: 0; align-items: stretch; }
+  .app-layout .dashboard-topbar,
+  .app-layout .dashboard-user-tools { flex-wrap: wrap; }
+  .app-layout .dashboard-search { width: 100%; }
+}
+
+@media (max-width: 900px) {
+  .app-layout .sidebar { margin-top: 64px; }
+  .app-layout .page-content { padding: 22px 18px !important; }
+  .app-topbar { z-index: 1100; }
+}
+
+/* Keep list pagination aligned consistently across every list page. */
+.app-layout .contacts-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  margin: auto auto 0;
+  padding-top: 24px;
+}
+
+.app-layout .pagination,
+.app-layout .campaign-details-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  margin: auto auto 0;
+  padding-top: 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
   }
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+
+.route-loading {
+  display: grid;
+  min-height: 40vh;
+  place-items: center;
+  color: #6b7280;
+  font-size: 0.95rem;
 }
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
-}
-
-
-/* =========================
-   Campaigns List Page
-========================= */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media(max-width:900px){
-
-    
-
-}
-
-
-
-/* =========================
-   Campaigns Card Details
-========================= */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media(max-width:900px){
-
-    
-
-}
-
-
-
-/* =========================
-   Campaigns Page Layout Only
-========================= */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ===== FINAL Campaigns Page Isolation ===== */
-
-
-
-
-
-
-
-
-
-
-@media(max-width:900px){
-
-    
-
-}
-

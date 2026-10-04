@@ -128,11 +128,11 @@ error &&
 }
 
 
-<Button
+<div className="form-actions"><Button
 onClick={save}
 >
 Save Changes
-</Button>
+</Button></div>
 
 
 </div>

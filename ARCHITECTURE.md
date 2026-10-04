@@ -30,6 +30,18 @@ the same capability boundaries for pages and feature-specific components.
 - `src/layouts/` owns authenticated application chrome and route guards.
 - Keep pages focused on composing screens. Move reusable stateful UI and API
   operations into feature components/hooks/services as they become complex.
+- Every route is wrapped in a `ui-page-scope--<name>` boundary in `app/App.jsx`.
+  Feature CSS selectors must be prefixed with that page scope so styles cannot
+  affect another route. When a stylesheet is intentionally shared by related
+  routes, give those routes one shared scope and document that relationship.
+- Keep `app/styles.css` limited to deliberate browser resets and app-wide base
+  rules. Do not add global element styling (`h1`, `p`, `button`, etc.) there;
+  define it in the route scope or in a namespaced shared component.
+- Shared UI styles must use component-specific class names such as `ui-button`
+  and `ui-card`. Avoid generic selectors that can match feature markup.
+- Load route pages with `React.lazy` and place their routes under one
+  `Suspense` boundary. Import heavy libraries (charts, rich-text editors, etc.)
+  from the feature that uses them so visitors download them only on those routes.
 
 ## Change workflow
 

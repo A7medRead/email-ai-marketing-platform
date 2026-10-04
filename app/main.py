@@ -8,6 +8,7 @@ from app.features.analytics.api import router as dashboard_router
 from app.features.email_generation.api import router as email_router
 from app.features.templates.api import router as template_router
 from app.features.users.api import router as user_router
+from app.features.offers.api import router as offers_router
 
 from app.features.sender_accounts.api import router as sender_account_router
 from app.features.contacts.api import router as contact_router
@@ -53,6 +54,7 @@ app.include_router(email_router)
 app.include_router(user_router)
 app.include_router(dashboard_router)
 app.include_router(template_router)
+app.include_router(offers_router)
 
 app.include_router(sender_account_router)
 app.include_router(contact_router)
